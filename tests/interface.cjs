@@ -1,0 +1,23 @@
+const fs=require('fs'),assert=require('node:assert/strict'),{JSDOM}=require('jsdom');
+const html=fs.readFileSync('dist/index.html','utf8');
+const dom=new JSDOM(html,{url:'https://game.test/',runScripts:'outside-only'}),w=dom.window,d=w.document;
+w.scrollTo=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
+let exported;w.document.modelContext={registerTool:tool=>{(exported??={})[tool.name]=tool}};
+const old=fs.readFileSync('../kavarna-v1-backup/engine.js','utf8');const vm=require('vm'),c=vm.createContext({Intl});vm.runInContext(old,c);w.localStorage.setItem('kavarna-v1',JSON.stringify(vm.runInContext('fresh()',c)));
+w.eval(fs.readFileSync('dist/engine.js','utf8')+'\n'+fs.readFileSync('dist/app.js','utf8'));
+const click=s=>{const node=d.querySelector(s);assert(node,'Missing '+s);assert(!node.disabled,'Disabled '+s);node.click();},change=(s,v)=>{const node=d.querySelector(s);assert(node,'Missing '+s);node.value=String(v);node.dispatchEvent(new w.Event('change',{bubbles:true}));},text=()=>d.querySelector('#content').textContent;
+assert(text().includes('první verze byl převeden'));
+assert.equal(exported.read_coffee_game.execute({}).cash,900000);
+click('#newgame');click('#resetConfirm');assert.equal(exported.read_coffee_game.execute({}).cash,1600000);
+for(const view of ['city','stores','coffee','roasters','estates','hq','people','rivals','board','finance']){click(`[data-view="${view}"]`);assert(d.querySelector('#content').children.length>0);assert(!/undefined|NaN/.test(text()),'Invalid rendered content '+view);}
+click('[data-view="city"]');click('[data-open="vinohrady"]');click('#openConfirm');assert.equal(exported.read_coffee_game.execute({}).stores.length,2);
+click('[data-view="coffee"]');click('#newBlend');change('#blendName','TEST · Citrus');change('#blendPrimary','ethiopia');change('#blendSecondary','kenya');change('#blendRoast',1);click('#blendConfirm');assert.equal(exported.read_coffee_game.execute({}).blends.length,2);assert(text().includes('TEST · Citrus'));
+click('#newBrand');change('#brandName','North Test');click('#brandConfirm');assert(text().includes('North Test'));
+click('[data-view="hq"]');click('[data-buy-office="studio"]');click('#confirmAction');change('[data-department="it"]',1);assert.equal(exported.read_coffee_game.execute({}).departments.it,1);change('[data-project="eshop"]',8000);
+click('[data-view="people"]');click('[data-hire-target="karlin"]');click('[data-hire-choice="0"]');assert.equal(exported.read_coffee_game.execute({}).stores[0].manager,'Anna Nováková');
+click('[data-view="roasters"]');click('#orderBeans');change('#orderOrigin','ethiopia');change('#orderKg',50);click('#orderConfirm');assert(text().includes('Dodávky na cestě'));
+click('#next');assert.equal(exported.read_coffee_game.execute({}).week,2);assert(text().includes('Výrobní report'));
+const before=exported.read_coffee_game.execute({});assert.throws(()=>exported.advance_coffee_week.execute({bad:1}));assert.equal(exported.read_coffee_game.execute({}).week,before.week);const result=exported.advance_coffee_week.execute({});assert.equal(result.week,2);assert.equal(exported.read_coffee_game.execute({}).week,3);
+assert.equal(JSON.parse(w.localStorage.getItem('kavarna-v2')).week,3);
+console.log('PASS: all ten views render, old save migrates, opening stores, creating brands/recipes, office purchase, departments, IT projects, manager hire, bean orders, weekly simulation, WebMCP validation and persistence.');
+dom.window.close();
