@@ -1,14 +1,14 @@
 {
   "name": "kavarna",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Coffee empire turn-based simulation",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/simulation.cjs && node tests/tycoon.cjs && node tests/empire.cjs && node tests/interface.cjs && node tests/campaign.cjs && node tests/campaign-v3.cjs && node tests/campaign-v4.cjs",
-    "check": "node --check dist/engine.js && node --check dist/tycoon.js && node --check dist/empire.js && node --check dist/app.js && node --check dist/tycoon-ui.js && node --check dist/empire-ui.js",
+    "test": "node tests/simulation.cjs && node tests/tycoon.cjs && node tests/empire.cjs && node tests/operations.cjs && node tests/interface.cjs && node tests/campaign.cjs && node tests/campaign-v3.cjs && node tests/campaign-v4.cjs && node tests/campaign-v5.cjs",
+    "check": "node --check dist/engine.js && node --check dist/tycoon.js && node --check dist/empire.js && node --check dist/operations.js && node --check dist/app.js && node --check dist/tycoon-ui.js && node --check dist/empire-ui.js && node --check dist/operations-ui.js",
     "dev": "python3 -m http.server 4173 --directory dist"
   },
   "keywords": [],

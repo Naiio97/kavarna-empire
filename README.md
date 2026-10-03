@@ -1,4 +1,4 @@
-# Kavárna — edice 04
+# Kavárna — edice 05
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -15,11 +15,21 @@
 - Aukce adres, prioritní dodávky a nabídky na odkup firmy.
 - Plánovač šesti typů investic se třemi variantami poptávky a horizontem 4–26 týdnů.
 - Čtyři kampaně a tři obtížnosti. Po splnění cíle lze pokračovat.
-- Automatické místní ukládání, export/import a migrace verzí 1, 2 a 3.
+- Automatické místní ukládání, export/import a migrace verzí 1, 2, 3 a 4.
+
+## Co přidává edice 05
+
+**Interiér a pracovní cesty:** editor půdorysu 8 × 6 polí. Přesun objednávek, mlýnku, přípravy, výdeje, mytí a zásob mění délku pracovních cest a výkon. Stoly určují dostupná místa; okénko potřebuje zakoupené vybavení a umístění. Půdorys musí mít průchozí dveře a přístup ke všem prvkům. Změny jsou nejprve návrh; platná potvrzená přestavba stojí 25 000 Kč. Historický report si uchovává původní půdorys.
+
+**Skutečné směny:** tři čtyřhodinová období, 0–7 baristů v každém. Mzdy závisí na součtu směn. Kancelářská lokalita má jinou špičku než studentská nebo turistická. Ruční rozpis vypne automatickou změnu počtu lidí; návrh podle špičky je potřeba uložit. Odpovědnost lze výslovně přidělit vedoucímu, oblastnímu nebo provoznímu řediteli.
+
+**Organizace firmy:** šest konkrétních ředitelů — Provoz, HR, Finance, Obchod, Produkt a IT. Vyžadují místo v kanceláři; oboroví ředitelé také obsazené oddělení, provozní ředitel tři kavárny. Identita a kariéra se zachovávají při změně role. Nábor stojí 20 000 Kč a role má mzdu 135 % základu kandidáta. Mandát stanoví týdenní limit a rezervu 1–8 týdnů. Ředitelé skutečně servisují přidělené provozy, rozkládají povolené směny, školí, splácejí dluh, přijímají smlouvy, vyvíjejí receptury a financují IT. Report uvádí autora, provedený zásah nebo důvod odložení a následný výsledek firmy. IT mandát zahajuje nový projekt; již přidělený projektový rozpočet se mění v centrále.
+
+Denní model je společný pro hraní i investiční plánovač. Zásoby se spotřebují jednou, skutečné směny a ředitelské mzdy se objeví v účetnictví. Přehrávka poskytuje diagram stanovišť a časovou osu, nikoli individuální 3D animaci každého hosta.
 
 ## Co přidává edice 04
 
-**Živý provoz:** schéma interiéru, baristé, fronta, hosté u stolů a odchody. Jde o reprezentativní přehrávku posledního týdenního výsledku; postava zastupuje skupinu hostů. Přehrávka nemění tržby ani zásoby. Lze ji zastavit, krokovat nebo vrátit na začátek. Report rozlišuje nedostatek kávy a kapacity, odhaduje čekání a využití sezení.
+**Živý provoz:** šest skutečných dnů od 7 do 19 hodin, po desetiminutových intervalech. Týdenní počet obsloužených nyní určuje denní průběh front, práce, sezení a zavírání. Nedostatek kávy se promítne do skutečných prodejů. Časová osa a půdorys přehrávají poslední dokončený týden bez změn peněz nebo zásob. Každá kavárna má svůj přehled příchodů, obsluhy, odchodů a tržeb.
 
 **Odpovědné vedení:** manažeři navrhují změny výroby, týmu, vybavení, marketingu nebo školení s investicí, týdenním nákladem a měřitelným cílem. Výsledek se hodnotí podle průměru čtyř reportů. Plány potřebují schválení; automatiku lze výslovně povolit s limitem a rezervou. Board zohledňuje úspěšnost posledních osmi plánů. Návrhy se kontrolují proti aktuálnímu autorovi a vybavení.
 
@@ -35,12 +45,12 @@
 
 `npm ci`, `npm run check`, `npm test`. Pro místní hraní `npm run dev` a http://localhost:4173.
 
-`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a šesti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
+`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a osmi skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
 
 ## Struktura
 
-Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`. První tři tvoří ekonomiku a simulaci, další tři rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
+Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`. První čtyři tvoří ekonomiku a simulaci, další čtyři rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 64 scénářů ekonomiky, ovládání všech 19 obrazovek, nové akce, migrace tří předchozích verzí a dlouhé kampaně. Rozšířené kampaně edice 04 mají dohromady 570 týdnů, regresní kampaně edice 03 dalších 530 a původní ekonomika 120. Kontrola rozhraní používá jsdom; nenahrazuje vizuální kontrolu v reálném prohlížeči.
+Testy zahrnují 89 scénářů ekonomiky, ovládání všech 21 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.
