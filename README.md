@@ -1,4 +1,4 @@
-# Kavárna — edice 05
+# Kavárna — edice 05.1
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -16,6 +16,16 @@
 - Plánovač šesti typů investic se třemi variantami poptávky a horizontem 4–26 týdnů.
 - Čtyři kampaně a tři obtížnosti. Po splnění cíle lze pokračovat.
 - Automatické místní ukládání, export/import a migrace verzí 1, 2, 3 a 4.
+
+## Report výkonu v edici 05.1
+
+Tlačítko **Otevřít report** je v horní liště, přehled také v navigaci jako **Report firmy**. Šest částí pokrývá kavárny, pražírny, plantáže, lidi a vedení, oddělení a firmu se soupeři. Vyber poslední týden, čtyři týdny nebo čtvrtletí; lze seřadit podle problémů, výsledku nebo názvu. Každý řádek otevře detail s týdenními výsledky, odpovědností a odkazem na řízení. U kavárny jsou i náklady, rozhodnutí a vstup do průběhu dne.
+
+Po tahu se uloží kompaktní záznam skutečných výsledků. Uchovává se 26 týdnů, včetně historických rolí lidí, kteří odešli. Změna osoby nebo otevření pobočky nevytvoří zpětné výsledky. Součty provozů pokrývají pouze týdny s jejich vlastními záznamy; přehled uvádí rozsah dostupných dat. Trend srovnává průměr primárního výsledku za týden s předchozím stejně dlouhým obdobím, s uvedením počtu dostupných týdnů.
+
+Starší uložená firma získá poslední dostupné výsledky provozů a firem. Historické náklady pražírny, výsledky osob a oddělení, které předchozí edice nezaznamenávala, se nevymýšlejí. Pražírny a plantáže zobrazují výrobu, sklizeň a náklady; nemají přiřazený fiktivní prodejní zisk. Soupeři mají skutečnou hotovost a výsledek simulace, jejich samostatné tržby model neukládá. Výsledky svěřených kaváren jsou kontext práce vedoucího, nikoli izolované skóre jeho zásluh.
+
+Report ani jeho detail nemění peníze, zásoby nebo čas. Automatické ukládání a export zahrnují historii, herní formát zůstává verze 5. Verze aplikace je 5.1.0. Výrobní report nyní zahrnuje také ruční pražení dokončené v příslušném týdnu.
 
 ## Co přidává edice 05
 
@@ -45,12 +55,12 @@ Denní model je společný pro hraní i investiční plánovač. Zásoby se spot
 
 `npm ci`, `npm run check`, `npm test`. Pro místní hraní `npm run dev` a http://localhost:4173.
 
-`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a osmi skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
+`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a deseti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
 
 ## Struktura
 
-Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`. První čtyři tvoří ekonomiku a simulaci, další čtyři rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
+Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`. Prvních pět tvoří ekonomiku, simulaci a záznamy reportů; dalších pět rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 89 scénářů ekonomiky, ovládání všech 21 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
+Testy zahrnují 96 scénářů ekonomiky a reportů, ovládání všech 22 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.

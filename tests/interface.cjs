@@ -4,12 +4,12 @@ const dom=new JSDOM(html,{url:'https://game.test/',runScripts:'outside-only'}),w
 w.scrollTo=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
 let exported;w.document.modelContext={registerTool:tool=>{(exported??={})[tool.name]=tool}};
 const old=fs.readFileSync('tests/fixtures/v1-engine.js','utf8');const vm=require('vm'),c=vm.createContext({Intl});vm.runInContext(old,c);w.localStorage.setItem('kavarna-v1',JSON.stringify(vm.runInContext('fresh()',c)));
-for(const f of ['engine','tycoon','empire','operations','app','tycoon-ui','empire-ui','operations-ui'])vm.runInContext(fs.readFileSync('dist/'+f+'.js','utf8'),dom.getInternalVMContext());
+for(const f of ['engine','tycoon','empire','operations','reports','app','tycoon-ui','empire-ui','operations-ui','reports-ui'])vm.runInContext(fs.readFileSync('dist/'+f+'.js','utf8'),dom.getInternalVMContext());
 const click=s=>{const node=d.querySelector(s);assert(node,'Missing '+s);assert(!node.disabled,'Disabled '+s);node.click();},change=(s,v)=>{const node=d.querySelector(s);assert(node,'Missing '+s);node.value=String(v);node.dispatchEvent(new w.Event('change',{bubbles:true}));},text=()=>d.querySelector('#content').textContent;
 assert(text().includes('první verze byl převeden'));
 assert.equal(exported.read_coffee_game.execute({}).cash,900000);
 click('#newgame');click('#resetConfirm');assert.equal(exported.read_coffee_game.execute({}).cash,1600000);
-for(const view of ['city','stores','live','interior','organization','leadership','lab','markets','menu','coffee','roasters','logistics','estates','hq','people','crises','rivals','board','finance','planner','scenarios']){click(`[data-view="${view}"]`);assert(d.querySelector('#content').children.length>0);assert(!/undefined|NaN/.test(text()),'Invalid rendered content '+view);}
+for(const view of ['performance','city','stores','live','interior','organization','leadership','lab','markets','menu','coffee','roasters','logistics','estates','hq','people','crises','rivals','board','finance','planner','scenarios']){click(`[data-view="${view}"]`);assert(d.querySelector('#content').children.length>0);assert(!/undefined|NaN/.test(text()),'Invalid rendered content '+view);}
 click('[data-view="city"]');click('[data-location="vinohrady"]');click('[data-open="vinohrady"]');click('#openConfirm');assert.equal(exported.read_coffee_game.execute({}).stores.length,2);
 click('[data-view="coffee"]');click('#newBlend');change('#blendName','TEST · Citrus');change('#blendPrimary','ethiopia');change('#blendSecondary','kenya');change('#blendRoast',1);click('#blendConfirm');assert.equal(exported.read_coffee_game.execute({}).blends.length,2);assert(text().includes('TEST · Citrus'));
 click('#newBrand');change('#brandName','North Test');click('#brandConfirm');assert(text().includes('North Test'));
@@ -19,7 +19,7 @@ click('[data-view="roasters"]');click('#orderBeans');change('#orderOrigin','ethi
 click('#next');assert.equal(exported.read_coffee_game.execute({}).week,2);assert(text().includes('Výrobní report'));
 const before=exported.read_coffee_game.execute({});assert.throws(()=>exported.advance_coffee_week.execute({bad:1}));assert.equal(exported.read_coffee_game.execute({}).week,before.week);const result=exported.advance_coffee_week.execute({});assert.equal(result.week,2);assert.equal(exported.read_coffee_game.execute({}).week,3);
 assert.equal(JSON.parse(w.localStorage.getItem('kavarna-v5')).week,3);
-console.log('PASS: all twenty-one views render, old save migrates, opening stores, creating brands/recipes, office purchase, departments, IT projects, manager hire, bean orders, weekly simulation, WebMCP validation and persistence.');
+console.log('PASS: all twenty-two views render, old save migrates, opening stores, creating brands/recipes, office purchase, departments, IT projects, manager hire, bean orders, weekly simulation, WebMCP validation and persistence.');
 const game=s=>vm.runInContext(s,dom.getInternalVMContext());
 const snapshot=()=>game('JSON.stringify(state)');
 click('[data-view="planner"]');change('#planTarget','letna');const beforeForecast=snapshot();click('#runPlan');assert(d.querySelector('.forecast-chart'));assert.equal(snapshot(),beforeForecast);click('#commitPlan');click('#confirmAction');assert.equal(game('state.stores.length'),3);assert(!d.querySelector('#commitPlan'));
@@ -56,4 +56,9 @@ change('[data-mandate-role="hr"][data-mandate-key="budget"]',12000);const author
 click('[data-view="people"]');click('[data-hire-target="karlin"]');click('[data-hire-choice="0"]');click('#next');click('[data-view="organization"]');assert.equal(game('state.organization.reports.find(r=>r.role==="hr").status'),'done');assert(text().includes('Školení vedení lidí'));assert.equal(game('state.history.at(-1).detail.development'),12000);
 click('[data-executive-fire="hr"]');assert.equal(game('state.organization.executives.hr.manager'),null);assert.equal(game('usedSeats()'),2);assert(game('validateSave(JSON.parse(JSON.stringify(state))).version')===5);
 console.log('PASS: keyboard floor editing, draft isolation, one-time renovation, blocked paths, actual shift wages, historical day selection/playback purity, executive hire/mandate/training/fire and save validation.');
+click('#openPerformance5');const reportBefore=snapshot();assert.equal(game('view'),'performance');assert(d.querySelector('.performance-table5'));change('#reportWeeks5',4);change('#reportSort5','lowest');click('[data-performance-detail="karlin"]');assert(d.querySelector('#modalContent').textContent.includes('Náklady posledního týdne'));click('#reportDay5');assert.equal(game('liveStore'),'karlin');assert.equal(game('view'),'live');click('#openPerformance5');
+for(const kind of ['roasters','estates','people','departments','firms','stores']){click('[data-report-kind="'+kind+'"]');assert(!/undefined|NaN/.test(text()));const button=d.querySelector('[data-performance-detail]');if(button){button.click();assert(!/undefined|NaN/.test(d.querySelector('#modalContent').textContent));d.querySelector('#close').click();}}
+assert.equal(snapshot(),reportBefore);assert.equal(JSON.parse(w.localStorage.getItem('kavarna-v5')).performance5.length,game('state.performance5.length'));
+click('[data-report-kind="people"]');click('[data-performance-detail]');click('#reportManage5');assert.equal(game('view'),'people');
+console.log('PASS: report header entry, all six report categories, period/sorting controls, populated details, navigation to daily operation and management, history persistence and read-only queries.');
 dom.window.close();

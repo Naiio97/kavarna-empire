@@ -1,5 +1,5 @@
 const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
-function game(){const c=vm.createContext({Intl,console});for(const f of ['engine','tycoon','empire','operations'])vm.runInContext(fs.readFileSync('dist/'+f+'.js','utf8'),c);return s=>vm.runInContext(s,c)}
+function game(){const c=vm.createContext({Intl,console});for(const f of ['engine','tycoon','empire','operations','reports'])vm.runInContext(fs.readFileSync('dist/'+f+'.js','utf8'),c);return s=>vm.runInContext(s,c)}
 function inspect(r){assert(r('Number.isFinite(state.cash)'));assert(r('state.batches.every(b=>b.kg>=0&&Number.isFinite(b.cost))'));assert(r('state.green.every(b=>b.kg>=0&&Number.isFinite(b.cost))'));assert(r('validateSave(JSON.parse(JSON.stringify(state))).version')===5);}
 const r=game();r('state=fresh();hireCandidate("karlin","candidate-0");openStore("letna");hireCandidate("letna","candidate-1");openStore("vinohrady");hireCandidate("vinohrady","candidate-2");hireCandidate("roaster-1","candidate-3","roaster");');
 for(let i=0;i<200;i++){
