@@ -1,4 +1,4 @@
-# Kavárna — edice 05.7
+# Kavárna — edice 05.8
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -137,16 +137,30 @@ Denní model je společný pro hraní i investiční plánovač. Zásoby se spot
 
 **Osobní příběhy:** čtyři povahy, přetížení, mentoring, rozvoj kávy, bonusy a přísliby povýšení. Podpora má cenu a konkrétní dopady. Nesplněný slib ovlivní spokojenost a důvěru. HR mírní přetížení, mentor pomáhá motivaci a kvalitě provozu, kávový specialista zlepšuje pražení.
 
+## Značky, etikety a cílený marketing · 05.8
+
+Obrazovka **Značky & marketing** má studio názvu, monogramu / zrna / šálku / pečeti, hlavní barvy, akcentu, sloganu a příběhu. Živý náhled označení kavárny a balíčku kávy nic neplatí. Potvrzený návrh identity stojí 2 500 Kč, změna vizuálu 1 500 Kč za vlastní pobočku; změna konceptu navíc polovinu jeho zakládací ceny. Nezměněný uložený návrh je zdarma. Franšízy nesou náklad svého vzhledu. Převod pobočky na jinou značku se potvrzuje zvlášť: 8 000 Kč vlastní pobočka, 2 000 Kč koordinace franšízy; místní hosté zůstávají.
+
+Značka může slibovat rychlou dostupnou kávu, sousedské místo nebo prémiový zážitek. Positioning přidá malý rozdíl v cílovém mixu a upraví cenové očekávání; menu zůstává samostatnou volbou. Rychlá značka očekává kvalitu alespoň 68 a čekání do šesti minut, sousedská kvalitu 72, prémiová 85. Slib se hodnotí podle skutečně odebrané kávy a skutečného čekání; jeho nesplnění může ubrat až 14 bodů spokojenosti. Dosavadní positioning zachová původní očekávání. Symbol, slogan a příběh samy nepřidají falešnou kvalitu.
+
+Etiketa má vlastní značku, produktový název, krémový / kraftový / tmavý vzhled, příběh a druh obalu. Návrh stojí 1 500 Kč; vlastní tisk přidá 4 Kč/kg skutečně balené kávy e-shopem a novými B2B smlouvami. Staré jednoduché kontrakty pokračují beze změny. Výběr obalu a tisk se účtují při prodeji; nezmění náklad ani kvalitu existujících šarží. Znalost značky a splnění jejího slibu kvality ovlivní zájem e-shopu. E-shop má dál stejné požadavky na IT a zásoby.
+
+Cílené kampaně vybírají značku, jednu z pěti skupin, město nebo celou síť, místní akce / sociální sítě / degustace, 1 500–20 000 Kč týdně a čtyři nebo osm placených týdnů. Příprava stojí 1 200 Kč. Nejvýše čtyři aktivní či pozastavené kampaně; lze je obnovit nebo zrušit. Kampaň nesmí snížit hotovost pod dva týdny fixních nákladů. Bez cílové kavárny nebo potřebné rezervy tento týden nezaplatí, nepřidá poptávku a nezkrátí dobu; může se sama obnovit v dalším tahu. Znalost cílové skupiny roste po placené kampani podle skutečné obsluhy a spokojenosti, pak týdně klesá o 2 % své hodnoty.
+
+Srovnávací výhled na čtyři či osm týdnů odehraje dvě kopie celé firmy se stejnými událostmi: jednu bez nové kampaně, druhou s ní. Ukáže výsledek firmy, hotovost, návštěvy a výdaje. Současné kampaně se zachovají v obou variantách. Skutečné návštěvy během kampaně nejsou samostatným měřením její zásluhy.
+
+Report firmy má deset kategorií. **Značky** ukazují skutečné pobočky (u franšíz příjem tvé firmy) a příspěvek e-shopu po marketingu i změnách identity. Centrála, fixní náklady výroby a B2B obchod zůstávají ve výsledku celé firmy. **Balená káva** ukazuje e-shop po skutečném nákladu kávy, obalu, tisku a expedice; B2B dodávky jsou v odběratelích. Uchovává se 26 týdnů včetně zmrazených názvů a etiket. Pozdější změna nepřepíše historii. Starší uložené hry dostanou neutrální identitu a prázdnou novou historii; peníze se nemění.
+
 ## Spuštění a kontrola
 
 `npm ci`, `npm run check`, `npm test`. Pro místní hraní `npm run dev` a http://localhost:4173.
 
-`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a osmnácti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
+`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a 24 skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
 
 ## Struktura
 
-Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `crew.js`, `craft.js`, `studio.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`, `crew-ui.js`, `craft-ui.js`, `studio-ui.js`. Prvních devět tvoří ekonomiku, simulaci, reporty a zásobování; dalších devět rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
+Klasické skripty sdílí jeden stav. Dvanáct modelů (`engine`, `tycoon`, `empire`, `operations`, `reports`, `supply`, `crew`, `craft`, `studio`, `business`, `guests`, `branding`) se načte před `app.js`; následuje jedenáct rozšiřujících skriptů rozhraní. Celkem 24 skriptů. Plánovače simulují kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 241 scénářů ekonomiky, reportů, zásobování, týmů, vlastní kávy, studia, B2B obchodu a zákazníků, ovládání všech 27 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů (zakladatelská kampaň z nového kapitálu použije skutečný bankovní úvěr a při expanzi upřednostňuje nové město), regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. B2B zátěž ověřuje dalších 100 týdnů předem financované firmy s opakovanými smlouvami a splatností. Další test ověřuje 60 týdnů založení jedné kavárny s 650 000 Kč bez dodatečného financování. Nový zákaznický model ověřuje dalších 60 týdnů založení bez přidaných peněz a jeden tah maximální sítě 111 kaváren s osmi pražírnami a jejich vedením. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
+Testy zahrnují 271 scénářů ekonomiky, reportů, zásobování, týmů, vlastní kávy, studia, B2B obchodu a zákazníků, ovládání všech 28 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů (zakladatelská kampaň z nového kapitálu použije skutečný bankovní úvěr a při expanzi upřednostňuje nové město), regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. B2B zátěž ověřuje dalších 100 týdnů předem financované firmy s opakovanými smlouvami a splatností. Další test ověřuje 60 týdnů založení jedné kavárny s 650 000 Kč bez dodatečného financování. Nový zákaznický model ověřuje dalších 60 týdnů založení bez přidaných peněz a jeden tah maximální sítě 111 kaváren s osmi pražírnami a jejich vedením. Branding přidává 30 scénářů včetně přesných plateb, pozastavení, ochrany rezervy, srovnávacího výhledu, tiskových nákladů a 60 týdnů skutečného založení se značkou bez dodatečných peněz. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.
