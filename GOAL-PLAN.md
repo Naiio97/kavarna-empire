@@ -1,6 +1,6 @@
 # Coffee Tycoon — průběžné dokončení cíle
 
-Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.20 (finance, týdenní přehled, skutečná konkurence a vlastní produkty; živé čtvrti, okolí adres a průzkum; osobnosti lidí a společný servis).
+Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.21 (finance, týdenní přehled, skutečná konkurence a vlastní produkty; živé čtvrti, okolí adres a průzkum; osobnosti lidí a společný servis; vlastní akademie a skutečné jmenné týmy pekařů).
 
 | Bod | Požadovaný výsledek | Stav | Důkaz dokončení |
 |---|---|---|---|
@@ -16,7 +16,7 @@ Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bo
 | 10 | Okolí adresy, kanceláře, školy, turisté, pěší provoz a výstavba | Ověřeno | 16 scénářů: skutečná návštěvnost a místní hosté, oznámené práce/dokončení, chráněné nájmy hráče i soupeře, 9 variant placeného průzkumu s různou přesností, potvrzení/cache/historie/migrace. 46skriptové ovládání všech 33 stránek, offline report, aktuální 156/280/180týdenní kampaně. |
 | 11 | Placený průzkum s různou přesností a použitelným odhadem konceptu/cen/poptávky | Ověřeno | 16 scénářů: skutečná návštěvnost a místní hosté, oznámené práce/dokončení, chráněné nájmy hráče i soupeře, 9 variant placeného průzkumu s různou přesností, potvrzení/cache/historie/migrace. 46skriptové ovládání všech 33 stránek, offline report, aktuální 156/280/180týdenní kampaně. |
 | 12 | Konkurenční souboje o adresy, lidi a odběratele s reakcemi hráče | Ověřeno | Místní oboustranný tlak; skutečný převod a návrat osoby; deset sdílených odběratelů, ochrana smluv a placené dodávky; odkazy na menu, mapu a obchod, týdenní zprávy a trvalé uložení. |
-| 13 | Akademie baristů, pekařů a vedoucích, příprava před otevřením | Čeká | — |
+| 13 | Akademie baristů, pekařů a vedoucích, příprava před otevřením | Ověřeno | 17 aktuálních scénářů: investice/místa, skutečné kurzy 2/3/4 týdny, mzdy/odvody/odpisy/školné, pozastavení a rezervace, identity absolventů, kapacita a kvalita skutečné výroby, placené týmy pro každou směnu, migrace/import, spárované účetní tahy a 265 týdnů financované akademie. 52skriptové ovládání a offline tok, všechny 33 stránky a nová HR podstránka. |
 | 14 | Čtvrtletní plán, skutečné rozpočty oblastí a vysvětlené odchylky boardu | Čeká | — |
 | 15 | Otevřitelný rozklad příčin změny výsledku firmy a pobočky | Čeká | — |
 | 16 | Pekárenský plán podle historie, zásob, sezóny, rozpočtu, odpadu a priorit odběratelů | Čeká | — |
