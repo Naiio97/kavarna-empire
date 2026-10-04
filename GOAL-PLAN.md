@@ -1,12 +1,12 @@
 # Coffee Tycoon — průběžné dokončení cíle
 
-Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.16 (finance a týdenní přehled).
+Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.17 (finance, týdenní přehled a skutečná konkurence).
 
 | Bod | Požadovaný výsledek | Stav | Důkaz dokončení |
 |---|---|---|---|
 | 1 | Reálnější náklady, marže, financování a pozdní vlastnictví budov a plantáží | Ověřeno | 25 scénářů; 40skriptové ovládání všech 33 stránek; 156 týdnů přirozeného zakladatelského růstu, 280 týdnů výroby a banky; offline ověření. README: zdroje a výslovné předpoklady. |
 | 2 | Vyskakovací shrnutí důležitých rozhodnutí, nabídek, smluv a přetahování po každém tahu | Ověřeno | 17 modelových scénářů, skutečný automatický popup a navigace ve 40skriptové sestavě, všechny 33 stránky, 111 kaváren a 13týdenní archiv; uložené čtení a neměnné reporty. |
-| 3 | Chytřejší soupeři reagující na trh a vlastní skutečné finance | Čeká | — |
+| 3 | Chytřejší soupeři reagující na trh a vlastní skutečné finance | Ověřeno | 18 scénářů: plné mzdy, DPH, daně, banka, rezervy a investice; 42skriptové ovládání a 436 týdnů aktuálních kampaní. |
 | 4 | Vývoj a fyzický prodej vlastních produktů, včetně 250g balení v kavárnách a e-shopu | Čeká | — |
 | 5 | Živé městské čtvrti ovlivňující provoz | Čeká | — |
 | 6 | Rozšířené osobnosti a navazující příběhy lidí | Čeká | — |
@@ -15,7 +15,7 @@ Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bo
 | 9 | Hledání prostoru, rekonstrukce, nábor, zkušební provoz a důsledky zpoždění/vybavení | Čeká | — |
 | 10 | Okolí adresy, kanceláře, školy, turisté, pěší provoz a výstavba | Čeká | — |
 | 11 | Placený průzkum s různou přesností a použitelným odhadem konceptu/cen/poptávky | Čeká | — |
-| 12 | Konkurenční souboje o adresy, lidi a odběratele s reakcemi hráče | Čeká | — |
+| 12 | Konkurenční souboje o adresy, lidi a odběratele s reakcemi hráče | Ověřeno | Místní oboustranný tlak; skutečný převod a návrat osoby; deset sdílených odběratelů, ochrana smluv a placené dodávky; odkazy na menu, mapu a obchod, týdenní zprávy a trvalé uložení. |
 | 13 | Akademie baristů, pekařů a vedoucích, příprava před otevřením | Čeká | — |
 | 14 | Čtvrtletní plán, skutečné rozpočty oblastí a vysvětlené odchylky boardu | Čeká | — |
 | 15 | Otevřitelný rozklad příčin změny výsledku firmy a pobočky | Čeká | — |

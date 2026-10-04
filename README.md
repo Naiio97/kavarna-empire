@@ -1,6 +1,20 @@
-# Kavárna — edice 05.16
+# Kavárna — edice 05.17
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
+
+## Chytřejší soupeři a konkurenční souboje v edici 05.17
+
+- **Konkurence & akvizice** ukazuje skutečné blízké pobočky, jejich cenu a kvalitu; odkazy vedou přímo k menu tvé kavárny nebo mapě města. Blízkost se počítá z herních souřadnic, ne ze skutečné vzdálenosti ulic. Místní tlak funguje na obě firmy a reaguje na změny nabídky.
+- Soupeři nyní vykazují kavárenské tržby bez 21% DPH a platí místní hrubé mzdy, odvody, energie, karetní poplatky, servisní režii a odpisy. Pobočkový tým je agregát: jeden bod kapacity znamená přibližně 1,2 plného úvazku a související přesčasy. Detailní jmenné rozpisy baristů dál používá hráčova firma. Centrála stojí minimálně 12 000 Kč/týden včetně souhrnného výrobního a administrativního zázemí. Tyto provozní koeficienty jsou herní kalibrace.
+- Report soupeře odděluje výsledek po dani, investice, nepeněžní odpisy, úroky a splátky jistiny. Daň používá stejných 21 % a čtvrtletní rezervu s vrácením při ztrátě; úrok 8,5 % a pětileté splácení odpovídají hráčově bance. Soupeř nepotřebnou investici odmítne, pokud nezachová pět týdnů fixních nákladů, základní rezervu 180 000 Kč a peníze na závazky. Odhad přínosu je před daní, není příslib budoucího výsledku.
+- Velkoobchodní příjem nevzniká z pouhého počtu anonymních účtů. Existuje společný trh deseti jmenovitých odběratelů; každý má jednoho aktivního dodavatele. Soupeř sjednává skutečné množství, cenu a dvanáctitýdenní dobu a platí souhrnné zrno, smluvní pražení, dopravu a pracovníka obchodu. Kapacita výroby omezuje přijatelné zakázky; jednotlivé soupeřovy zásoby a šarže nesimulujeme. V reportu jsou skutečné dodávky a náklady každého klienta.
+- Hráčovu aktivní smlouvu soupeř nepřebere. Včasná obnova ji ochrání, po skončení může klienta získat rival. V posledním týdnu soupeřova kontraktu lze připravit vlastní nabídku, podpis je možný až po jeho skončení. Nabídku ovlivní kvalita kávy, cena a vztah ke klientovi. Předčasný nebo zastaralý podpis nic nestrhne.
+- Přetahování vedení používá schopnosti skutečného člověka, odhad přínosu a hotovost soupeře na nábor a další mzdy. Přestup zachová identitu i historii člověka. Soupeř zaplatí nábor, mzdu a odvody; schopnosti pomáhají kapacitě, práci se surovinami a přitažlivosti provozů. Můžeš dorovnat nabídku, spolehnout se na spokojenost, nebo člověka nechat odejít.
+- V reportu soupeře lze po čtyřech týdnech připravit přestup zpět: zvolíš vlastní kavárnu, předem uvidíš bonus, nábor a novou mzdu. Zrušení nabídky nic nezmění. Při akvizici přejdou jeho skuteční vedoucí do tvého seznamu talentů; agregované pobočky získají platný placený jmenný rozpis hráčova provozu. Klientské smlouvy soupeře se nepřenášejí zdarma.
+- Souboje jsou ve stávající konkurenci a obchodu, nepřibyla další položka hlavního menu. Týdenní přehled upozorňuje na nové pobočky, získané odběratele a přetahování.
+- Starší uložené hry si zachovají peníze i historické výsledky. Anonymní velkoobchodní účty přestanou vytvářet výnos; nové příjmy potřebují skutečné jmenovité smlouvy. Historické agregované výsledky se nepřepisují.
+
+Ověření: 18 modelových scénářů (DPH, plné mzdy, banka, rezerva, zaplacená expanze, jmenovití klienti, ochrana smluv, místní tlak, pořízení a návrat skutečného člověka, akvizice včetně velkého týmu, migrace a import). Aktuální ovládání všech 33 stránek ve 42skriptové sestavě v jsdom: reporty, zrušená i potvrzená nabídka, uložení, přímé odkazy a uzamčený klient. Přirozená 156týdenní hra a 280týdenní výroba/banka ověřují aktuální sestavu. Vizuální kontrola skutečného browseru zůstává neověřená; dosavadní odmítnutí automatické browserové kontroly neobcházíme.
 
 ## Týdenní uzávěrka v edici 05.16
 

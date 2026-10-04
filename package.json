@@ -1,13 +1,13 @@
 {
   "name": "kavarna",
-  "version": "5.16.0",
+  "version": "5.17.0",
   "description": "Coffee empire turn-based simulation",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/simulation.cjs && node tests/tycoon.cjs && node tests/empire.cjs && node tests/operations.cjs && node tests/reports.cjs && node tests/supply.cjs && node tests/crew.cjs && node tests/craft.cjs && node tests/studio.cjs && node tests/business.cjs && node tests/guests.cjs && node tests/branding.cjs && node tests/property.cjs && node tests/rivals.cjs && node tests/seasons.cjs && node tests/procurement.cjs && node tests/management.cjs && node tests/bakery.cjs && node tests/interface.cjs && node tests/bakery-interface.cjs && node tests/campaign.cjs && node tests/campaign-v3.cjs && node tests/campaign-v4.cjs && node tests/campaign-v5.cjs && node tests/economy.cjs && node tests/economy-interface.cjs && node tests/economy-campaign.cjs && node tests/digest.cjs && node tests/digest-interface.cjs",
+    "test": "node tests/simulation.cjs && node tests/tycoon.cjs && node tests/empire.cjs && node tests/operations.cjs && node tests/reports.cjs && node tests/supply.cjs && node tests/crew.cjs && node tests/craft.cjs && node tests/studio.cjs && node tests/business.cjs && node tests/guests.cjs && node tests/branding.cjs && node tests/property.cjs && node tests/rivals.cjs && node tests/seasons.cjs && node tests/procurement.cjs && node tests/management.cjs && node tests/bakery.cjs && node tests/interface.cjs && node tests/bakery-interface.cjs && node tests/campaign.cjs && node tests/campaign-v3.cjs && node tests/campaign-v4.cjs && node tests/campaign-v5.cjs && node tests/economy.cjs && node tests/economy-interface.cjs && node tests/economy-campaign.cjs && node tests/digest.cjs && node tests/digest-interface.cjs && node tests/competition.cjs && node tests/competition-interface.cjs",
     "check": "node scripts/check.cjs",
     "dev": "python3 -m http.server 4173 --directory dist"
   },
