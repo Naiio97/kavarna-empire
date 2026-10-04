@@ -1,4 +1,4 @@
-# Kavárna — edice 05.1
+# Kavárna — edice 05.2
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -16,6 +16,18 @@
 - Plánovač šesti typů investic se třemi variantami poptávky a horizontem 4–26 týdnů.
 - Čtyři kampaně a tři obtížnosti. Po splnění cíle lze pokračovat.
 - Automatické místní ukládání, export/import a migrace verzí 1, 2, 3 a 4.
+
+## Plán zásobování v edici 05.2
+
+Nová obrazovka **Plán zásobování** nabízí 4, 8 nebo 13 příštích týdnů se základní, nižší (−15 %) nebo vyšší (+15 %) návštěvností. Výhled simuluje kopii firmy stejnými týdenními funkcemi jako hra. Zachová skutečnou firmu, generátor událostí i zásoby; základní výsledek odpovídá pokračování současnými pravidly bez dalších ručních změn. Výhled končí, pokud firma přestane pokračovat.
+
+Přehled ukazuje spotřebu zelených zrn, příjezdy objednávek a sklizní, potřebu a pokrytí kaváren, zásoby v městech, expresní nákupy a využití pražíren. Upozorňuje na výpadky konkrétní směsi, odložené pražení, více než 95 % využití výroby a odpisy zásob či experimentů. Poptávka kaváren v grafu je spotřeba při uskutečnitelné obsluze; ztráty kvůli frontě se neoznačují za nedostatek kávy. Kontrakty a e-shop jsou zahrnuté ve skutečném výrobním a prodejním modelu, nikoli v grafu spotřeby kaváren. Veškeré údaje jsou odhady herního modelu.
+
+Každá pražírna může dostat explicitní pravidla automatické výroby: cílovou zásobu na 0,5–3 týdny odběru, týdenní limit 0–500 000 Kč, hotovostní rezervu 1–8 týdnů a povolení či zákaz expresních nákupů. Limit je společný pro všechny šarže pražírny během tahu a zahrnuje nově placená expresní zrna a zpracování 55 Kč/kg zelené kávy. Mzdy, servis, stávající zásoby a běžné objednávky se účtují samostatně. Nevyhovující celá šarže se odloží; report uvádí důvod. Ruční pražírna se sama nezapne. Provozy bez uloženého plánu používají původní pravidla, včetně původní rezervy a bez nového limitu. Reset plán odstraní.
+
+**Nákupní návrh:** návrh nahradí očekávané expresní nákupy zelených zrn ve druhém a třetím týdnu výhledu. Množství můžeš ručně změnit a porovnat objednávku v další kopii firmy: výpadky, expresní nákupy a konečnou hotovost. Samotný návrh a porovnání nejsou výdaj. Potvrzení objedná každou položku jednou za aktuální cenu, s maximem 2 500 kg na původ a rezervou na dva týdny fixních nákladů. Platnost ceny a týdne se znovu ověří; neplatná položka nebo nedostatek peněz odmítne celý nákup před změnou firmy.
+
+Standardní objednávka přijede v týdnu následujícím po objednání. Nejbližší tah proto může mít nedostatek i po nákupu. Zelená zrna také nenahradí chybějící kapacitu, pražírnu, městskou zásobu či přepravní trasu. Plány i poslední skutečný souhrn zásobování se ukládají ve stávajícím formátu hry verze 5; starší postupy dostávají původní pravidla. Verze aplikace je 5.2.0.
 
 ## Report výkonu v edici 05.1
 
@@ -55,12 +67,12 @@ Denní model je společný pro hraní i investiční plánovač. Zásoby se spot
 
 `npm ci`, `npm run check`, `npm test`. Pro místní hraní `npm run dev` a http://localhost:4173.
 
-`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a deseti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
+`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a dvanácti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
 
 ## Struktura
 
-Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`. Prvních pět tvoří ekonomiku, simulaci a záznamy reportů; dalších pět rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
+Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`. Prvních šest tvoří ekonomiku, simulaci, reporty a zásobování; dalších šest rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 96 scénářů ekonomiky a reportů, ovládání všech 22 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
+Testy zahrnují 107 scénářů ekonomiky, reportů a zásobování, ovládání všech 23 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.
