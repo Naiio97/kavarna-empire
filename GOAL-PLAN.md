@@ -1,13 +1,13 @@
 # Coffee Tycoon — průběžné dokončení cíle
 
-Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.17 (finance, týdenní přehled a skutečná konkurence).
+Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.18 (finance, týdenní přehled, skutečná konkurence a vlastní produkty).
 
 | Bod | Požadovaný výsledek | Stav | Důkaz dokončení |
 |---|---|---|---|
 | 1 | Reálnější náklady, marže, financování a pozdní vlastnictví budov a plantáží | Ověřeno | 25 scénářů; 40skriptové ovládání všech 33 stránek; 156 týdnů přirozeného zakladatelského růstu, 280 týdnů výroby a banky; offline ověření. README: zdroje a výslovné předpoklady. |
 | 2 | Vyskakovací shrnutí důležitých rozhodnutí, nabídek, smluv a přetahování po každém tahu | Ověřeno | 17 modelových scénářů, skutečný automatický popup a navigace ve 40skriptové sestavě, všechny 33 stránky, 111 kaváren a 13týdenní archiv; uložené čtení a neměnné reporty. |
 | 3 | Chytřejší soupeři reagující na trh a vlastní skutečné finance | Ověřeno | 18 scénářů: plné mzdy, DPH, daně, banka, rezervy a investice; 42skriptové ovládání a 436 týdnů aktuálních kampaní. |
-| 4 | Vývoj a fyzický prodej vlastních produktů, včetně 250g balení v kavárnách a e-shopu | Čeká | — |
+| 4 | Vývoj a fyzický prodej vlastních produktů, včetně 250g balení v kavárnách a e-shopu | Ověřeno | 18 scénářů: vzorek/test/opakování, 250/500/1000 g, fyzické balení a doprava, ochrana potvrzení, společná poptávka, rozpočet, expirace, 40 SKU / 111 adres a import. 44skriptové ovládání, offline tok, 180 týdnů produktů + 436 týdnů celé sestavy. |
 | 5 | Živé městské čtvrti ovlivňující provoz | Čeká | — |
 | 6 | Rozšířené osobnosti a navazující příběhy lidí | Čeká | — |
 | 7 | Společný servis všech zařízení s přehledem ceny a výsledku | Čeká | — |

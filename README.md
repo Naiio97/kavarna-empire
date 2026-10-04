@@ -1,6 +1,27 @@
-# Kavárna — edice 05.17
+# Kavárna — edice 05.18
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
+
+## Vlastní produkty a fyzické balení v edici 05.18
+
+V **Káva & vlastní produkty** přepni na **Vlastní produkty a prodej**. Hlavní menu zůstává na 33 položkách. Produkty mají vlastní report a přehled prodejů v kavárnách i e-shopu.
+
+1. Vyber vlastní recepturu, značku, název, příběh, obal, místo balení a gramáž **250 g, 500 g nebo 1 kg**. Uvedená cena je za celý sáček včetně 12% DPH.
+2. Vývoj spotřebuje skutečný půlkilový vzorek a stojí 6 000 Kč, s produktovým oddělením 3 500 Kč. Po dvou týdnech vyhodnotí kvalitu vzorku. Produkt s výsledkem alespoň 65/100 lze uvést; neúspěšný test lze zopakovat s novou kávou za nový poplatek. Vývoj receptury, vlastní původ a pražicí profil dál řeší laboratoř a výroba.
+3. Zabal upraženou kávu, která skutečně leží ve vybraném městě. Celé balíčky odečtou přesnou hmotnost z konkrétních šarží. Káva se znovu neplatí; zaplatíš obal, tisk a práci. Nedostatek zásoby, stará káva nebo zastaralé potvrzení nic nestrhne. K balení je potřeba kvalita alespoň 50/100.
+4. Povol prodej ve vybraných vlastních kavárnách a odešli jim hotová balení. Místní rozvoz je dostupný v daném týdnu, jiná města potřebují jeden nebo dva týdny podle zóny. Doprava je placená a přičte se k pořizovacímu nákladu konkrétních sáčků. Balení na cestě se nepovažuje za dostupné k prodeji.
+5. E-shop potřebuje dokončený IT projekt a pracovníka IT, povolený produkt a hotové sáčky ve skladu. Předchozí přímý prodej nezabalených kilogramů e-shopem je v nové sestavě vypnutý. Zapnutý e-shop bez výrobku a zásoby nevytvoří tržbu.
+6. Automatickému balení nastav cíl ve skladu, cíl na každé prodejně, společný týdenní rozpočet na obaly a rozvoz a minimální hotovostní rezervu. Pražírny zohlední potřebnou kávu. Kavárenská a smluvní spotřeba mají před balením přednost; při omezení vznikne pouze dostupný počet celých balení. Zásoby na cestě se započítají do cílů. Malý rozpočet na rozvoz nezpůsobí nekonečné hromadění balení.
+
+Kavárny a e-shop prodávají pouze skutečně dostupné celé kusy. Cena, značka a čerstvost ovlivní zájem. Více podobných produktů si dělí zákazníky; založení čtyřiceti řad nezvětší samo o sobě poptávku. Přemrštěná cena může znamenat nulový prodej. Týdenní přehled upozorní na nevykrytou poptávku a odkazuje na správu produktů.
+
+Šarže hotových balení zachovají svou původní etiketu, kvalitu, pořizovací náklad a datum pražení. Změna receptury nebo značky je nepřepíše. Při uzavření balení se čerstvost dál snižuje o 1,5 bodu týdně; nejvýše 16 týdnů od pražení zůstává zásoba prodejná. Po tomto herním limitu se jednou odepíše do výsledku firmy. Čerstvost i skladování jsou zjednodušená herní pravidla.
+
+Skladový majetek zahrnuje kávu, obal, balicí práci a dopravu. Při balení se surovina převádí na hotový výrobek; není to další zdarma vytvořený majetek. Zisk při prodeji odečte skutečný náklad prodaných sáčků, prodejní poplatky a expedici. Káva i obal byly zaplacené dříve, nesmí se při prodeji znovu strhnout z hotovosti. Tržby firmy a report produktu jsou bez DPH, daň celé firmy navazuje na úplný výsledek. Ručně zaplacené balení a rozvoz se objeví v nejbližším výrobním přehledu.
+
+Náklady obalu, tisku a balicí práce jsou kalibrace hry: klasický obal 8 Kč + 8 Kč/kg, prémiový 18 Kč + 12 Kč/kg, recyklovatelný 14 Kč + 10 Kč/kg; tisk 2 Kč a práce 4 Kč na sáček. Rozvoz přidává 25 Kč za zásilku a cenu podle hmotnosti/zóny. Úpravy etikety receptury z dřívějšího brandingu zůstávají pro receptury a B2B; hotový produkt má svůj vlastní obal a náklad.
+
+Ověření: 18 modelových scénářů; celá gramáž, fyzická káva a sklad, peníze, neúspěšný i opakovaný test, stale potvrzení, šarže, odložená doprava, DPH, e-shop bez zásoby, společná poptávka, automatický rozpočet a rezerva, expirace, 40 produktů a 111 adres, migrace a import. Ovládání všech 33 stránek ve 44skriptové sestavě v jsdom, včetně vývoje, balení, rozvozu, ukládání a návratu z reportu. 180týdenní výslovně financovaná výrobní kampaň ověřila 3 910 zabalených a 3 898 prodaných kusů; není důkazem ziskovosti samostatného e-shopu. Kontroluje fyzický tok, rozpočty, daně, reporty a limity historie. Reálná vizuální kontrola v browseru stále není ověřená.
 
 ## Chytřejší soupeři a konkurenční souboje v edici 05.17
 
