@@ -1,11 +1,7 @@
-const fs=require('fs'),path=require('path'),assert=require('node:assert/strict'),vm=require('vm'),{JSDOM}=require('jsdom');
-const file=path.resolve(process.argv[2]||'../../outputs/kavarna-v5-5.html'),html=fs.readFileSync(file,'utf8');
-assert(!/<script\s+src=|<link[^>]+stylesheet|@import\s/.test(html));
-const dom=new JSDOM(html,{url:'https://offline-test.invalid/',runScripts:'outside-only'}),w=dom.window;w.scrollTo=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
-for(const s of w.document.querySelectorAll('script'))vm.runInContext(s.textContent,dom.getInternalVMContext());
-assert.equal(w.document.querySelectorAll('script').length,18);
-assert.equal(vm.runInContext('state.version',dom.getInternalVMContext()),5);
-assert.equal(vm.runInContext('state.stores.length',dom.getInternalVMContext()),0);assert(w.document.querySelector('#next').disabled);for(const b of w.document.querySelectorAll('[data-view]')){b.click();assert(!/undefined|NaN/.test(w.document.querySelector('#content').textContent),b.dataset.view);}vm.runInContext('openStore("letna");render()',dom.getInternalVMContext());w.document.querySelector('#next').click();assert.equal(vm.runInContext('state.week',dom.getInternalVMContext()),2);
-for(const b of w.document.querySelectorAll('[data-view]')){b.click();assert(!/undefined|NaN/.test(w.document.querySelector('#content').textContent),b.dataset.view);}
-assert.equal(w.document.querySelectorAll('[data-view]').length,25);
-console.log('PASS: standalone HTML contains eighteen working scripts, needs no external assets, advances a real week and renders all twenty-five views.');dom.window.close();
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict'),{JSDOM}=require('jsdom');
+const file=process.argv[2]||'../../outputs/kavarna-v5-6.html',html=fs.readFileSync(file,'utf8');assert(!/<script\s+src=|<link[^>]+stylesheet/.test(html));
+const dom=new JSDOM(html,{url:'https://offline.test/',runScripts:'outside-only'}),w=dom.window;w.scrollTo=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};let error;w.addEventListener('error',e=>error=e.error);const scripts=[...w.document.querySelectorAll('script')];assert.equal(scripts.length,20);for(const s of scripts)vm.runInContext(s.textContent,dom.getInternalVMContext());const r=s=>vm.runInContext(s,dom.getInternalVMContext());assert.equal(r('state.cash'),650000);assert.equal(r('state.stores.length'),0);assert(!w.document.querySelector('.pin.selected'));assert(w.document.querySelector('#next').disabled);assert.equal(r('state.version'),5);assert.equal(w.document.querySelectorAll('[data-view]').length,26);
+for(const b of w.document.querySelectorAll('[data-view]')){b.click();assert.ifError(error);assert(!/undefined|NaN/.test(w.document.querySelector('#content').textContent));}
+r('openStore("karlin");state.cash=4000000;buyOffice("studio");setDepartment("sales",2);state.reputation=90;var p=negotiateBusiness5("hub",{blend:"blend-1",kg:10,price:500,weeks:12,terms:2});acceptBusiness5(p.id);nextWeek();validateSave(JSON.parse(JSON.stringify(state)))');assert.equal(r('state.business5.invoices.length'),1);
+for(const b of w.document.querySelectorAll('[data-view]')){b.click();assert.ifError(error);assert(!/undefined|NaN/.test(w.document.querySelector('#content').textContent));}
+console.log('PASS: single-file offline artifact, 20 scripts, 26 empty and populated views, 650k start, physical B2B delivery, invoice and save validation.');dom.window.close();

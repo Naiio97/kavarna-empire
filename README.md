@@ -1,4 +1,4 @@
-# Kavárna — edice 05.5
+# Kavárna — edice 05.6
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -16,6 +16,24 @@
 - Plánovač šesti typů investic se třemi variantami poptávky a horizontem 4–26 týdnů.
 - Čtyři kampaně a tři obtížnosti. Po splnění cíle lze pokračovat.
 - Automatické místní ukládání, export/import a migrace verzí 1, 2, 3 a 4.
+
+## B2B obchod v edici 05.6
+
+Obchod & odběratelé přidává deset fiktivních zákazníků v sedmi městech: kanceláře, bistra, hotely, restaurace a maloobchod. Každý požaduje jiný objem, kvalitu a pověst. Potřebuješ vlastní kavárnu a pracovníky Obchodu v kanceláři; jeden zaměstnanec spravuje jeden aktivní kontrakt včetně starších jednoduchých smluv.
+
+**Jednání a podpis:** navrhni kávu, kg za týden, cenu, délku 12 nebo 26 týdnů a platbu při dodání nebo za 2 či 4 týdny. Jednání stojí 1 500 Kč a zákazník může nabídnout nižší cenu podle objemu, délky, pověsti, vztahu a obchodního týmu. Jeden kontakt lze oslovit jednou za týden; nabídka platí dva další týdny. Podpis stojí samostatně 5 000 Kč. Potvrzení ověřuje aktuální podmínky, volného obchodníka a hotovost.
+
+**Výhled:** u nabídky otevři výhled 4 nebo 8 týdnů. Odehraje skutečnou simulaci kopie celé firmy po podpisu, včetně výroby, kaváren, vedení, soupeřů a faktur. Zobrazí plnění zakázky, příspěvek, zisk celé firmy, hotovost a všechny pohledávky. Samotný výhled nic nemění. Odhad příspěvku z formuláře používá současnou zásobu nebo recepturu; kapacita je orientační pro tuto kávu, skutečnou kombinaci prověří výhled.
+
+**Dodávky:** kavárny spotřebovávají kávu před kontrakty. Smlouvy používají zbývající fyzické šarže v pořadí podpisu; nelze prodat nevyrobenou kávu. Týdenní B2B dodávka odebírá společné zásoby; má zjednodušenou dopravu bez další přepravní lhůty. Balení a doprava stojí 15 Kč/kg v evropské zóně, mimo ni 42 Kč/kg. Kvalita pod požadavkem snižuje cenu o 1,2 % za bod, nejvýše o 25 %. Pokuta je 15 % prodejní hodnoty nedodané kávy. Report příspěvku odečte skutečný náklad kávy, dopravu a pokuty; mzdy, jednání, podpis a ostatní provoz jsou až ve výsledku firmy.
+
+**Vztahy a obnova:** dodávky mění vztah se zákazníkem. Tři týdny za sebou s plněním pod 80 % nebo vztah pod 25 ukončí odběr. V posledních třech týdnech lze smlouvu obnovit, pokud vztah dosahuje 55 a tým má dost lidí. Obnova stojí 5 000 Kč, přidá původní délku a podle aktuálních podmínek může snížit cenu; nevytváří druhý kontrakt. Ruční ukončení stojí čtvrtinu týdenní hodnoty krát nejvýše čtyři zbývající týdny a sníží vztah o 12 bodů.
+
+**Faktury:** tržby se účtují při dodání, při odložené platbě se do té doby nezvýší hotovost. Faktura se automaticky uhradí na začátku týdne splatnosti, i po skončení kontraktu. Inkaso znovu nevytváří tržbu nebo zisk. Model předpokládá včasné platby. Přehled ukazuje otevřené faktury a poslední úhrady; Finance oddělují pohledávky, inkaso a výsledek firmy.
+
+**Ředitel:** B2B automatika je zpočátku vypnutá. Potřebuje obsazeného obchodního ředitele, jeho povolený hlavní mandát v Organizaci a samostatné B2B povolení. Podpis povolíš zvlášť. Nastav minimální odhad příspěvku, maximální množství a splatnost. Ředitel vybírá nejvýše jednu novou zakázku za týden, hlídá kvalitu, odhad výroby, rozpočet a rezervu na přímé náklady před úhradou. Bez automatického podpisu připraví nabídku k tvému rozhodnutí. Výsledek a skutečné poplatky jsou v reportu vedení.
+
+Report firmy má sedmou kategorii B2B odběratelé, týdenní historii, odpovědnost a návrat do řízení obchodu. Historie vztahu uchovává posledních 26 dodávek, přehled plateb posledních 100 úhrad. Starší uložené hry získají prázdnou evidenci a vypnutý mandát bez změny peněz; jednoduché původní smlouvy zachovávají podmínky. Herní formát zůstává verze 5, aplikace je 5.6.0.
 
 ## Studio kaváren a nový start v edici 05.5
 
@@ -79,7 +97,7 @@ Po tahu se uloží kompaktní záznam skutečných výsledků. Uchovává se 26 
 
 Starší uložená firma získá poslední dostupné výsledky provozů a firem. Historické náklady pražírny, výsledky osob a oddělení, které předchozí edice nezaznamenávala, se nevymýšlejí. Pražírny a plantáže zobrazují výrobu, sklizeň a náklady; nemají přiřazený fiktivní prodejní zisk. Soupeři mají skutečnou hotovost a výsledek simulace, jejich samostatné tržby model neukládá. Výsledky svěřených kaváren jsou kontext práce vedoucího, nikoli izolované skóre jeho zásluh.
 
-Report ani jeho detail nemění peníze, zásoby nebo čas. Automatické ukládání a export zahrnují historii, herní formát zůstává verze 5. Aktuální verze aplikace je 5.5.0. Výrobní report nyní zahrnuje také ruční pražení dokončené v příslušném týdnu.
+Report ani jeho detail nemění peníze, zásoby nebo čas. Automatické ukládání a export zahrnují historii, herní formát zůstává verze 5. Aktuální verze aplikace je 5.6.0. Výrobní report nyní zahrnuje také ruční pražení dokončené v příslušném týdnu.
 
 ## Co přidává edice 05
 
@@ -115,6 +133,6 @@ Denní model je společný pro hraní i investiční plánovač. Zásoby se spot
 
 Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `crew.js`, `craft.js`, `studio.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`, `crew-ui.js`, `craft-ui.js`, `studio-ui.js`. Prvních devět tvoří ekonomiku, simulaci, reporty a zásobování; dalších devět rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 191 scénářů ekonomiky, reportů, zásobování, týmů, vlastní kávy a studia, ovládání všech 25 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů (zakladatelská kampaň z nového kapitálu použije skutečný bankovní úvěr), regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. Další test ověřuje 60 týdnů založení jedné kavárny s 650 000 Kč bez dodatečného financování. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
+Testy zahrnují 216 scénářů ekonomiky, reportů, zásobování, týmů, vlastní kávy, studia a B2B obchodu, ovládání všech 26 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů (zakladatelská kampaň z nového kapitálu použije skutečný bankovní úvěr), regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. B2B zátěž ověřuje dalších 100 týdnů předem financované firmy s opakovanými smlouvami a splatností. Další test ověřuje 60 týdnů založení jedné kavárny s 650 000 Kč bez dodatečného financování. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.
