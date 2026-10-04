@@ -1,0 +1,1 @@
+const fs=require('fs'),{execFileSync}=require('child_process');const files=[...fs.readFileSync('dist/index.html','utf8').matchAll(/<script src="([^\"]+)"/g)].map(x=>'dist/'+x[1]);for(const f of files)execFileSync(process.execPath,['--check',f],{stdio:'inherit'});console.log('PASS: syntax checked all '+files.length+' current scripts.');

@@ -1,6 +1,28 @@
-# Kavárna — edice 05.14
+# Kavárna — edice 05.15
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
+
+## Finance v edici 05.15 — první ověřená etapa velkého cíle
+
+Výdělek nyní platí plné hrubé smluvní mzdy, odvody zaměstnavatele 33,8 %, skutečné přesčasy, místní mzdovou hladinu, energii, vodu, karetní poplatky, účetní odpisy, DPH a daň z konečného výsledku. Disponibilní hotovost odděluje daňové rezervy. Nové kavárny mají úspornější výchozí rozpis; hrubé maloobchodní ceny a očekávané ceny obsahují DPH. Nízká kvalita, slabý sortiment nebo příliš nákladný tým mohou firmu dostat do ztráty.
+
+Zakladatel stále začíná s 650 000 Kč a volbou první adresy. Jeho pražení je **externí smluvní služba**, 4 500 Kč za rezervovanou směnu týdně plus 110 Kč/kg zpracování podle receptury. Zařízení není majetkem firmy; servis hradí dodavatel a zvýšení rezervace na dvě směny zdvojnásobí paušál. Vlastní pražírny stojí 1,25 / 4,8 / 12,8 milionu Kč. Pekárny stojí 1,6 / 6,8 milionu. Zavedené plantáže stojí 6,8–12,8 milionu; 26týdenní sklizeň musí uhradit celý pěstitelský cyklus včetně odvodů. Nakupuje se zavedený produkční podnik, nikoli okamžitě rodící nová výsadba.
+
+Koupě kanceláří stojí 7,8 / 21 / 65 milionů. Pro první oddělení lze pronajmout skutečné kancelářské kapacity: malé zázemí stojí 96 000 Kč za vybavení + 16 000 Kč vratné jistoty a 4 000 Kč týdně; větší 240 000 + 42 000 Kč a 10 500 Kč týdně; kampus 800 000 + 136 000 Kč a 34 000 Kč týdně. Kupní cena budovy kavárny vychází z 6,5% herního čistého výnosu po 14% údržbě, tedy přibližně třinácti let hrubého nájemného; jde o samostatně uvedený herní předpoklad, nikoli znalecký odhad konkrétní adresy.
+
+Bankovní limit vychází z vlastního kapitálu a posledních třinácti skutečných výsledků, s horním limitem 20 milionů. Úrok nového úvěru je herních 8,5 % ročně a jistina se splácí průběžně pět let. Splátka jistiny snižuje hotovost a dluh, nikoli zisk. Manuální splátka aktualizuje stejnou smlouvu. Investor již nepřidává pevné dva miliony; nabídka vychází z aktuálního ocenění firmy a zředění podílu. Nabídky banky, investora a pronájmu mají kontrolu změněných podmínek a zrušení je bez platby.
+
+Výnos a zisk kaváren, výroby, firmy a boardu používají stejný konečný týden. Výsledek firmy zahrnuje daň; účetní odpisy nemají druhou hotovostní platbu. Nákupy vybavení a rozšíření vlastních linek zvyšují historický investiční základ. Firma započítává fyzické zásoby a rozpracovanou sklizeň. Řetězcové reporty jídla se nadále nesčítají. DPH je oddělena z hrubých prodejů a výsledek pekárny ji odečítá; detail prodejního dne zachovává cenu placenou hostem. Starší uložené hry si zachovají hotovost, vlastnictví a historii, pouze začnou novou finanční evidenci.
+
+**Ověření:** 23 finančních scénářů, ovládání všech 33 stránek současné sestavy 38 skriptů, 156 týdnů zakladatelské hry bez přidaných peněz a 280 týdnů záměrně financovaného výrobního stresového testu. Zakladatel s kvalitnější vlastní recepturou, pečivem a průběžným servisem skončil po třech letech s 1 284 800 Kč, nulovým dluhem a čistou marží 4,33 %. Nevlastní budovu ani plantáž. Výrobní test ověřil deset sklizní, vlastní pekárnu, pronajatou centrálu, odpisy, daňová vyrovnání, úplné splacení úvěru i import po skončení pětileté lhůty. Historické testy původních modulů jsou regresní kontrola, nikoli důkaz vyvážení současné ekonomiky. Vizuální kontrola skutečným prohlížečem zůstává neověřená po dřívějším odmítnutí automatického schválení; jsdom ověřuje ovládání a strukturu.
+
+### Podklady a herní zjednodušení
+
+Český model používá běžné odvody zaměstnavatele [24,8 % sociálního pojištění — ČSSZ](https://www.cssz.gov.cz/placeni-pojistneho-snadne-a-prehledne) a [9 % zdravotního pojištění — VZP](https://www.vzp.cz/platci/informace/povinnosti-platcu-metodika/2-4-platce-pojistneho-zamestnavatel). Základní plný hrubý úvazek je 6 500 Kč týdně, nad [minimální mzdou 2026 — MPSV](https://mpsv.gov.cz/minimalni-mzda). [Finanční správa: daňový systém](https://financnisprava.gov.cz/cs/dane/danovy-system-cr/popis-systemu) uvádí daň právnických osob 21 %. [Informace GFŘ k DPH](https://www.financnisprava.cz/assets/cs/prilohy/d-seznam-dani/Informace_GFR_ke_zmenam_sazeb_DPH_od_1_1_2024.pdf) rozlišuje sníženou sazbu pro jídlo a základní sazbu pro běžnou připravenou kávu; hra používá 12 % pro jídlo/balená zrna a 21 % pro nápoje.
+
+Herní 8,5% úrok je konzervativní přirážka pro mladou firmu, nikoli tvrzení o nabídce banky; [ČNB zveřejňuje sazby podnikových úvěrů](https://www.cnb.cz/cs/statistika/menova_bankovni_stat/harm_stat_data/komentar-k-urokovym-sazbam-menovych-financnich-instituci/). Výnosový přístup k dražším budovám je inspirován [iO Partners, Prague Office Q4 2025](https://www.iopartners.com/api/documents/file/iO_Market%20REcap_PRAGUE%20OFFICE_Q4%202025.pdf), jehož 5,25% prime kancelářský výnos není oceněním kavárny. Herních 6,5 %, ceny výrobních provozů a zahraničních plantáží, jejich výnosy, karetní podíl/poplatek a městské koeficienty jsou výslovně **kalibrované herní předpoklady**.
+
+Nejde o účetnictví každé země: používá se jednotný český model v Kč. DPH se vypořádává po čtyřech herních týdnech, daň ze zisku po třinácti; skutečné roční daňové přiznání se nesimuluje. Dodavatelské a B2B ceny jsou čisté bez DPH, vstupní DPH je průběžně vyrovnána. Případná ztráta vrací čtvrtletní rezervu a převádí se do dalšího herního období. Historické kapitoly níže popisují postupné verze; nové finanční podmínky této kapitoly mají přednost před staršími cenami a zmínkami o absenci daní či odpisů.
 
 ## Herní systémy
 
