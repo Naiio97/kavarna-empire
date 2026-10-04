@@ -1,6 +1,14 @@
-# Kavárna — edice 05.26
+# Kavárna — edice 05.27
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
+
+## Celá firma v osmi oblastech — edice 05.27
+
+Ovládání nyní sdružuje všech 33 stránek do osmi oblastí: Přehled, Kavárny, Expanze, Káva a zásobování, Jídlo a pekárna, Lidé a centrála, Obchod a značky, Finance a board. Vyber oblast a stránku; cesta a místní navigace ukazují souvislosti. Dlouhé stránky mají skutečné podstránky: pekárna pět, finance čtyři, centrála tři a logistika dvě. Neaktivní karty jsou skryté, přepnutí podstránky zachová rozepsaná pole na stejné stránce. Správa odběratelů je společná; finance místo dalšího editoru kontraktů odkazují přímo na ni.
+
+**Najít správu… / Ctrl nebo Cmd + K** hledá bez diakritiky a otevře přímo akademii, 250g produkty, řidiče, pekárenské smlouvy či rozpočet. **Reporty a údržba** v horní liště sdružuje otevření firemního/týdenního reportu a společný servis; postup týdne zůstává samostatný. Nová firma má kontextový postup od adresy k dodavateli a otevření. Mobilní menu je rozbalovací, široké tabulky se posouvají a podstránky lze ovládat šipkami/Home/End. Podrobný audit, tokeny, vazby a migrace jsou v `UX-DESIGN.md`.
+
+Ověření současného ovládání v jsdom načítá všech 66 skriptů a prochází všech 33 prázdných i naplněných stránek. Samostatný UX scénář navíc ověřuje skutečný zaplacený kontrakt, cílovou podstránku týdenního přehledu, skupiny, hledání, přepínání bez ztráty rozepsaných hodnot, klávesnici/fokus a nulovou ekonomickou změnu při navigaci. Samostatné HTML funguje bez instalace nebo sítě. Reálná vizuální kontrola v prohlížeči zůstává neověřená.
 
 ## Pekárenský velkoobchod a vlastní flotila v edici 05.26
 
