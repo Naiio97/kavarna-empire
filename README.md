@@ -1,6 +1,14 @@
-# Kavárna — edice 05.25
+# Kavárna — edice 05.26
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
+
+## Pekárenský velkoobchod a vlastní flotila v edici 05.26
+
+V Jídle a pekárně sjednej skutečný ranní odběr hotelu, kanceláře nebo partnerské kavárny ve městě vlastní výrobny. Vyber recepturu, 25–300 kusů každý ze šesti provozních dnů, čtyři nebo třináct týdnů a výrobní prioritu před/po vlastní síti. Nabídka ukáže čistou cenu bez DPH, ranní termín a maximální stáří od výroby v 5:30. Sjednání stojí 4 000 Kč; dvě smlouvy spravuje zakladatel, každý obchodník další tři, nejvýše 32. Kapacita, skutečné suroviny, obaly, peníze a výrobní rozpočty omezují dodávku. Nedodané či odmítnuté kusy nepřinášejí tržbu, vyrobené odmítnuté zboží je skutečný odpad. Reklamace shrnuje skutečné chybějící kusy po týdnu; otevři ji, zaplať 10% kompenzaci jejich smluvní hodnoty nebo vysvětli bez platby a přijmi pokles důvěry. Smlouvu lze pozastavit či ukončit, po sjednané délce skončí sama.
+
+Ve flotile pořídíš dodávku za 650 000 Kč (600 ks/den) nebo chladicí za 1 150 000 Kč (800 ks/den). Řidič je konkrétní jedinečná placená osoba: nábor 8 000 Kč, skutečná místní hrubá mzda plus odvody. I stojící vůz má týdenní údržbu, mzdu a odpis. Každý vůz má městskou trasu, 1–8 zastávek v pořadí, odjezd 5:30–9:00 a volitelné placené náhradní doručení. Trasa sdílí jednu denní kapacitu mezi kavárnami i velkoobchodem; jeden den se platí jeden pevný výjezd plus skutečné kusy. Bez řidiče, dostatečného stavu nebo požadovaného chladu se vlastní vůz nerozjede. Sendviče a kancelářské odběry vyžadují chlad. Příjezd závisí na pořadí a dešti; pozdní kavárenské zboží nepokryje hosty před jeho příjezdem ani snídani. Outsourcing má skutečnou cenu a ranní příjezd. Historie ukáže přijaté kusy, časy, palivo a reklamace; servis celé firmy zahrnuje také vozy. Záznamy jsou omezené na 26 týdnů.
+
+Ověření: 12 současných modelových scénářů včetně 80 skutečných týdnů, účetních součtů a importu, společné fyzické kapacity kavárny/odběratele, chladu, pozdního příjezdu, náhrady externím dopravcem a nulového rozpočtu; 65skriptové ovládání potvrzení, řidiče, trasy, reportu a přesné kompenzace. Automatizovaná vizuální kontrola v reálném prohlížeči zůstává nedostupná; ovládání se ověřuje v jsdom.
 
 ## Snídaně, obědy a vlastní potravinová značka v edici 05.25
 
