@@ -40,8 +40,8 @@ function simulateService5(s,d){
   const arrivals=allocate5(dayArrivals[day],weights),queue=[],occupied=[],timeline=[];let fractional=0,seatFraction=0,waitMinutes=0,waitServed=0,totalServed=0,lostQueue=0,lostSeats=0,lostClosing=0;
   for(let t=0;t<72;t++){
    for(let k=occupied.length-1;k>=0;k--)if(occupied[k].until<=t)occupied.splice(k,1);
-   const heads=s.daily.shifts[Math.floor(t/24)],fault=!!s.equipment.machine&&s.equipment.machine.condition<65&&((state.week+day)%6===0)&&t>=10&&t<16;
-   const raw=d.menu?.hasDrinks===false?0:(d.capacity/Math.max(1,s.staff)/432)*heads*1.22*floor.flow*(s.equipment.window&&!floor.window?1/(1+(EQUIPMENT.window.capacity-1)*s.equipment.window.condition/100):1)*(fault?.45:1),available=raw+fractional;let capacity=Math.floor(available);fractional=available-capacity;
+   const crew=typeof crewShift5==='function'?crewShift5(s,day,Math.floor(t/24)):null,heads=crew?crew.heads:s.daily.shifts[Math.floor(t/24)],fault=!!s.equipment.machine&&s.equipment.machine.condition<65&&((state.week+day)%6===0)&&t>=10&&t<16;
+   const raw=d.menu?.hasDrinks===false?0:(d.capacity/Math.max(1,s.staff)/432)*heads*(crew?.factor||1)*1.22*floor.flow*(s.equipment.window&&!floor.window?1/(1+(EQUIPMENT.window.capacity-1)*s.equipment.window.condition/100):1)*(fault?.45:1),available=raw+fractional;let capacity=Math.floor(available);fractional=available-capacity;
    seatFraction+=arrivals[t]*seatedShare;const wants=Math.floor(seatFraction);seatFraction-=wants;
    if(wants)queue.push({at:t,count:wants,seat:true,blocked:false});if(arrivals[t]-wants)queue.push({at:t,count:arrivals[t]-wants,seat:false,blocked:false});
    let served=0,seated=0,departQueue=0,departSeats=0;
@@ -52,7 +52,7 @@ function simulateService5(s,d){
   const remaining=queue.reduce((a,q)=>a+q.count,0);lostClosing+=remaining;timeline[71].lostClosing=remaining;timeline[71].queue=0;
   days.push({day,arrivals:dayArrivals[day],served:totalServed,lostQueue,lostSeats,lostClosing,lostStock:0,wait:waitServed?waitMinutes/waitServed:0,timeline});
  }
- return {week:state.week,segment,floor:{...floor,blocked:undefined},days,potential:days.reduce((a,x)=>a+x.served,0),demand:d.demand,shifts:[...s.daily.shifts],wages:shiftWages5(s),owner:owner5(s)?.person.name||'Zakladatel',floorSnapshot:JSON.parse(JSON.stringify(s.floor))};
+ return {week:state.week,segment,floor:{...floor,blocked:undefined},days,potential:days.reduce((a,x)=>a+x.served,0),demand:d.demand,shifts:[...s.daily.shifts],wages:shiftWages5(s),owner:owner5(s)?.person.name||'Zakladatel',crewRoster:typeof crewShift5==='function'&&s.crew?Array.from({length:6},(_,d)=>[0,1,2].map(k=>crewShift5(s,d,k).people.map(p=>({pid:p.pid,name:p.name})))):null,floorSnapshot:JSON.parse(JSON.stringify(s.floor))};
 }
 autoManager=function(s){store5(s);const staffPermission=s.auto.staff;let decisions;try{if(s.daily.owner!=='manager')s.auto.staff=false;decisions=V4.autoManager(s);}finally{s.auto.staff=staffPermission;}const responsible=owner5(s);if(s.daily.auto&&s.auto.staff&&responsible?.automatic){const before=s.daily.shifts.join('/');s.daily.shifts=suggestShifts5(s);if(before!==s.daily.shifts.join('/'))decisions.push(responsible.person.name+': směny '+s.daily.shifts.join(' / ')+', posílení podle místní špičky.');}return decisions;};
 demandForStore=function(s,factor){store5(s);const d=V4.demandForStore(s,factor),service=simulateService5(s,d);d.potential=service.potential;d.shiftWageAdjustment=shiftWages5(s)-s.staff*s.wage;d.service5=service;s.daily.pending=service;return d;};

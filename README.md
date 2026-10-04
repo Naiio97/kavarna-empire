@@ -1,4 +1,4 @@
-# Kavárna — edice 05.2
+# Kavárna — edice 05.3
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -16,6 +16,18 @@
 - Plánovač šesti typů investic se třemi variantami poptávky a horizontem 4–26 týdnů.
 - Čtyři kampaně a tři obtížnosti. Po splnění cíle lze pokračovat.
 - Automatické místní ukládání, export/import a migrace verzí 1, 2, 3 a 4.
+
+## Týmy baristů a HR v edici 05.3
+
+**Týmy & HR report** ukazují celou síť a konkrétní lidi ve vybrané kavárně: rychlost, přípravu kávy, práci s hosty, zkušenosti, smluvní mzdu, dostupnost, spokojenost a přetížení. Barista má čtyřhodinový nebo osmihodinový denní úvazek pro šest provozních dnů. Rozpis má šest dnů a tři čtyřhodinová období; jeden člověk nesmí překročit smlouvu ani být přiřazen dvakrát v témže období. Přiřazování používá augmentující cesty, takže flexibilní kolega může uvolnit místo člověku s omezenou dostupností.
+
+Počty v Interiéru a Kavárnách jsou požadavkem na obsazení, nikoli nově vytvořenými zaměstnanci. Kapacitu tvoří skutečně přiřazení dostupní lidé a jejich dovednosti i přetížení. Káva a přístup k hostům ovlivňují kvalitu; samotná zkušenost z práce postupně zlepšuje dovednosti. Mzdový základ kavárny je referenční sazba; konkrétní smlouva platí třetinu základu za denní čtyřhodinový blok, násobenou individuální mzdovou sazbou. Snížení požadovaných směn smlouvu nezruší. Dovolená je placená a trvá 1–8 týdnů; začátek lze naplánovat během 26 příštích týdnů. Dostupní kolegové mohou zastoupit v mezích svého úvazku. Ruční jmenný rozpis se sám nepřepíše; nedostupný člověk v něm má nulový výkon.
+
+Nábor stojí 6 000 Kč minus 750 Kč za pracovníka HR, nejméně 2 500 Kč. Trh nabízí skutečné osoby, které po nástupu zmizí z nabídky. Každé čtyři týdny přicházejí další nabídky, pokud jich zůstalo méně než dvanáct. Školení stojí 8 000 Kč bez HR, s obsazeným HR 5 000 Kč; přidá šest bodů jedné dovednosti a zkušenosti, nejvýše jednou na osobu za týden. Mzdu lze zvýšit o 10 %, nejvýše na dvojnásobek základu. Ukončení smlouvy vyplatí jednu týdenní mzdu odstupného a vrátí osobu na trh. Přesun do jiné vlastní kavárny ve stejném městě zachová identitu, dovednosti i smlouvu; sazba se odvodí od mzdového základu cílové kavárny. Povýšení na místního vedoucího potřebuje 20 zkušeností, průměr dovedností 72 a stojí 12 000 Kč. Osoba se odstraní ze směn, zachová identitu a vstoupí do stávající kariéry vedení.
+
+**Automatické vedení** vyžaduje odpovědnou osobu, její platnou pravomoc a povolení automatických směn. Mandát pro každý tým umožní nábor, jedno školení týdně, společný rozpočet 0–100 000 Kč, rezervu na 1–8 týdnů fixních nákladů, cíl dovedností a přijatelné čekání. Vedení přijme jen kandidáta, který opravdu sníží nepokrytý rozpis; při rezervě zohlední i novou smluvní mzdu. Rozpočet zahrnuje nábor a školení, mzdy se účtují zvlášť. HR zlevňuje rozvoj a mírní přetížení. Plán vedení na posílení týmu nyní nabízí konkrétní nábory s jejich poplatkem a mzdami, kontroluje aktuálnost kandidátů a po schválení obsadí skutečné směny. Chráněný ruční rozpis se tím neobchází.
+
+Personální report uchovává minulý skutečný rozpis, odpracované hodiny, mzdy, nepokryté bloky a vysvětlení zásahů, včetně lidí, kteří po týdnu odešli. Souhrnná historie má 26 týdnů; osobní záznamy posledních 12 událostí. Přetížení a nízká spokojenost mohou způsobit odchod, dovolená a volno přetížení sníží. Při otevření starší firmy se jména odvodí z dosavadních smluvních směn bez dalšího výdaje a bez vymyšlené osobní historie. U záchranné kampaně je potřeba skutečně ukončit nadbytečné smlouvy; pouhá změna cílového počtu lidí již neušetří mzdy. Formát uložené hry zůstává verze 5; aplikace je 5.3.0.
 
 ## Plán zásobování v edici 05.2
 
@@ -67,12 +79,12 @@ Denní model je společný pro hraní i investiční plánovač. Zásoby se spot
 
 `npm ci`, `npm run check`, `npm test`. Pro místní hraní `npm run dev` a http://localhost:4173.
 
-`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a dvanácti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
+`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a čtrnácti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
 
 ## Struktura
 
-Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`. Prvních šest tvoří ekonomiku, simulaci, reporty a zásobování; dalších šest rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
+Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `crew.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`, `crew-ui.js`. Prvních sedm tvoří ekonomiku, simulaci, reporty a zásobování; dalších sedm rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 107 scénářů ekonomiky, reportů a zásobování, ovládání všech 23 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
+Testy zahrnují 133 scénářů ekonomiky, reportů, zásobování a týmů, ovládání všech 24 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.
