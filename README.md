@@ -1,4 +1,4 @@
-# Kavárna — edice 05.4
+# Kavárna — edice 05.5
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -8,7 +8,7 @@
 - Kanceláře, board a HR, Finance, Obchod, Produkt a IT.
 - Vlastní plantáže, sklizně, receptury, obaly a branding kávy i kaváren.
 - Pražírny se směnami, kapacitou, lidmi, údržbou, prioritami a výrobními reporty.
-- Sedm položek menu, suroviny, gramáž, příprava, jídlo a devět investic do vybavení.
+- Sedm položek menu, suroviny, gramáž, příprava, jídlo a katalog osmi druhů technologií s více modely.
 - Kariéry vedoucích, školení, mzdy, spokojenost, povýšení a konkurenční nabídky.
 - Pět druhů provozních problémů se třemi řešeními a omezenými pravomocemi vedení.
 - Městské zásoby, sklady, trasy, čerstvost šarží a dodavatelské smlouvy.
@@ -16,6 +16,18 @@
 - Plánovač šesti typů investic se třemi variantami poptávky a horizontem 4–26 týdnů.
 - Čtyři kampaně a tři obtížnosti. Po splnění cíle lze pokračovat.
 - Automatické místní ukládání, export/import a migrace verzí 1, 2, 3 a 4.
+
+## Studio kaváren a nový start v edici 05.5
+
+**Zakladatel:** nová hra začíná bez kavárny a bez předem označené adresy. Kapitál je 650 000 Kč místo 1,6 milionu. Pražírna, distribuční sklad a zásoby zůstávají připravené. Praha je přístupná před první pobočkou. Týden nelze posunout, dokud hráč první kavárnu neotevře; výběr adresy a tvorba návrhu nespustí výdaje. Rodinná, záchranná a výběrová kampaň si ponechávají své popsané převzaté podniky. Rozehrané firmy si ponechají kapitál, kavárny i historii. Mapa při začátku ani změně města sama nevybere lokalitu.
+
+**Vybavení:** Compact / Barista / Signature kávovary, Entry / Precision / Competition mlýnky, ruční a dávkový filtr, ergonomický nebo dvoulinkový bar, dvě cold brew technologie a dva modely pecí s vitrínou. Kuchyně a výdejní okénko zůstávají samostatnými zařízeními. Katalog ukazuje ceny, výkon, kvalitu, údržbu a stav; servis stojí 8 % ceny konkrétního modelu. Při výměně dostane hráč 35 % ceny starého zařízení upravených podle jeho stavu. Technika ovlivňuje stejnou simulaci front a prodejů. Základní Compact kávovar a Entry mlýnek mají údržbu zahrnutou v běžném provozu a nemění základní kapacitu. Odebrané zařízení vypne závislé menu.
+
+**Nábytek:** dvoumístný stolek zabírá jedno pole a stojí 5 500 Kč, čtyřmístný stůl dvě pole a stojí 9 000 Kč; jednotlivé barové místo stojí 2 800 Kč a zabírá jedno pole. Ceny zahrnují židle nebo stoličku. Nový návrh určuje skutečný počet míst bez dalšího abstraktního nákupu kapacity. Průchody, dveře a přístup k jednotlivým prvkům se kontrolují. Lze navrhnout i provoz bez sezení. Historické reporty uchovávají skutečný tehdejší půdorys a obsazenost.
+
+**Vlastní návrhy:** Studio umožní navrhovat ještě před první adresou, upravovat existující kavárnu nebo načíst vlastní uložený návrh. Celý půdorys, modely vybavení a způsob obsluhy lze zdarma uložit pod názvem; hra uchová až dvacet návrhů. Uložená předloha se zkopíruje při otevření a její pozdější úpravy nebo smazání nezmění postavené kavárny. Návrhy jsou součástí exportu a automatického uložení. Jmenný tým a menu se řídí individuálně podle nové lokality.
+
+**Rozpočet:** základní cena adresy obsahuje Compact kávovar, Entry mlýnek, filtr a šest čtyřmístných stolů. Při vlastním otevření se zařizovací rozpočet upraví o rozdíl mezi tímto základem a návrhem; nepotřebné části tedy lze vynechat a levnější provoz stojí méně. Dialog ukáže půdorys, celkovou investici, zůstatek a fixní náklady. Návrh můžeš vybrat v jedné nabídce při otevírání. Existující kavárna zaplatí 25 000 Kč za přestavbu plus nově zakoupený nábytek a techniku, po odečtení výkupu. Pouhý přesun tak nestojí znovu celou kavárnu. Potvrzení ověří aktuální návrh a ceny; neplatná nebo nedostupná investice nemění stav. Mandát boardu musí pokrýt celou cenu nového vlastního provozu. Vybavení franšízy zajišťuje partner.
 
 ## Vlastní původ a pražení v edici 05.4
 
@@ -67,7 +79,7 @@ Po tahu se uloží kompaktní záznam skutečných výsledků. Uchovává se 26 
 
 Starší uložená firma získá poslední dostupné výsledky provozů a firem. Historické náklady pražírny, výsledky osob a oddělení, které předchozí edice nezaznamenávala, se nevymýšlejí. Pražírny a plantáže zobrazují výrobu, sklizeň a náklady; nemají přiřazený fiktivní prodejní zisk. Soupeři mají skutečnou hotovost a výsledek simulace, jejich samostatné tržby model neukládá. Výsledky svěřených kaváren jsou kontext práce vedoucího, nikoli izolované skóre jeho zásluh.
 
-Report ani jeho detail nemění peníze, zásoby nebo čas. Automatické ukládání a export zahrnují historii, herní formát zůstává verze 5. Verze aplikace je 5.1.0. Výrobní report nyní zahrnuje také ruční pražení dokončené v příslušném týdnu.
+Report ani jeho detail nemění peníze, zásoby nebo čas. Automatické ukládání a export zahrnují historii, herní formát zůstává verze 5. Aktuální verze aplikace je 5.5.0. Výrobní report nyní zahrnuje také ruční pražení dokončené v příslušném týdnu.
 
 ## Co přidává edice 05
 
@@ -97,12 +109,12 @@ Denní model je společný pro hraní i investiční plánovač. Zásoby se spot
 
 `npm ci`, `npm run check`, `npm test`. Pro místní hraní `npm run dev` a http://localhost:4173.
 
-`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a šestnácti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
+`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a osmnácti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
 
 ## Struktura
 
-Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `crew.js`, `craft.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`, `crew-ui.js`, `craft-ui.js`. Prvních osm tvoří ekonomiku, simulaci, reporty a zásobování; dalších osm rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
+Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `crew.js`, `craft.js`, `studio.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`, `crew-ui.js`, `craft-ui.js`, `studio-ui.js`. Prvních devět tvoří ekonomiku, simulaci, reporty a zásobování; dalších devět rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 162 scénářů ekonomiky, reportů, zásobování, týmů a vlastní kávy, ovládání všech 25 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
+Testy zahrnují 191 scénářů ekonomiky, reportů, zásobování, týmů, vlastní kávy a studia, ovládání všech 25 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů (zakladatelská kampaň z nového kapitálu použije skutečný bankovní úvěr), regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. Další test ověřuje 60 týdnů založení jedné kavárny s 650 000 Kč bez dodatečného financování. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.
