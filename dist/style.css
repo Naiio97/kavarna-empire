@@ -20,3 +20,5 @@
 /* Cafe studio, using the game's existing palette and floor renderer. */
 .studio-welcome5 h2{font-size:32px;margin:18px 0}.studio-welcome5 p{line-height:1.65}.studio-open-plan5{max-width:420px;margin:14px auto}.studio-open-plan5 .floor-plan5{width:100%;height:auto}.studio-quote5{margin-top:20px;padding:18px;background:var(--cream,#f0eee3);border-radius:10px}.equipment-card .field{margin-top:14px}.equipment-card .actions{margin-top:14px}.equipment-card .actions button{flex:1}.floor-plan5 text{pointer-events:none}
 @media(max-width:650px){.studio-welcome5 h2{font-size:26px}.equipment-card .actions{flex-wrap:wrap}.studio-open-plan5{max-width:100%}}
+
+.guest-mix5{display:grid;gap:10px;margin:16px 0 24px}.guest-mix5>div{display:grid;grid-template-columns:minmax(130px,1fr) 2fr 70px;gap:12px;align-items:center;font-size:.875rem}.guest-mix5 .bar{margin:0}.guest-mix5 strong{text-align:right}.guest-trend5{display:block;width:100%;max-width:620px;margin:20px 0}.guest-review5{background:#f7f5ef}.guest-review5 p{line-height:1.6}@media(max-width:600px){.guest-mix5>div{grid-template-columns:1fr 1fr 60px;gap:8px}}

@@ -1,14 +1,14 @@
 {
   "name": "kavarna",
-  "version": "5.6.0",
+  "version": "5.7.0",
   "description": "Coffee empire turn-based simulation",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/simulation.cjs && node tests/tycoon.cjs && node tests/empire.cjs && node tests/operations.cjs && node tests/reports.cjs && node tests/supply.cjs && node tests/crew.cjs && node tests/craft.cjs && node tests/studio.cjs && node tests/business.cjs && node tests/interface.cjs && node tests/campaign.cjs && node tests/campaign-v3.cjs && node tests/campaign-v4.cjs && node tests/campaign-v5.cjs",
-    "check": "node --check dist/engine.js && node --check dist/tycoon.js && node --check dist/empire.js && node --check dist/operations.js && node --check dist/app.js && node --check dist/tycoon-ui.js && node --check dist/empire-ui.js && node --check dist/operations-ui.js && node --check dist/reports.js && node --check dist/reports-ui.js && node --check dist/supply.js && node --check dist/supply-ui.js && node --check dist/crew.js && node --check dist/crew-ui.js && node --check dist/craft.js && node --check dist/craft-ui.js && node --check dist/studio.js && node --check dist/studio-ui.js && node --check dist/business.js && node --check dist/business-ui.js",
+    "test": "node tests/simulation.cjs && node tests/tycoon.cjs && node tests/empire.cjs && node tests/operations.cjs && node tests/reports.cjs && node tests/supply.cjs && node tests/crew.cjs && node tests/craft.cjs && node tests/studio.cjs && node tests/business.cjs && node tests/guests.cjs && node tests/interface.cjs && node tests/campaign.cjs && node tests/campaign-v3.cjs && node tests/campaign-v4.cjs && node tests/campaign-v5.cjs",
+    "check": "node --check dist/engine.js && node --check dist/tycoon.js && node --check dist/empire.js && node --check dist/operations.js && node --check dist/app.js && node --check dist/tycoon-ui.js && node --check dist/empire-ui.js && node --check dist/operations-ui.js && node --check dist/reports.js && node --check dist/reports-ui.js && node --check dist/supply.js && node --check dist/supply-ui.js && node --check dist/crew.js && node --check dist/crew-ui.js && node --check dist/craft.js && node --check dist/craft-ui.js && node --check dist/studio.js && node --check dist/studio-ui.js && node --check dist/business.js && node --check dist/business-ui.js && node --check dist/guests.js && node --check dist/guests-ui.js",
     "dev": "python3 -m http.server 4173 --directory dist"
   },
   "keywords": [],

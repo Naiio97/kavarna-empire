@@ -1,4 +1,4 @@
-# Kavárna — edice 05.6
+# Kavárna — edice 05.7
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -16,6 +16,20 @@
 - Plánovač šesti typů investic se třemi variantami poptávky a horizontem 4–26 týdnů.
 - Čtyři kampaně a tři obtížnosti. Po splnění cíle lze pokračovat.
 - Automatické místní ukládání, export/import a migrace verzí 1, 2, 3 a 4.
+
+## Hosté a recenze v edici 05.7
+
+Každá pobočka získává vlastní aktivní okruh stálých hostů. Pět skupin tvoří kancelářští lidé, kávoví nadšenci, sousedé, turisté a studenti. Lokalita určuje základní složení; cena, předchozí zkušenosti a veřejné hodnocení mění příští návštěvnost. Skupiny přicházejí do skutečné denní fronty, mají různou trpělivost a zájem o sezení. Příchody, obsluha a odchody ve skupinách dávají přesně celkové výsledky provozu. Káva se nadále odebírá z fyzických zásob a stejné prodeje tvoří tržby firmy; zákaznický přehled nevytváří dodatečné fiktivní prodeje. Cenový vliv skupin opravuje původní společný cenový model, aby se stejný efekt nezapočítal dvakrát.
+
+**Zkušenost hosta:** kancelářští lidé kladou největší váhu na rychlost, nadšenci na kávu, sousedé na prostředí a studenti na cenu. Report rozebere cenu proti očekávání, kvalitu skutečně odebrané kávy, čekání obsloužených hostů a prostředí. Spokojenost snižují i návštěvy, které se neobsloužily. Fronta, chybějící místa, zásoby a zavírací doba jsou samostatné důvody. Když se neodebere žádná káva, její skutečná kvalita se neuvádí. Kvalita je průměr odebrané kávy pobočky, nikoli oddělená šarže pro každou skupinu; chuťový odhad používá dostupné šarže před odběrem. Model pracuje v desetiminutových krocích: trpělivost je 20 minut pro kancelářské hosty, 40 pro nadšence a studenty, 50 pro sousedy a 30 pro turisty.
+
+**Stálí hosté a návraty:** spokojené nové návštěvy získávají stálé hosty, slabá zkušenost a běžný úbytek okruh zmenšují. Návraty jsou obsloužené návštěvy dřívějšího okruhu; v prvním evidovaném týdnu jsou nulové. Nelze započítat návrat člověka, kterého provoz neobsloužil. Pobočka ukazuje účet okruhu: stav před týdnem + získaní − odchozí = stav po týdnu. Návštěvy nejsou počet unikátních lidí. Okruhy poboček se sledují odděleně a jejich součet nemusí být počet unikátních hostů celé firmy. Nejde o individuální simulaci pojmenovaných osob. Každá skupina má nejvýše 5 000 aktivních stálých hostů.
+
+**Recenze:** z odehraného týdne vzniknou nejvýše tři reprezentativní recenze skupin s alespoň deseti příchozími. Zachovávají tehdejší cenu, kvalitu, čekání, plnění návštěv a důvod hodnocení. Jde o výběr zkušeností, nikoli recenzi každé návštěvy. Pobočka uchovává posledních 30 recenzí; veřejné hodnocení je jejich průměr. Starší známé zkušenosti se při aktualizaci nevymýšlejí. Ani pozdější změna ceny, vybavení nebo vedoucího původní recenzi nepřepíše.
+
+**Odpovědi:** odpověď stojí 750 Kč za čas týmu, odpověď s kompenzací 2 250 Kč. Poplatek se zaplatí při potvrzení a započítá do výdajů příštího tahu. Odpovědět lze jednou; aktuální cenu a peníze ověřuje potvrzení. Běžná odpověď přidá dané skupině bod péče při příštím vyhodnocení, kompenzace tři. I více odpovědí dohromady přidá nejvýše tři body a původní hvězdy i text zůstávají. Péče nenahradí opravu obsluhy, zásobování nebo prostředí.
+
+**Přehled:** Hosté & recenze umožní filtrovat kavárnu, otevřít rozbor skupiny, prohlédnout vývoj stálých hostů a přejít do konkrétního průběhu obsluhy. Report firmy má osmou kategorii se spokojeností, návraty, aktivním okruhem a veřejným hodnocením. Historie uchovává 26 týdnů. Souhrnný report nyní pojme i celou síť 111 kaváren s vedením a zákaznickými výsledky. Původní uložené hry dostanou prázdnou zákaznickou evidenci bez změny kapitálu a starších výsledků. Formát hry zůstává verze 5, aplikace je 5.7.0.
 
 ## B2B obchod v edici 05.6
 
@@ -97,7 +111,7 @@ Po tahu se uloží kompaktní záznam skutečných výsledků. Uchovává se 26 
 
 Starší uložená firma získá poslední dostupné výsledky provozů a firem. Historické náklady pražírny, výsledky osob a oddělení, které předchozí edice nezaznamenávala, se nevymýšlejí. Pražírny a plantáže zobrazují výrobu, sklizeň a náklady; nemají přiřazený fiktivní prodejní zisk. Soupeři mají skutečnou hotovost a výsledek simulace, jejich samostatné tržby model neukládá. Výsledky svěřených kaváren jsou kontext práce vedoucího, nikoli izolované skóre jeho zásluh.
 
-Report ani jeho detail nemění peníze, zásoby nebo čas. Automatické ukládání a export zahrnují historii, herní formát zůstává verze 5. Aktuální verze aplikace je 5.6.0. Výrobní report nyní zahrnuje také ruční pražení dokončené v příslušném týdnu.
+Report ani jeho detail nemění peníze, zásoby nebo čas. Automatické ukládání a export zahrnují historii, herní formát zůstává verze 5. Aktuální verze aplikace je 5.7.0. Výrobní report nyní zahrnuje také ruční pražení dokončené v příslušném týdnu.
 
 ## Co přidává edice 05
 
@@ -133,6 +147,6 @@ Denní model je společný pro hraní i investiční plánovač. Zásoby se spot
 
 Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `crew.js`, `craft.js`, `studio.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`, `crew-ui.js`, `craft-ui.js`, `studio-ui.js`. Prvních devět tvoří ekonomiku, simulaci, reporty a zásobování; dalších devět rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 216 scénářů ekonomiky, reportů, zásobování, týmů, vlastní kávy, studia a B2B obchodu, ovládání všech 26 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů (zakladatelská kampaň z nového kapitálu použije skutečný bankovní úvěr), regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. B2B zátěž ověřuje dalších 100 týdnů předem financované firmy s opakovanými smlouvami a splatností. Další test ověřuje 60 týdnů založení jedné kavárny s 650 000 Kč bez dodatečného financování. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
+Testy zahrnují 241 scénářů ekonomiky, reportů, zásobování, týmů, vlastní kávy, studia, B2B obchodu a zákazníků, ovládání všech 27 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů (zakladatelská kampaň z nového kapitálu použije skutečný bankovní úvěr a při expanzi upřednostňuje nové město), regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. B2B zátěž ověřuje dalších 100 týdnů předem financované firmy s opakovanými smlouvami a splatností. Další test ověřuje 60 týdnů založení jedné kavárny s 650 000 Kč bez dodatečného financování. Nový zákaznický model ověřuje dalších 60 týdnů založení bez přidaných peněz a jeden tah maximální sítě 111 kaváren s osmi pražírnami a jejich vedením. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.
