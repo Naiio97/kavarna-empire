@@ -37,3 +37,5 @@
 .product-bag6[data-pack="premium"]{background:linear-gradient(140deg,#253c34,#14231e);color:#f6e9cf}.product-bag6[data-pack="eco"]{background:linear-gradient(135deg,#e1dabf,#c6c7a4)}
 
 .district-mix6{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.district-mix6 span{padding:8px 12px;border-radius:10px;background:var(--paper,#f7f3ee);font-size:12px}.district-table6{overflow-x:auto;margin:20px 0}.district-table6 table{width:100%;border-collapse:collapse;font-size:13px}.district-table6 th,.district-table6 td{text-align:left;padding:10px;border-bottom:1px solid #ded7cf;white-space:nowrap}
+
+header .time{flex-wrap:wrap;justify-content:flex-end}@media(max-width:650px){header .time{justify-content:flex-start}#serviceAll6{font-size:13px}}
