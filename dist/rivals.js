@@ -1,0 +1,79 @@
+'use strict';
+// Competitors have their own bounded aggregate operations, separate from player inventories.
+let rivalPayments5=null;
+function rivalPartnerSettlement5(contract){if(rivalPayments5&&contract.buyer)rivalPayments5.set(contract.buyer,(rivalPayments5.get(contract.buyer)||0)+(contract.last?.revenue||0));}
+const RIVALS_BASE5={fresh,nextWeek,validateSave,acquireRival,reportRoster5};
+function rivalBranch5(r,id){return {id,price:clamp(r.priceFactor,.75,1.3),staff:Math.min(9,Math.max(1,Math.ceil(loc(id).traffic/420))),quality:r.business.quality,condition:90,lossWeeks:0,last:null};}
+function ensureRivals5(v){for(const r of v.rivals)if(r.operations5===undefined)r.operations5={branches:r.stores.map(id=>rivalBranch5(r,id)),history:[],review:null};return v;}
+fresh=function(...args){return ensureRivals5(RIVALS_BASE5.fresh(...args))};ensureRivals5(state);
+function syncRivalBranches5(r){r.operations5.branches=r.operations5.branches.filter(b=>r.stores.includes(b.id));for(const id of r.stores)if(!r.operations5.branches.some(b=>b.id===id))r.operations5.branches.push(rivalBranch5(r,id));}
+function rivalLocalPrice5(r,city){const branches=r.operations5?.branches.filter(b=>loc(b.id).city===city);return branches?.length?branches.reduce((n,b)=>n+b.price,0)/branches.length:r.priceFactor;}
+function rivalOperating5(r,b){const l=loc(b.id),e=economy4(),focus=r.business.focus,match=focus==='quality'?( ['specialty','tourist'].includes(l.segment)?1.13:.95):focus==='volume'&&['office','student'].includes(l.segment)?1.12:1;
+ const player=state.stores.filter(s=>loc(s.id).city===l.city),competition=player.reduce((n,s)=>n+.025+(s.price<l.ideal*b.price?.015:0),0),traffic=round(l.traffic*clamp(1+(r.reputation-50)/180+(b.quality-75)/220-(b.price-1)*1.2,.4,1.45)*cityPressure4(l.city).factor*e.demand*match*(r.business.campaign?.city===l.city&&r.business.campaign.until>=state.week?1.04:1)*clamp(1-competition,.65,1)*clamp(1-Math.max(0,r.stores.filter(id=>loc(id).city===l.city).length-1)*.035,.78,1));
+ const capacity=round(b.staff*380*clamp(b.condition/90,.55,1)),served=Math.min(traffic,capacity),lost=traffic-served,price=round(l.ideal*b.price),revenue=served*price,wages=b.staff*6500,rent=round(l.rent*(1+Math.floor(state.week/26)*.04)),coffee=round(served*(focus==='quality'?25:21)*e.input),overhead=19000+(focus==='quality'?6000:2500),cost=coffee+wages+rent+overhead;
+ return {id:b.id,price,staff:b.staff,quality:b.quality,condition:b.condition,traffic,served,lost,capacity,revenue,cost,profit:revenue-cost,coffee,wages,rent,overhead,fixed:wages+rent+overhead};
+}
+function rivalReserve5(r){return round((r.operations5.branches.reduce((n,b)=>n+rivalOperating5(r,b).fixed,0)+12000+Math.max(0,r.stores.length-5)*3500+round(r.debt*.002))*5+180000+r.business.reserved);}
+function rivalChoices5(r){const o=r.operations5,b=r.business,choices=[],add=(kind,id,title,cost,gain,priority=0)=>{if(gain>0)choices.push({kind,id,title,cost,gain:round(gain),priority,payback:cost?Math.ceil(cost/gain):0});};
+ for(const branch of o.branches){const q=rivalOperating5(r,branch),name=loc(branch.id).name;
+  if(branch.staff<9){const n=rivalOperating5(r,{...branch,staff:branch.staff+1});add('staff',branch.id,'Posílení týmu · '+name,8000,n.profit-q.profit,q.lost/Math.max(1,q.traffic)>.15?2:0);}
+  if(branch.condition<75){const n=rivalOperating5(r,{...branch,condition:95});add('service',branch.id,'Servis vybavení · '+name,18000,n.profit-q.profit,2);}
+  if(branch.quality<94){const n=rivalOperating5(r,{...branch,quality:Math.min(96,branch.quality+4)});add('quality',branch.id,'Školení a kvalita · '+name,60000,n.profit-q.profit);}
+  if(branch.lossWeeks>=3){const exit=q.rent*2;add('close',branch.id,'Uzavření ztrátové adresy · '+name,exit,-q.profit,3);}
+ }
+ if(b.focus==='wholesale'&&b.accounts<b.accountCapacity)add('account','', 'Nový velkoobchodní odběratel',65000,10500);
+ if(b.focus==='wholesale'&&b.accounts===b.accountCapacity&&b.accountCapacity<12)add('sales','', 'Rozšíření obchodu a první odběratel',425000,10500);
+ if(r.stores.length<28)for(const l of LOCATIONS){const c=CITIES.find(c=>c.name===l.city);if(owned(l.id)||occupant(l.id)||state.auctions.some(a=>!a.closed&&a.location===l.id)||state.market3.exclusive.some(e=>e.location===l.id&&e.until>=state.week)||c.unlock>r.stores.length||c.reputation>r.reputation)continue;
+  const branch=rivalBranch5(r,l.id),q=rivalOperating5(r,branch),cost=l.setup+(r.stores.some(id=>loc(id).city===l.city)?42000:362000),existing=o.branches.filter(b=>loc(b.id).city===l.city).reduce((n,b)=>n+rivalOperating5(r,b).profit,0),dilution=Math.max(0,existing*.035);add('expand',l.id,'Otevření · '+l.city+' · '+l.name,cost,q.profit-dilution);}
+ if(!b.campaign)for(const s of state.stores.filter(s=>s.last&&s.last.lost/Math.max(1,s.last.served+s.last.lost)>.18)){const city=loc(s.id).city,targets=o.branches.filter(q=>loc(q.id).city===city);if(!targets.length)continue;const before=targets.reduce((n,q)=>n+rivalOperating5(r,q).profit,0),copy={...r,business:{...b,campaign:{city,until:state.week+3}}},after=targets.reduce((n,q)=>n+rivalOperating5(copy,q).profit,0);add('campaign',s.id,'Kampaň na neobsloužené hosty · '+city,18000,after-before);}
+ const reserve=rivalReserve5(r);for(const c of choices){const branch=o.branches.find(q=>q.id===c.id),fixedDelta=c.kind==='staff'?6500:c.kind==='expand'?rivalOperating5(r,rivalBranch5(r,c.id)).fixed+(r.stores.length>=5?3500:0):c.kind==='close'?-rivalOperating5(r,branch).fixed-(r.stores.length>5?3500:0):0;c.reserve=round(reserve+fixedDelta*5);c.allowed=r.cash-c.cost>=c.reserve&&c.payback<=(c.kind==='campaign'?3:52);c.reason=r.cash-c.cost<c.reserve?'Nedostatečná rezerva':c.payback>(c.kind==='campaign'?3:52)?'Návratnost přes dobu zásahu':'Splňuje rezervu a návratnost';}
+ return choices.sort((a,b)=>b.priority-a.priority||b.gain/Math.max(1,b.cost)-a.gain/Math.max(1,a.cost)||a.id.localeCompare(b.id));
+}
+function rivalReview5(r){const b=r.business,o=r.operations5,reserve=rivalReserve5(r);let priceNote='';
+ // Free local price changes are evaluated against the same operating model, never a global price war.
+ for(const branch of o.branches){const q=rivalOperating5(r,branch),range=b.focus==='quality'?[1.06,1.14,1.22,1.3]:b.focus==='volume'?[.82,.9,.98,1.06]:[.94,1.02,1.1,1.18],best=range.map(price=>({price,q:rivalOperating5(r,{...branch,price})})).sort((a,b)=>b.q.profit-a.q.profit)[0];if(best.q.profit>q.profit+Math.max(1500,Math.abs(q.profit)*.03)){branch.price=best.price;priceNote+=loc(branch.id).name+': '+q.price+' → '+best.q.price+' Kč. ';}}
+ if(priceNote)rivalDecision4(r,'Úprava místních cen',priceNote.slice(0,440)+' Odhad zisku zohlednil cenu i kapacitu.');
+ r.priceFactor=o.branches.length?o.branches.reduce((n,b)=>n+b.price,0)/o.branches.length:r.priceFactor;
+ const choices=rivalChoices5(r),chosen=choices.find(c=>c.allowed),review={week:state.week,reserve:chosen?.reserve??reserve,cash:r.cash,chosen:chosen?{...chosen}:null,alternatives:choices.filter(c=>c!==chosen).slice(0,4).map(c=>({...c})),spent:0};o.review=review;
+ if(!chosen){rivalDecision4(r,'Udržet rezervu','Rezerva '+money(reserve)+'. Žádná změna nesplnila kladný přínos, financování a návratnost do 52 týdnů.');return 0;}
+ const c=chosen,branch=o.branches.find(q=>q.id===c.id);r.cash-=c.cost;b.investment+=c.cost;review.spent=c.cost;
+ if(c.kind==='staff')branch.staff++;if(c.kind==='service')branch.condition=95;if(c.kind==='quality')branch.quality=Math.min(96,branch.quality+4);
+ if(c.kind==='close'){r.stores=r.stores.filter(id=>id!==c.id);o.branches=o.branches.filter(x=>x.id!==c.id);}
+ if(c.kind==='campaign')b.campaign={city:loc(c.id).city,until:state.week+3};
+ if(c.kind==='account')b.accounts++;if(c.kind==='sales'){b.accountCapacity=Math.min(12,b.accountCapacity+3);b.accounts++;}
+ if(c.kind==='expand'){r.stores.push(c.id);o.branches.push(rivalBranch5(r,c.id));}
+ rivalDecision4(r,c.title,'Investice '+money(c.cost)+', odhad přínosu '+money(c.gain)+'/týden, návratnost '+c.payback+' týdnů. Zůstává rezerva nejméně '+money(review.reserve)+'. '+(c.priority?'Přednost má náprava vlastního provozu.':'Vybrán nejvyšší přínos na investovanou korunu.'));
+ return c.cost;
+}
+simulateStrategicRivals4=function(){ensureRivals5(state);for(const r of state.rivals){syncRivalBranches5(r);if(r.bankrupt)continue;const opening=r.cash,o=r.operations5,b=r.business;if(b.campaign?.until<state.week)b.campaign=null;
+ const branches=o.branches.map(branch=>{const q=rivalOperating5(r,branch);branch.last={week:state.week,...q};branch.lossWeeks=q.profit<0?Math.min(1000,branch.lossWeeks+1):0;branch.condition=Math.max(45,branch.condition-.65);return {...q};});
+ const wholesaleRevenue=b.accounts*(b.focus==='wholesale'?18000:14000),wholesaleCost=b.accounts*7500,admin=12000+Math.max(0,r.stores.length-5)*3500,interest=round(r.debt*.002),partnerCost=rivalPayments5?.get(r.id)||0,revenue=branches.reduce((n,q)=>n+q.revenue,0)+wholesaleRevenue,cost=branches.reduce((n,q)=>n+q.cost,0)+wholesaleCost+admin+interest+partnerCost;
+ // The existing partnership settlement pays cash later; include that cost once in profit.
+ r.lastProfit=round(revenue-cost);r.cash+=revenue-cost+partnerCost;r.reputation=clamp(r.reputation+(r.lastProfit>0?.2:-.4),20,95);let investment=0;
+ if(r.cash<b.reserved){r.bankrupt=true;r.stores=[];o.branches=[];rivalDecision4(r,'Platební neschopnost','Provoz vyčerpal prostředky pro další závazky.');}
+ else if(state.week>=b.expansionDue||o.branches.some(q=>q.lossWeeks>=3)){b.expansionDue=state.week+difficulty3().rivalEvery*2;investment=rivalReview5(r);}
+ const h={week:state.week,revenue,cost,profit:r.lastProfit,wholesaleRevenue,wholesaleCost,admin,interest,partnerCost,investment,cash:round(r.cash-partnerCost),cashChange:round(r.cash-opening-partnerCost),branches};o.history.push(h);o.history=o.history.slice(-26);r.history.push({week:state.week,profit:r.lastProfit,stores:r.stores.length});r.history=r.history.slice(-16);
+ }
+ if(state.buyout?.due<state.week)state.buyout=null;
+ if(state.week%16===0&&!state.buyout){const r=state.rivals.filter(r=>!r.bankrupt&&r.cash-rivalReserve5(r)>1500000).sort((a,b)=>b.cash-a.cash)[0];if(r)state.buyout={rival:r.id,amount:round(Math.min(companyValue()*1.12,(r.cash-rivalReserve5(r))*.6)),due:state.week+3};}
+ // Limited offers preserve existing player interactions; reserve remains protected.
+ if(state.week%12===0){const r=state.rivals.find(r=>!r.bankrupt&&r.business.focus==='quality'&&r.cash-rivalReserve5(r)>45000&&r.operations5.review?.week!==state.week);if(r&&!state.market3.exclusive.some(e=>e.origin)){r.cash-=45000;state.market3.exclusive.push({origin:'ethiopia',holder:r.id,until:state.week+12});const h=r.operations5.history.at(-1);h.investment+=45000;h.cash-=45000;h.cashChange-=45000;rivalDecision4(r,'Prioritní sklizeň Etiopie','Investice 45 000 Kč; provozní rezerva zůstává zachovaná.');}}
+ if(state.empire.partnership?.due<state.week)state.empire.partnership=null;
+ if(state.week%20===0&&!state.empire.partnership){const r=state.rivals.find(r=>!r.bankrupt&&r.business.focus==='wholesale'&&r.cash-rivalReserve5(r)>250000);if(r)state.empire.partnership={id:uid('partnership'),rival:r.id,kg:35,price:620,due:state.week+3,blend:state.blends[0].id};}
+};
+REPORT_GROUPS5.rivalstores={name:'Kavárny soupeřů',primary:'profit',secondary:'lost'};
+REPORT_FIELDS5.rivalstores={profit:['Výsledek provozu','money','sum'],revenue:['Tržby','money','sum'],cost:['Náklady provozu','money','sum'],served:['Obsloužení hosté','count','sum'],lost:['Neobsloužení hosté','count','sum'],price:['Průměrná cena šálku','money','last'],staff:['Baristé','count','last'],quality:['Kvalita nabídky','score','last'],condition:['Stav vybavení','score','last']};
+reportRoster5=function(kind){return kind==='rivalstores'?state.rivals.flatMap(r=>r.operations5.branches.map(b=>({id:r.id+'-'+b.id,name:loc(b.id).name,scope:r.name+' · '+loc(b.id).city}))):RIVALS_BASE5.reportRoster5(kind)};
+nextWeek=function(){const previousPayments=rivalPayments5;rivalPayments5=new Map();try{const h=RIVALS_BASE5.nextWeek(),snapshot=state.performance5.at(-1);for(const r of state.rivals){const actual=r.operations5?.history.at(-1);if(!actual||actual.week!==h.week)continue;actual.cash=round(r.cash);const firm=snapshot.records.find(x=>x.kind==='firms'&&x.id===r.id);if(firm){firm.values.revenue=actual.revenue;firm.values.cash=round(r.cash);firm.values.profit=actual.profit;}
+ for(const q of actual.branches)snapshot.records.push({kind:'rivalstores',id:r.id+'-'+q.id,name:loc(q.id).name,scope:r.name+' · '+loc(q.id).city,owner:RIVAL4[r.id]?.ceo||r.name,issue:q.profit<0?'Ztrátový provoz.':q.lost/Math.max(1,q.traffic)>.15?'Kapacita nestačí zájmu hostů.':'Provoz je ziskový.',severity:q.profit<0?2:q.lost/Math.max(1,q.traffic)>.15?1:0,values:Object.fromEntries(Object.keys(REPORT_FIELDS5.rivalstores).map(k=>[k,q[k]]))});}
+ return h;}finally{rivalPayments5=previousPayments}};
+acquireRival=function(id){const r=state.rivals.find(r=>r.id===id),branches=r?.operations5.branches.map(b=>({...b}))||[];RIVALS_BASE5.acquireRival(id);for(const b of branches){const s=state.stores.find(s=>s.id===b.id);if(s){s.price=round(loc(s.id).ideal*b.price);s.staff=b.staff;if(s.daily)s.daily.shifts=s.daily.shifts.map(()=>b.staff);s.quality=b.quality;}}if(r)syncRivalBranches5(r);};
+validateSave=function(input){const v=RIVALS_BASE5.validateSave(input);ensureRivals5(v);const fail=()=>{throw Error('Soubor obsahuje neplatnou evidenci soupeřů.');},n=(x,min=0,max=1e12)=>Number.isFinite(x)&&x>=min&&x<=max,integer=(x,min,max)=>Number.isInteger(x)&&n(x,min,max),kinds=['staff','service','quality','close','account','sales','expand','campaign'];
+ const choice=c=>c&&kinds.includes(c.kind)&&typeof c.title==='string'&&c.title.length<=180&&(c.id===''||!!loc(c.id))&&n(c.reserve)&&n(c.cost)&&n(c.gain,1)&&integer(c.priority,0,3)&&integer(c.payback,0,100000)&&typeof c.allowed==='boolean'&&typeof c.reason==='string'&&c.reason.length<=100;
+ for(const r of v.rivals){const o=r.operations5;if(!o||!Array.isArray(o.branches)||o.branches.length!==r.stores.length||new Set(o.branches.map(b=>b.id)).size!==o.branches.length||!Array.isArray(o.history)||o.history.length>26)fail();
+ for(const b of o.branches){if(!r.stores.includes(b.id)||!n(b.price,.75,1.3)||!integer(b.staff,1,9)||!n(b.quality,1,100)||!n(b.condition,45,100)||!integer(b.lossWeeks,0,1000))fail();if(b.last&&!o.history.some(h=>h.week===b.last.week&&h.branches.some(q=>q.id===b.id&&JSON.stringify({week:h.week,...q})===JSON.stringify(b.last))))fail();}
+ let week=0;for(const h of o.history){if(!integer(h.week,1,v.week-1)||h.week<=week||!Array.isArray(h.branches)||h.branches.length>111||new Set(h.branches.map(q=>q.id)).size!==h.branches.length||!['revenue','cost','wholesaleRevenue','wholesaleCost','admin','interest','partnerCost','investment'].every(k=>n(h[k]))||!['profit','cash','cashChange'].every(k=>n(h[k],-1e12)))fail();week=h.week;
+ for(const q of h.branches){if(!integer(q.staff,1,9)||!n(q.quality,1,100)||!n(q.condition,45,100)||!loc(q.id)||!['price','staff','quality','condition','traffic','served','lost','capacity','revenue','cost','coffee','wages','rent','overhead','fixed'].every(k=>n(q[k]))||!n(q.profit,-1e12)||q.served+q.lost!==q.traffic||q.served>q.capacity||q.revenue!==q.served*q.price||q.cost!==q.coffee+q.wages+q.rent+q.overhead||q.profit!==q.revenue-q.cost)fail();}
+ if(h.revenue!==h.branches.reduce((n,q)=>n+q.revenue,0)+h.wholesaleRevenue||h.cost!==h.branches.reduce((n,q)=>n+q.cost,0)+h.wholesaleCost+h.admin+h.interest+h.partnerCost||h.profit!==h.revenue-h.cost||h.cashChange!==h.profit-h.investment)fail();}
+ if(o.review){const t=o.review;if(!integer(t.week,1,v.week)||!n(t.reserve)||!n(t.cash)||!n(t.spent)||t.chosen!==null&&!choice(t.chosen)||!Array.isArray(t.alternatives)||t.alternatives.length>4||!t.alternatives.every(choice)||t.spent!==(t.chosen?.cost||0)||t.chosen&&(!t.chosen.allowed||t.reserve!==t.chosen.reserve||t.cash-t.spent<t.reserve))fail();}}
+ return v;};
