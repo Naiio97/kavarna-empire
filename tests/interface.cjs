@@ -1,5 +1,5 @@
 const fs=require('fs'),assert=require('node:assert/strict'),{JSDOM}=require('jsdom');
-const html=fs.readFileSync('dist/index.html','utf8');
+const html=require('./established-fixture.cjs').html();
 const dom=new JSDOM(html,{url:'https://game.test/',runScripts:'outside-only'}),w=dom.window,d=w.document;
 w.scrollTo=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false};
 let uiError;w.addEventListener('error',e=>{uiError=e.error});
