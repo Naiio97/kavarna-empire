@@ -1,4 +1,4 @@
-# Kavárna — edice 05.3
+# Kavárna — edice 05.4
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
 
@@ -16,6 +16,24 @@
 - Plánovač šesti typů investic se třemi variantami poptávky a horizontem 4–26 týdnů.
 - Čtyři kampaně a tři obtížnosti. Po splnění cíle lze pokračovat.
 - Automatické místní ukládání, export/import a migrace verzí 1, 2, 3 a 4.
+
+## Vlastní původ a pražení v edici 05.4
+
+Obrazovka **Původ & pražení** propojuje vlastní plantáže, zelené šarže, profily konkrétních pražíren a skutečné odběry vyrobené kávy. Všechny pěstitelské, chuťové a teplotní parametry jsou zjednodušený herní model.
+
+**Odrůdy a zpracování:** plantáž může kromě původního porostu pěstovat odrůdy dostupné pro daný původ: Bourbon a Catuaí v Brazílii, Caturra a Geisha v Kolumbii, Heirloom v Etiopii a SL28 v Keni. Odrůda změní výnos, kvalitu, chuť a týdenní náklady. Nová výsadba stojí 75 000 Kč + 1 500 Kč za hektar, obnoví celý sklizňový cyklus a odepíše předchozí rozpracovanou sklizeň. Výdaj na výsadbu vstoupí do nákladu budoucích zrn. Potvrzení ukáže aktuální cenu a odpis před změnou firmy.
+
+Původní zpracování zachová dosavadní pravidla. Promyté, natural, honey nebo řízená fermentace změní množství zrn, kvalitu, chuť, cenu za kilogram a dodání. Technologie stojí jednorázově 20–65 tisíc Kč a zpracování se platí při každé sklizni. Dodání po sklizni trvá 2–5 týdnů včetně zpracování a dopravy. Fermentace má cíl podle metody; odchylka snižuje kvalitu. Změna zpracování neobnoví pěstitelský cyklus a nezmění již odeslané sklizně. Výdaje za pěstování, zpracování, dopravu i odpis se promítnou do stávajícího účetnictví a reportů.
+
+**Vlastní původ receptury:** každému ze dvou původů kávy lze přiřadit konkrétní vlastní plantáž. Při povolené náhradě má její sklizeň přednost a ostatní zásoby stejného původu doplní nedostatek. Bez náhrady se smí použít jen vybraná vlastní sklizeň; automatika velikost dávky omezí na dostupná zrna. Prázdná povinná zásoba pozastaví pražení s vysvětlením. Generický expres nesmí povinný vlastní původ obejít. Poměr ingrediencí, skutečné zdrojové šarže, jejich kvalita i ceny se uchovají v každé vyrobené šarži. Změna původů receptury odstraní neslučitelné přiřazení plantáže.
+
+**Individuální profil:** každá pražírna má samostatný profil pro konkrétní kávu. Konečná teplota 185–230 °C určuje skutečný stupeň pražení, čas 8–18 minut spotřebu kapacity a development 10–30 % chuť a kvalitu. Světlé / střední / tmavé individuální profily mají výtěžnost 85 / 84 / 83 %. Zpracování stojí od 55 Kč za kg zelených zrn podle času, teploty a developmentu. Kapacita se přepočítává na standardní dvanáctiminutový profil; report také uchovává skutečný vstup a výstup v kg. Bez individuálního profilu zůstává původní model s výtěžností 84 %. Vlastní profil použijí ruční šarže, automatická výroba, laboratoř i plánovače. Delší profil tak nemůže získat neomezenou kapacitu ani obejít výrobní rozpočet.
+
+**Náhled:** porovnání spočítá návrh profilu a původů ve skutečné kopii firmy. Ukáže dostupnou dávku, výtěžnost, zpracování, úplný náklad kávy, kvalitu, kapacitu a chuťové přijetí segmenty. Peníze, zásoby, čas, identifikátory i generátor událostí živé firmy zůstanou beze změny. Výroba používá uložená pravidla a před potvrzením ověří nabídku, kapacitu a zrna. Zastaralá nabídka se odmítne před výdajem.
+
+**Cesta šarže:** uchovává posledních 200 výrobních záznamů a 26 sklizní. Pro konkrétní šarži ukáže skutečně použité sklizně a náhrady, recepturu a profil v době výroby, náklady a chuť, zásobu, přepravu, experimentální množství, skutečné odběry kaváren, kontraktů a e-shopu a odpisy. Přeprava se nepočítá jako prodej. Dělení šarže mezi městy zachová její identitu a poměr množství. Pozdější změna plantáže nebo pražicího profilu záznam nepřepíše. Starší zásoby dostanou pouze označení známého dodavatele; odrůdy a nezaznamenaný původ se nevymýšlejí. Změny profilu či zdrojů zruší dřívější podpisovou degustaci; nová degustace hodnotí vyrobenou fyzickou šarži.
+
+Formát uložené hry zůstává verze 5. Staré firmy pokračují s původním porostem, původním zpracováním a profily receptur. Aplikace je 5.4.0.
 
 ## Týmy baristů a HR v edici 05.3
 
@@ -79,12 +97,12 @@ Denní model je společný pro hraní i investiční plánovač. Zásoby se spot
 
 `npm ci`, `npm run check`, `npm test`. Pro místní hraní `npm run dev` a http://localhost:4173.
 
-`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a čtrnácti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
+`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a šestnácti skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
 
 ## Struktura
 
-Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `crew.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`, `crew-ui.js`. Prvních sedm tvoří ekonomiku, simulaci, reporty a zásobování; dalších sedm rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
+Klasické skripty sdílí jeden stav a načítají se v pořadí `engine.js`, `tycoon.js`, `empire.js`, `operations.js`, `reports.js`, `supply.js`, `crew.js`, `craft.js`, `app.js`, `tycoon-ui.js`, `empire-ui.js`, `operations-ui.js`, `reports-ui.js`, `supply-ui.js`, `crew-ui.js`, `craft-ui.js`. Prvních osm tvoří ekonomiku, simulaci, reporty a zásobování; dalších osm rozhraní. Plánovač simuluje kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
-Testy zahrnují 133 scénářů ekonomiky, reportů, zásobování a týmů, ovládání všech 24 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
+Testy zahrnují 162 scénářů ekonomiky, reportů, zásobování, týmů a vlastní kávy, ovládání všech 25 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů, regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 
 Ekonomika je herní model v Kč. Zjednodušuje daně, odpisy, měny, chování hostů i provoz soupeřů. Prodejní mix vychází z agregované poptávky. Manažerské a investorské cíle jsou závazky hodnocené simulací, nikoli záruka dosaženého výsledku. Plánovač předpokládá pokračování současných pravidel bez budoucích ručních zásahů.
