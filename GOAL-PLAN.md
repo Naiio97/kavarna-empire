@@ -1,11 +1,11 @@
 # Coffee Tycoon — průběžné dokončení cíle
 
-Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.15 (finanční etapa).
+Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.16 (finance a týdenní přehled).
 
 | Bod | Požadovaný výsledek | Stav | Důkaz dokončení |
 |---|---|---|---|
-| 1 | Reálnější náklady, marže, financování a pozdní vlastnictví budov a plantáží | Ověřeno | 23 scénářů; 38skriptové ovládání všech 33 stránek; 156 týdnů přirozeného zakladatelského růstu, 280 týdnů výroby a banky; offline ověření. README: zdroje a výslovné předpoklady. |
-| 2 | Vyskakovací shrnutí důležitých rozhodnutí, nabídek, smluv a přetahování po každém tahu | Čeká | — |
+| 1 | Reálnější náklady, marže, financování a pozdní vlastnictví budov a plantáží | Ověřeno | 25 scénářů; 40skriptové ovládání všech 33 stránek; 156 týdnů přirozeného zakladatelského růstu, 280 týdnů výroby a banky; offline ověření. README: zdroje a výslovné předpoklady. |
+| 2 | Vyskakovací shrnutí důležitých rozhodnutí, nabídek, smluv a přetahování po každém tahu | Ověřeno | 17 modelových scénářů, skutečný automatický popup a navigace ve 40skriptové sestavě, všechny 33 stránky, 111 kaváren a 13týdenní archiv; uložené čtení a neměnné reporty. |
 | 3 | Chytřejší soupeři reagující na trh a vlastní skutečné finance | Čeká | — |
 | 4 | Vývoj a fyzický prodej vlastních produktů, včetně 250g balení v kavárnách a e-shopu | Čeká | — |
 | 5 | Živé městské čtvrti ovlivňující provoz | Čeká | — |

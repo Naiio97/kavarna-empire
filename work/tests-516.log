@@ -1,0 +1,562 @@
+
+> kavarna@5.16.0 test
+> node tests/simulation.cjs && node tests/tycoon.cjs && node tests/empire.cjs && node tests/operations.cjs && node tests/reports.cjs && node tests/supply.cjs && node tests/crew.cjs && node tests/craft.cjs && node tests/studio.cjs && node tests/business.cjs && node tests/guests.cjs && node tests/branding.cjs && node tests/property.cjs && node tests/rivals.cjs && node tests/seasons.cjs && node tests/procurement.cjs && node tests/management.cjs && node tests/bakery.cjs && node tests/interface.cjs && node tests/bakery-interface.cjs && node tests/campaign.cjs && node tests/campaign-v3.cjs && node tests/campaign-v4.cjs && node tests/campaign-v5.cjs && node tests/economy.cjs && node tests/economy-interface.cjs && node tests/economy-campaign.cjs && node tests/digest.cjs && node tests/digest-interface.cjs
+
+PASS: 12 cities, 39 distinct locations, profitable initial business
+PASS: supply shortage limits sales; unused coffee does not disappear
+PASS: manager respects manual authority and marketing budget
+PASS: changing a recipe preserves older batches
+PASS: roasting consumes exact recipe quantities and retains cost
+PASS: capacity, staffing and equipment condition influence production
+PASS: ordered beans arrive only at their due week
+PASS: office capacity, department salaries and project development
+PASS: plantation harvest produces delayed shipment and capitalizes actual growing costs
+PASS: rivals spend their own cash, expand and react to competition
+PASS: majority control differs from investor-governed expansion
+PASS: acquisition transfers locations, real cash and inherited debts atomically
+PASS: franchise receives royalties and pays its actual coffee cost
+PASS: regional director fills empty managers and bulk policy changes
+PASS: wholesale needs staffed sales and penalizes short shipments
+PASS: save round trip and v1 migration retain progression
+PASS: poor investment decisions can bankrupt the firm without NaN
+All simulation scenarios passed.
+PASS: expanded map has eighteen cities and 111 unique locations
+PASS: seven menu items change real revenues, ingredients, doses and preparation capacity
+PASS: equipment prerequisites, worn machinery, layout and seats affect service
+PASS: manager staffing uses menu and equipment and respects manual permissions
+PASS: one persistent person can train, be promoted and cannot fill two positions
+PASS: retention threshold and HR budget determine real departures and pay
+PASS: crisis delegation respects budget, deadlines and accounts exact expenses
+PASS: recalling a batch writes off inventory, repairing restores the actual machine
+PASS: local stock is necessary in planned mode and transfers preserve cost and roast date
+PASS: regional roaster produces locally and full warehouse prevents overproduction
+PASS: espresso supply has actual intercontinental express costs and exact cash ledger
+PASS: coffee expires in transit even when the destination cannot unload
+PASS: fixed-price supply contracts protect from rival priority-price increases
+PASS: auctions reserve the address, charge winning rights and require opening cash
+PASS: buyout settles from rival cash and founder ownership and ends the campaign
+PASS: forecast is pure, deterministic and base case matches actual weekly simulation
+PASS: all six investment kinds run through the same forecast model
+PASS: four campaigns and three difficulties have distinct starts and goals
+PASS: v1 and v2 migrate, v3 round-trips, malformed nested state is rejected
+PASS: regional departures remove the role and leave the company operable
+PASS: manual maintenance is expensed while backup beans remain inventory until use
+All 21 extended simulation scenarios passed.
+PASS: v4 migrates three historical editions and round-trips without changing the current game
+PASS: cycles change input prices, leases change actual operating costs and books reconcile
+PASS: saturation includes both players and rivals, IT reduces coordination expenses
+PASS: empty menus serve zero, shortages distinguish inventory from service capacity
+PASS: manager plans are opt-in and contain measurable before/after costs
+PASS: a stale author cannot spend, expired automatic plans close instead of waiting forever
+PASS: staff plans freeze staffing for four reports then restore authority
+PASS: board operational vote reflects three failed commitments
+PASS: lab uses physical beans, cash, warehouse space and weekly machine capacity
+PASS: release preserves batch provenance and tested signatures, ordinary edits invalidate the tasting
+PASS: recipe edits do not retroactively alter stock flavor
+PASS: expired experiments are written off once, failed production is atomic
+PASS: competition is charged and cannot immediately repeat; training enters operating expenses
+PASS: artisan managers improve actual roast quality; mentoring has a measurable second-person effect
+PASS: promotion promises have consequences and HR reduces burnout
+PASS: fulfilling a promotion preserves the person and closes the promise
+PASS: rivals spend actual cash on strategy, never claim the same address
+PASS: partnership transfers revenue from the buyer and expires after exactly twelve deliveries
+PASS: insolvent partner is cancelled before production and leaves no free sale
+PASS: IPO prerequisites, ownership, net capital, bounded buybacks and locked targets are enforced
+PASS: investors judge delivered quarterly performance and unlock the next commitment
+PASS: quarterly margin includes a simultaneous credit covenant fee
+PASS: growth debt allows four weeks to repair; fees repeat only every four weeks
+PASS: replay frames are pure, valid and bounded across all moments
+PASS: v4 forecast preserves state, includes cycles and matches the actual baseline twelve weeks later
+PASS: malformed new save fields are rejected without mutating the current company
+All 26 edice 04 simulation scenarios passed.
+PASS: all four historical saves migrate, including existing weekly reports
+PASS: the default plan is traversable, overlapping stations and blocked entrances reject atomically
+PASS: longer station paths change throughput; renovation charges once and preserves the previous report
+PASS: daily arrivals, service and each reason for departure conserve all guests and revenues
+PASS: equal wage budgets produce different queue losses when people move into the morning peak
+PASS: extra shifts have actual wage expenses and closed shifts receive no free service
+PASS: missing seating loses visitors who want a table and keeps takeaway sales
+PASS: coffee inventory shortage reduces the actual daily timeline without duplicate consumption
+PASS: worn machines cause recorded rush-hour faults and lower service
+PASS: a window requires installed equipment and only contributes after being placed
+PASS: manual shifts remain protected while manager automation redistributes an authorized roster
+PASS: staffing plans change real shifts for their four-week review period
+PASS: directors need office capacity, departmental staff and unique identities
+PASS: executive wages are charged once, alongside department employees, and reconcile the books
+PASS: HR mandate respects reserve and budget and trains the actual weakest manager
+PASS: finance director repays actual principal within a weekly limit and retains cash reserve
+PASS: product and IT directors fund existing game systems instead of cosmetic reports
+PASS: COO repairs only assigned stores, under budget and with explicit maintenance authority
+PASS: region and COO responsibility are explicit, and missing owners cannot silently automate
+PASS: sales director accepts a real partnership with a staffed sales slot
+PASS: firing or promoting a director releases the office seat and retains their career
+PASS: daily playback is read-only, retains historical layout and validates all slots
+PASS: forecasts include executive actions and daily queues, remain pure and match actual baseline
+PASS: tampered layouts, shift schedules, duplicates and nonconserving daily reports reject without state changes
+PASS: an inactive COO mandate cannot be bypassed by a local manager staffing decision
+All 25 edice 05 simulation scenarios passed.
+PASS: opening every report is pure and an unplayed company has no invented results
+PASS: weekly records reconcile cafe sales, manufacturing expenses, harvest costs and corporate results
+PASS: manual roasting is included in the recorded factory output
+PASS: four-week totals and trends use genuine previous windows and newly opened stores get no retroactive credit
+PASS: people keep historical assignments and director actions without changing previous records
+PASS: the archive survives export, trims at 26 weeks and rejects malformed records without touching the live state
+PASS: old saves seed only known completed results and never reconstruct employee or department performance
+All 7 performance report scenarios passed.
+PASS: forecasts are deterministic and pure, and baseline matches actual weeks including stocks and cash
+PASS: green consumption and incoming shipments are measured at actual arrival and roasting time
+PASS: planned local deliveries expose a city shortage even when global inventory is ample
+PASS: buffer changes actual roasting while zero budget and disabled automation prevent automatic batches
+PASS: express prohibition prevents emergency buying and reveals the resulting stock failure
+PASS: variable spending respects the shared weekly budget across multiple recipes
+PASS: production plans retain cash reserves and resetting restores original production rules
+PASS: bulk orders are atomic, charge exact prices once, preserve reserve and reject stale quotes
+PASS: purchase previews include lead time, preserve the real company and match applied orders
+PASS: forecasts include harvest transit, stale-stock writeoffs and demand variants
+PASS: old saves get default rules and malformed nested plans reject without changing the company
+All 11 supply planning scenarios passed.
+PASS: Legacy migration retains cash and exactly the previous payroll
+PASS: Roster covers targets with real people and respects daily contracts
+PASS: Planner moves flexible people to honor restricted availability
+PASS: Vacation removes real capacity and retains salary in service and report
+PASS: Unavailable weekdays and periods reduce actual workers
+PASS: Zero shift target does not cancel paid employment
+PASS: Manual roster is protected from manager automation
+PASS: Invalid manual roster is rejected atomically
+PASS: Skill and exhaustion affect physical throughput and coffee quality
+PASS: Training charges once and appears in weekly development ledger
+PASS: HR discounts recruitment and training
+PASS: Hiring preserves candidate identity, adds wages and removes duplicate offer
+PASS: Manager recruits only with mandate and shared budget
+PASS: Reserve includes new recurring wages and prevents unsafe hire
+PASS: No responsible owner means no autonomous recruitment or paid training
+PASS: Transfer preserves identity and clears former roster
+PASS: Promotion retains identity and prevents employee-manager double payroll
+PASS: Release charges severance and returns real person to recruitment pool
+PASS: Turnover keeps departed person in last report and clears future roster
+PASS: Forecast simulates exact current model and preserves every employee
+PASS: Import rejects duplicate identities, phantom shifts, invalid pay and historical hours
+PASS: Weekly report totals actual service workers and conserves payroll
+PASS: Experience develops skills through actual work
+PASS: Automation rejects hires that cannot cover missing availability
+PASS: Staffing proposal quotes named hires and rejects changed recruitment pool
+PASS: Stale named staffing proposal cannot spend or change a protected roster
+PASS: 26 named crew scenarios.
+PASS: Migration preserves money, stocks and unknown historic provenance
+PASS: Planting quote is pure and stale confirmation is atomic
+PASS: Replanting resets cycle, writes off WIP and capitalizes actual planting
+PASS: Processing equipment is bought once without resetting a growing crop
+PASS: Variety and processing affect actual harvest volume, quality, cost and lead time
+PASS: Excess fermentation lowers quality rather than always adding a bonus
+PASS: Shipment arrival retains the exact harvest identity and flavor
+PASS: Specific farm is consumed first and recipe shares conserve true sources
+PASS: Strict farm shortage rejects manual roasting with no side effects
+PASS: Strict farm rule holds automation and does not buy substitute green beans
+PASS: Permitted substitutes preserve their actual identities in the output
+PASS: Origin change clears incompatible farm selection without changing old batches
+PASS: Profiles are per roaster, use actual level and conserve output cost
+PASS: Slow profiles use more capacity and higher actual processing cost
+PASS: Custom manual and experimental production are counted as actual kilograms
+PASS: Capacity and cash failures preserve the entire company
+PASS: Profile preview is pure and exactly matches confirmed manufacture
+PASS: Stale manufacture quote cannot charge or consume changed beans
+PASS: Stored trace and curve stay unchanged after profile and farm changes
+PASS: Flavor preferences differ across real customer segments
+PASS: Actual store and commercial withdrawals conserve the traced batch
+PASS: Intercity transfers preserve lineage without counting a delivery as a sale
+PASS: Expired coffee is recorded as loss once and not a customer sale
+PASS: Experiment provenance survives tasting and release
+PASS: Forecast includes custom processing and preserves the live state
+PASS: Malformed sources, profiles, harvests and impossible consumed totals reject
+PASS: Automatic roasting uses a partial own crop without substituting its origin
+PASS: Company ledger includes setup, lost growing WIP and true harvest processing cost
+PASS: One hundred weeks of custom crops and roasting retain valid costed trace archives
+PASS: 29 craft coffee scenarios.
+PASS: founder begins with no cafes, 650k and an unlocked Prague; opening is mandatory
+PASS: choosing the first cafe pays the full setup and installs baseline equipment
+PASS: saving and quoting a custom design never spends money or mutates the design
+PASS: saved design installs its models and floor once at the exact quoted cost
+PASS: an unaffordable design cannot partially open a cafe
+PASS: a quote detects edits to a saved template or available cash
+PASS: tables of two sizes and bar seats contribute their actual physical capacity
+PASS: added furniture is purchased; removal credits only a fraction on renovation
+PASS: moving stations changes path length and costs renovation without rebuying equipment
+PASS: overlaps, blocked doors and missing required stations reject before payment
+PASS: window placement requires matching technology in the saved design
+PASS: catalog upgrades credit condition-adjusted old equipment and affect performance
+PASS: buying the same installed model is a true no-op
+PASS: stale equipment quotes cannot spend or replace changed equipment
+PASS: servicing the selected model charges its own cost and enters the expense ledger
+PASS: removing optional kitchen equipment disables dependent menu items
+PASS: quotes include models, condition and desired floor; stale renovation is atomic
+PASS: templates are copied to each cafe and later edits do not alter open branches
+PASS: deleting a blueprint cannot remove purchased furniture
+PASS: blueprint edits retain identity; limits and duplicate names reject
+PASS: unopened founder and custom blueprints survive a save round-trip
+PASS: old v5 progress retains its capital, cafe, seating and equipment effects
+PASS: unknown models, unsafe identities and malformed opening flags reject save import
+PASS: seat changes keep old reports immutable and new reports use actual furniture
+PASS: zero-seat takeaway layout remains a valid design and does not invent seats
+PASS: board expansion mandate covers the complete custom opening price
+PASS: fresh scenario changes apply only to founder; inherited businesses keep their distinct starts
+PASS: 650k founder is playable for 60 actual weeks without cash injections
+PASS: discounted takeaway can open with just its actual quoted cost
+29 studio scenarios passed.
+PASS: fresh business has ten fictional clients and disabled automatic signing
+PASS: unfunded or unopened negotiations are atomic
+PASS: offer quote is pure and stale quotes cannot spend money
+PASS: negotiation charges once and gives an explicit counteroffer
+PASS: signing costs 5000, uses one slot and preserves agreed terms
+PASS: signing rejects a stale cash or capacity confirmation
+PASS: expired offers cannot sign and disappear after a turn
+PASS: actual deliveries charge stock cost, freight and quality discount
+PASS: deferred revenue is identical to cash contracts and outstanding invoices explain cash gap
+PASS: four-week credit invoices survive seller cancellation and collect exactly once
+PASS: contract previews reproduce actual simulation and restore all state
+PASS: preview exceptions restore state without signing
+PASS: three short deliveries lose a client and produce the true missing-volume penalties
+PASS: poor quality reduces realised revenue at most 25 percent
+PASS: multiple clients consume shared stock in order and cannot sell phantom coffee
+PASS: renewal adds time without duplicating customer or stock demand
+PASS: renewal and cancellation stale confirmations remain atomic
+PASS: director prepares at most one proposal and does not sign without permission
+PASS: director signs under both mandates, budget and capacity and records actual fees
+PASS: director cannot overspend its budget or ignore the main mandate
+PASS: older version-five saves acquire empty B2B evidence without cash changes
+PASS: bad invoice, payment, customer and contract metadata are rejected
+PASS: legacy wholesale contracts keep their economics and receive trade reports
+PASS: international fulfilment pays the stated freight on actual kilograms
+PASS: 100 weeks of repeated actual contracts preserve capped histories, physical invoices and save integrity
+25 business scenarios passed.
+PASS: founder starts without stores, reviews or invented customer history
+PASS: opening starts five empty cohorts without fabricated reviews
+PASS: real arrivals, queue losses, physical sales and groups conserve all visits
+PASS: first-week regular visits are zero but satisfied new guests can join
+PASS: regular visits appear later and cannot exceed actual served visits
+PASS: customer demand query never edits persistent guests, money or reviews
+PASS: cohort pricing corrects the existing price response without charging its effect twice
+PASS: community location attracts more neighbours and office location more office visitors
+PASS: students value the same price less than tourists; specialists weigh coffee most
+PASS: different patience participates in queue simulation, not just report text
+PASS: takeaway floor loses seated visitors and accounts for all of them
+PASS: no coffee prevents real returning visits, churns regulars and records stock complaints
+PASS: actual bad coffee quality reaches the recorded customer experience
+PASS: reviews are representative weekly samples with capped immutable evidence
+PASS: reply pays once, records expense and preserves original stars and text
+PASS: compensation cannot buy more than three future goodwill points
+PASS: stale or unaffordable replies reject before any mutation
+PASS: save from 05.6 migrates without money change or fictitious old reviews
+PASS: fresh family after a long game sets cohort birth to week one
+PASS: customer and report reads are pure and preserve archived reviews
+PASS: B2B preview includes customer reviews without leaking changes
+PASS: malformed guest counts, stars, replies, groups and histories fail validation
+PASS: a full regular cohort remains capped with a balanced customer ledger
+PASS: 60 weeks of real founder play stays viable without injected capital
+PASS: maximum 111-cafe network and eight roasters keep every customer report saveable
+25 guest scenarios passed.
+PASS: new founder keeps 650k and no invented identity, campaigns or brand history
+PASS: identity quote is pure and includes only owned signage plus design and concept
+PASS: identity commits exact cash once and unchanged draft is free
+PASS: stale quote and invalid identity reject without partial edits
+PASS: visual changes leave demand, price and coffee promise neutral
+PASS: premium and quick positioning use different price expectations and actual promises
+PASS: unfulfilled promise reaches real customer experience without changing physical coffee
+PASS: campaign setup is paid once and weekly charges end after four funded turns
+PASS: campaign reserve blocks spending, demand boost and duration consumption
+PASS: funded campaign only attracts its target and its city
+PASS: held campaign resumes when the reserve permits actual payment
+PASS: pause and cancel prevent future weekly expense
+PASS: a fifth active or paused campaign is rejected atomically
+PASS: campaign cannot start for a brand with no target-city store
+PASS: awareness derives from actual paid guest delivery and decays without campaigns
+PASS: two forecast variants preserve the entire game and match actual campaign execution
+PASS: baseline forecast matches actual firm without the new campaign
+PASS: label design does not change physical stock, costs or recipe and same design is free
+PASS: e-shop product report accounts for actual coffee, printing, packing and handling
+PASS: printing cost is based on delivered B2B kilograms and offer includes it
+PASS: brand report uses franchise royalties rather than inventing franchise turnover
+PASS: historical product label stays frozen after later rebranding and label change
+PASS: paid rebranding preserves customer cohorts and refuses stale quote
+PASS: legacy 05.7 save migrates unchanged money with empty branding history
+PASS: malformed identities, labels, campaigns and historical financial identities are rejected
+PASS: repeated paid identity edits aggregate expenses into bounded per-brand entries
+PASS: 60 founder weeks with opted-in local branding remain saveable without injected money
+PASS: weekly ledger separates identity and campaigns without double-counted profit or cash
+PASS: empty stock cannot produce custom-labelled e-shop sales
+PASS: maximum 111-cafe network retains all branding and guest report records in a valid save
+30 branding scenarios passed.
+PASS: new founder has no buildings, deposits or fabricated history and keeps original capital
+PASS: default opening keeps the established quote and rent unchanged
+PASS: small-space opening quotes actual equipment, rent, lease fee and held deposit before payment
+PASS: opening with ownership pays building and cafe separately and books only the real building price
+PASS: space seat limit rejects an oversized template without spending or creating a store
+PASS: later renovation also respects the seat limit of a small rented space
+PASS: new lease changes cash by the net held deposit plus actual fee, not a double charge
+PASS: held deposits are assets in company value and never operating expense
+PASS: new lower rent reaches weekly reserve, actual store ledger and reports exactly
+PASS: lease rent stays fixed across macro changes before its expiry
+PASS: manual lease replacement refunds old deposit and applies capped remaining-term penalty
+PASS: expiry removes early termination penalty
+PASS: expiry with adequate reserve renews same type without broker fee
+PASS: disabled automatic renewal continues cafe in a flexible lease and never requires more deposit
+PASS: insufficient reserve forces safe flexible rollover without cash spending
+PASS: buying rented building refunds the held deposit and does not impose a lease exit penalty
+PASS: owned building replaces rent with actual upkeep, including weekly reserves and brand contributions
+PASS: owned property bypasses lease renewal and cannot sign a tenant lease
+PASS: second purchase and unaffordable or stale purchase reject atomically
+PASS: minority owner must have a funded board mandate before buying property
+PASS: sale releases net cash, retains cafe and books only capital gain/loss plus fees
+PASS: franchise buildings and deposits never belong to or charge the company
+PASS: lease forecast preserves game and matches actual deterministic execution
+PASS: purchase forecast shows cash investment separately and baseline matches doing nothing
+PASS: sale forecast includes held deposits and real sale loss with no side effects
+PASS: past premise records keep historical rent, ownership and book value after later sale
+PASS: legacy 05.8 save migrates without extra fees, fictional assets or lost cash
+PASS: fresh family after a long game has valid neutral premises without old transaction history
+PASS: malformed assets, deposits, seats, events and cost totals are rejected
+PASS: 60 founder weeks with small premises and secure lease survive without injected money
+PASS: maximum 111-cafe network retains every property report in valid bounded history
+PASS: ownership at opening also requires a minority board mandate before any cafe or asset exists
+PASS: stale quote for combined premises and saved design opening rejects without payment
+PASS: automatic renewal checks the reserve using the new higher rent, not the expiring cheaper rent
+34 property scenarios passed.
+PASS: founder capital stays 650k with no selected cafe and no invented competitor results
+PASS: rival branches pay wages, rent and coffee on served guests only and capacity conserves guests
+PASS: cash moves by real operating result minus actual investments
+PASS: short staffed high demand cafe hires before expansion and keeps its cash reserve
+PASS: maintenance becomes a funded capacity repair, not free quality
+PASS: low cash blocks investment while preserving an explanation
+PASS: local price affects pressure in its own city and leaves another city unchanged
+PASS: price optimizer uses capacity and profit, and does not apply one price to all branches
+PASS: three losing weeks prioritize funded closure and release only the chosen address
+PASS: new competitor addresses are funded and unique across the entire market
+PASS: report gives actual firm revenues and all branch results, read-only
+PASS: historical branch price and staff survive subsequent changes
+PASS: old 05.9 save migrates without fabricated results or changed capital
+PASS: acquisition inherits actual branch price and staff and leaves historical reports
+PASS: forecast is pure and current rival strategy replays identically to actual weeks
+PASS: malformed branch budgets, histories, costs, reservations and duplicate addresses reject
+PASS: 80 founder weeks and every competitor save survive without injected player money
+PASS: last week of a partnership is paid and charged once even after contract expiry
+PASS: saving forged chosen-action reserve and cash budgets rejects
+PASS: insolvent competitor releases all addresses but retains the last paid operating history
+PASS: maximum player network and retired rival branch records stay within the report bound
+PASS: reserve for hiring includes the added weekly wage before the payment
+PASS: expansion reserve includes five weeks of the new cafe expenses
+23 rival scenarios passed.
+PASS: founder capital, empty cafe network and historical records stay unchanged
+PASS: Australia has reversed summer and winter while all eighteen cities have valid local factors
+PASS: local calendar is deterministic, announced and does not consume rng or ids
+PASS: seasons and event schedules repeat after 52 weeks with a new year
+PASS: a festival belongs to the scheduled city and affects tourist groups more than offices
+PASS: year-end holidays and summer break reduce office and student demand locally
+PASS: tropical and hot city profiles use their own model temperatures
+PASS: calendar rejected horizons and invalid cities or weeks leave company untouched
+PASS: cold brew menu shares increase in warm weather without creating unavailable drinks
+PASS: seasonal hot drink gains winter share and mixture recalculates actual dose, costs and preparation
+PASS: seasonal cafe production adjustment leaves wholesale and routes as separate fixed orders
+PASS: city-specific needs do not include cafes outside its delivery coverage
+PASS: guest season mix changes proportions once and preserves the original total weight
+PASS: new local calendar replaces the old simultaneous global rain or festival modifier
+PASS: actual history conserves visitors and records consumed coffee instead of estimated sales
+PASS: physical shortage remains a lost sale during a festival and creates no coffee
+PASS: actual four-week forecast is pure and equals running the same company normally
+PASS: empty city forecast still shows firm finances and zero city sales
+PASS: forecast requires an opened cafe but calendar remains available before opening
+PASS: past weather, prices and city visits are immutable after another week and menu change
+PASS: old 05.10 save receives an empty calendar without a cash or history rewrite
+PASS: malformed dates, weather, city factors, duplicate addresses and conservation reject
+PASS: 80 founder weeks survive the entire year with no additional player funding
+PASS: maximum funded 111-cafe network records every cafe and keeps valid bounded reporting
+24 season scenarios passed.
+PASS: founder keeps original cash and no invented suppliers, debt or transaction history
+PASS: supplier quotes are pure and distinguish price, quality, lead time and capacity
+PASS: prepaid order pays exact full landed cost once and remains outside physical stock
+PASS: prepaid cargo remains an asset in company valuation while it is on the way
+PASS: actual supplier lot arrives once with quoted landed cost and source identity
+PASS: a delayed shipment moves its due date and does not enter stock early
+PASS: weekly supplier capacity rejects oversubscription atomically
+PASS: minimum size, nonexistent supplier, credit eligibility and insufficient reserve reject atomically
+PASS: stale quotes reject after cash or marketplace changes without a partial purchase
+PASS: credit creates no payment before delivery and invoice maturity is relative to receipt
+PASS: credit invoice pays once, leaves no liability and makes no second operating expense
+PASS: supplier credit limit includes commitments that have not arrived yet
+PASS: actual received credit is deducted once from firm value
+PASS: overdue invoice blocks fresh credit for that supplier and survives insufficient cash
+PASS: contract charges only its fee initially and fixes the landed unit price
+PASS: fixed contract protects purchases from later macro input inflation
+PASS: paused contract spends nothing and does not extend its calendar duration
+PASS: cancelled contract retains an ordered shipment and its later credit payment
+PASS: insufficient contract reserve holds ordering without charging a fictional shipment
+PASS: same supplier and origin cannot have duplicate active contracts
+PASS: supply trace reports actual delayed arrivals only in their real receipt weeks
+PASS: purchase forecast is pure and equals actual placement and four weekly turns
+PASS: contract forecast includes fees, real repeated orders and payments without mutation
+PASS: reports retain physical quality, deliveries and payments and are read-only
+PASS: legacy spot purchase remains unchanged and old save migrates with empty procurement
+PASS: malformed units, unpaid invoices, shipment links, statuses and histories reject
+PASS: delivery crisis updates the real purchase and survives save and actual receipt
+PASS: paid express crisis delivers once before the original date with receipt-relative credit
+PASS: supplier cost and actual quality enter the physical roasted batch provenance
+PASS: automatic settlement is included in actual weekly cash movement
+PASS: active contract books twelve calendar orders then expires without another charge
+PASS: sixty founder weeks with supplier purchases preserve solvency without added capital
+32 procurement scenarios passed.
+PASS: neutral founder retains 650k, no selected cafe, no new charge and no enabled mandates
+PASS: old v5 save adds neutral purchasing role, records and per-store policies without charges
+PASS: director requires an office and trade staff and preserves money on rejected hire
+PASS: hiring costs exactly 20k and director consumes a seat and actual weekly salary
+PASS: disabled purchasing authority makes no supplier purchases
+PASS: enabled mandate without director creates an actionable exception and no purchase
+PASS: need and supplier comparisons are read-only and account for incoming shipments
+PASS: two automatic roasters in one city do not duplicate its coffee requirement
+PASS: manual production has no invented automatic purchase requirement
+PASS: automatic purchasing books physical shipments and whole commitment fits its weekly limit
+PASS: credit commitment counts full cost while cash waits until receipt and maturity
+PASS: minimum quality rejects cheaper low-quality parties and explains blocked origins
+PASS: supplier proposals do not spend money before explicit approval
+PASS: end-of-turn proposals are current and approval places and pays exactly once
+PASS: changed cash rejects stale approval atomically and refresh prepares reviewable new quote
+PASS: changing or removing the author prevents approval while rejection is free
+PASS: policy change expires pending proposals and zero weekly budget requires approval
+PASS: higher organizational reserve also constrains purchasing policy
+PASS: existing scheduled and estate shipments prevent repeat orders for covered origins
+PASS: purchase evidence later freezes actual delivery quality and date
+PASS: local manager comparison restores all state and active supply trace
+PASS: smart manager respects disabled price, marketing, staffing and protected roster
+PASS: smart manager selects only an allowed profitable local variant and records observed week
+PASS: unassigned smart cafe holds changes and raises a management exception
+PASS: changing next targets does not rewrite past board goals or manager evidence
+PASS: governance report and all exception queries are pure and expose actual goals
+PASS: optional board mandate blocks risky votes with explicit reasons and preserves majority override
+PASS: turned-off board mandate leaves the original voting model unchanged
+PASS: all seven executive reports and identities survive full current validation
+PASS: malformed policies, goals, proposals, decision evidence and historical scores reject
+PASS: 60 founder weeks with smart local delegation survive without injected capital
+PASS: maximum network retains current reports and bounded manager history
+PASS: mandatory estate-only ingredients do not trigger purchases of unusable vendor coffee
+PASS: new same-origin credit shipment invalidates an approval even with unchanged cash
+PASS: higher mandate reserve invalidates an earlier purchase approval
+PASS: combined actual forecast includes enabled delegation without changing live evidence
+PASS: manual absolute price still reaches the physical menu with smart price authority disabled
+PASS: raising marketing preserves the reserve for its new recurring cost
+PASS: local marketing cannot consume cash reserved for nearby supplier maturities
+39 management scenarios passed.
+PASS: founder is neutral with no bakery and five recipes
+PASS: old v5 save receives neutral metadata without new spend
+PASS: legacy food remains available before opting into physical stocks
+PASS: external fresh lots are purchased, sold and recorded daily
+PASS: empty budget creates lost food demand and zero food revenue, cost and phantom menu sales
+PASS: food purchases respect the weekly cap and fixed-cost reserve
+PASS: missing cafe equipment prevents ordering and selling food
+PASS: no actual coffee service means no food sales, despite delivered food
+PASS: bakery purchase is exact, requires an existing owned city and has ongoing costs
+PASS: minority founder needs board mandate and uses its exact investment
+PASS: owned daily manufacture consumes raw lots and delivers physical food once
+PASS: capacity, labour and shifts constrain actual production
+PASS: no automatic raw buying requires physical ingredients, and zero stock produces nothing
+PASS: manual raw purchase prepays stock, increases inventory value and carries real expiry
+PASS: raw FIFO consumption uses earliest expiry and cost, with no negative inventory
+PASS: perishable raw stock expires in the same ledger as the company result
+PASS: food is not paid twice when consumed; cash oracle reconciles a funded simple turn
+PASS: internal manufacturing does not add duplicate revenue and food cash COGS reconcile
+PASS: daily timelines match actual coffee and food revenue and sold counts
+PASS: price and recipe quality affect food interest without state changes in queries
+PASS: rich recipes require more ingredients and work, with more quality
+PASS: new recipes and edits preserve immutable delivered lot snapshots
+PASS: owned recipe category cannot invalidate active cafe plans
+PASS: cross-city delivery takes a day and cannot ship one-day food
+PASS: manager recruitment, wage and product skills belong to the bakery and careers
+PASS: staff recruitment charges only additions and invalid changes preserve state
+PASS: manual service prepays once and records a single real company expense
+PASS: automatic maintenance respects the same reserve and budget, without double payment
+PASS: read-only forecast restores company and random state and matches actual future
+PASS: reports and board goals record final food-inclusive ledger without later mutation
+PASS: invalid source, category, quantities and recipes are atomic rejections
+PASS: public setters cannot overwrite lot history or entity identity via extra fields
+PASS: malformed imports reject forged lots, totals, duplicate identities and recipes
+PASS: zero orders do not manufacture phantom goods and still pay the bakery team
+PASS: 50 physical bakery weeks retain bounded lots, history, finite ledgers and valid saves
+PASS: 111 managed cafes and eight managed bakeries/roasters retain all report rows within bounds
+PASS: 60 actual founder weeks with external fresh food survive without added capital
+37 bakery scenarios passed.
+PASS: all thirty-two views render, old save migrates, opening stores, creating brands/recipes, office purchase, departments, IT projects, manager hire, bean orders, weekly simulation, WebMCP validation and persistence.
+PASS: forecast purity and commit, menu controls and authority, equipment gating, training, warehouse/routes/supply, crisis choices, all populated views, campaign difficulty and v5 persistence.
+PASS: v4 live replay purity, plan approval/results, delegation limits, physical trial/tasting/release/competition, story support, IPO target/buyback/loan controls and help.
+PASS: keyboard floor editing, draft isolation, one-time renovation, blocked paths, actual shift wages, historical day selection/playback purity, executive hire/mandate/training/fire and save validation.
+PASS: report header entry, all six report categories, period/sorting controls, populated details, navigation to daily operation and management, history persistence and read-only queries.
+PASS: supply horizon and demand controls, forecast purity, production-plan controls, purchase comparison/confirmation/exact expense, delivery lead time, production, persistence and resetting rules.
+PASS: named crew UI, read-only reports, recruitment, leave, actual worked hours, training, protected manual roster, replanning, transfer, mandate and persistence.
+PASS: farm variety/process confirmation, pure coffee comparison, individual profile/source controls, real manufacture, immutable trace dialog, report navigation, reset and save persistence.
+PASS: empty 650k founder, no selected address, free draft editing, small tables, saved equipment blueprint, quoted first opening, catalog upgrade, paid renovation and template persistence.
+PASS: B2B offer and counterprice, credit terms, pure actual forecast, contract confirmation, shared delivery, invoices, finance, trade report/detail/navigation, customer history, mandate, cancellation and later payment persistence.
+PASS: guest mix, actual experience details/read-only queries, paid reply and immutable stars, regular return visits, history chart, store selection, live navigation, guest performance category/detail and persisted evidence.
+PASS: 33 views, live identity and bag previews, draft isolation, cancel/confirm/exact payments, pure campaign comparison, campaign pause/resume/cancel, 16 report categories/details, paid rebranding and save persistence.
+PASS: 33 views, small-space opening, lease draft/forecast purity, cancel/confirm, refundable deposits, renewal control, exact buy/sell payments, actual upkeep, continued cafe operation, 16 report categories and persisted property history.
+PASS: competitor report, decision alternatives, reserve, actual branch results, detail/management navigation, real firm revenues and read-only controls.
+PASS: 33 views, city calendar entry, empty-founder forecast gating, city/horizon controls, Australian summer, pure actual forecast, cafe navigation, stale forecast clearing and saved seasonal history.
+PASS: supplier quotation and comparison purity, stale draft clearing, cancellation, exact purchase/fee payments, credit receipt and settlement, contract pause/resume/cancel, supplier report navigation and persistence.
+PASS: purchasing director hire, isolated mandate draft, actual purchase proposal, cancellation/approval/exact payment, refresh/rejection, smart manager evidence and alternatives, frozen board targets, real voting mandate, governance report/detail/navigation, 32 populated views and save persistence.
+PASS: 33 views, 16 report groups, food draft and preview purity, recipe customization, real menu controls, exact purchase/recruitment payments, factory operation, raw stock, forecast, report navigation, careers and persistence.
+{"week":121,"cash":108088055,"stores":16,"cities":10,"reputation":99,"win":true,"rivals":[{"name":"Daily Cup","stores":4},{"name":"Atelier Coffee","stores":18},{"name":"North Bean","stores":1}]}
+PASS: 120-week natural campaign reaches international victory.
+PASS: 160-week v3 campaign {"week":161,"cash":78788708,"stores":16,"cities":13,"reputation":99,"scenarioWon":true,"crises":26,"careers":17}
+PASS: family campaign reaches three profitable cafes and reputation 99
+PASS: rescue campaign produces four profitable weeks and reduces debt to 0
+PASS: premium campaign reaches six cafes, three cities and reputation 99
+PASS: 200-week v4 campaign {"week":201,"cash":5504919,"stores":14,"cities":8,"reputation":99,"scenarioWon":true,"crises":33,"careers":8}
+PASS: family campaign reaches three profitable cafes and reputation 98
+PASS: rescue campaign produces four profitable weeks and reduces debt to 0
+PASS: premium campaign reaches six cafes, three cities and reputation 99
+PASS: 200-week v5 campaign {"week":201,"cash":74072937,"stores":16,"cities":14,"reputation":99,"scenarioWon":true,"crises":33,"careers":15}
+PASS: family campaign reaches three profitable cafes and reputation 99
+PASS: rescue campaign produces four profitable weeks and reduces debt to 0
+PASS: premium campaign reaches six cafes, three cities and reputation 99
+PASS: founder keeps 650k but uses contracted roasting with no owned factory value
+PASS: buildings have investment yields over a decade rather than two rental years
+PASS: factories, plantations and purchased HQ are late-game multi-million assets
+PASS: leasing offices pays fitout and deposit once, enables real departments and uses rent
+PASS: barista wages now represent full gross contracts and local costs
+PASS: retail VAT reduces net revenue, payroll and payment fees reduce actual store result
+PASS: depreciation is charged as expense with no second cash payment and accumulates once
+PASS: actual contracted fixed roasting cost is 4500 plus per-kg processing, not phantom employee wages
+PASS: corporate tax is reserved from actual final result; board and firm report match it
+PASS: loss weeks refund reserved tax and never create a negative escrow
+PASS: monthly VAT payment clears already reserved funds without another available-cash charge
+PASS: five-year loan quote, cash, debt, weekly interest and principal reconcile
+PASS: manual repayment updates outstanding facilities without duplicate later principal
+PASS: bank refuses borrowing beyond actual equity/profit limit and stale quote without mutation
+PASS: investor price uses company value rather than a fixed two-million grant
+PASS: owned factories add actual investment value and contracted lines do not
+PASS: bakery cost includes gross wage and employer cost, its report uses sales net of VAT
+PASS: mature farm investment uses a 26-week harvest cycle and physical cultivation costs
+PASS: tax reserves and financial import invariants reject altered histories and duplicate assets
+PASS: factory service belongs to contractor, and investment cannot upgrade its assets
+PASS: equipment and renovation investments retain historical basis and increase future depreciation
+PASS: market/opening forecasts and imported legacy saves preserve cash and query purity
+PASS: own farm payroll enters the physical harvest exactly once after all 26 growing weeks
+PASS: growth credit obeys the same actual limit and five-year amortization as the bank
+PASS: a five-store company with insufficient collateral cannot bypass bank limit via growth credit
+25 economy scenarios passed.
+PASS: actual current 40-script UI, 33 views, empty founder, bank and investor quotes, cancellation purity, exact amounts, leasing, contracted service, purchase protection, taxes, principal, report drilldown and persistent financial ledger.
+PASS: 156-week founder grows slowly without added capital {"weeks":156,"cash":1284800,"debt":0,"profit":746687,"netMargin":0.043274264218932296,"tax":200150,"buildings":0,"farms":0}
+PASS: 280-week funded full-current-model stress campaign; farm payroll, harvests, bakery VAT, office rent, reports, depreciation, tax quarters, five-year debt payoff and import limits.
+PASS: empty founder has no invented recap and cannot advance without a cafe
+PASS: recap uses the final after-tax cash, profit, debt and actual cups
+PASS: historic text and values survive later changes to prices, names and mandates
+PASS: real poaching is prominent, remains actionable and repeats until answered
+PASS: resolved people decisions are inactive in history and not silently re-applied
+PASS: B2B proposals show price, deadline and link without signing or paying
+PASS: signed customer and supplier contracts and upcoming invoices share the same recap
+PASS: contract renewal warnings and ended contracts reflect real remaining duration
+PASS: supplier maturities and lease expirations refer to actual live obligations
+PASS: generated personal stories and manager plans are visible until their own decision
+PASS: competition expansion is based on a new actual address, not repeated invented news
+PASS: bankrupt company keeps a valid last summary with zero remaining reserve
+PASS: actual forecast restores recap archive, seen state and every financial field
+PASS: archive retains exactly thirteen weeks and real save round trips
+PASS: migration leaves original cash, state and past events unchanged without fabricated recaps
+PASS: malformed dates, categories, links and duplicate items reject before import
+PASS: maximum cafe network retains every operating exception without breaking archive validation
+17 weekly digest scenarios passed.
+PASS: actual 40-script UI, popup every completed week, close/read persistence, prominent real poaching, unpaid navigation, live resolved state, B2B and lease links, unchanged historical snapshots, thirteen-week archive and all 33 views.

@@ -1,6 +1,18 @@
-# Kavárna — edice 05.15
+# Kavárna — edice 05.16
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
+
+## Týdenní uzávěrka v edici 05.16
+
+Po **každém skutečně odehraném týdnu** se automaticky otevře přehled firmy: konečný zisk po dani, disponibilní hotovost a její změna, skutečně prodané šálky a rezerva fixních nákladů. V popředí jsou neodkladné položky. Přehled dále seskupuje čekající nákupy a plány vedení, nabídky B2B zákazníků, nové a končící kontrakty, rámcové odběry zrn, přetahování vedoucích, osobní zprávy, provozní potíže, nedodávky, zpoždění zásob, nájmy, faktury a expanzi soupeřů. Zahrnuje ruční kroky týdne i automatické rozhodování. Nevyřízené důležité položky se připomenou v dalším týdnu; přehled o nich nerozhoduje.
+
+**Otevřít/Řešit** vede do skutečné správy dané oblasti. Historický text a tehdejší výsledky se nezmění po přejmenování firmy, nové ceně nebo vyřízení nabídky. Stav čekajícího rozhodnutí se však prověří podle současné firmy, takže vyřízená nabídka již neříká, že čeká. Provozní snímek má skutečný termín; zahájení řešení samo nepodepisuje smlouvu, nedorovnává mzdu ani neplatí fakturu. Ztráta nebo platební neschopnost mají stejnou uzávěrku a odkazy na finance/uložení.
+
+Tlačítko u herního data otevře archiv **13 posledních uzavřených týdnů**. Nová firma ani import starší hry nevymýšlí zpětná shrnutí. Zavření uloží přečtený týden; neprohlédnutá poslední uzávěrka se po načtení znovu zobrazí. Náhledy investic, zásob, B2B i pekárny simulují kopii hry a nepřidávají zprávy do skutečného archivu. Důležité zprávy maximální sítě se uchovají celé, bez tichého krácení na několik prvních kaváren. Navigace zůstává na 33 stránkách; nový přehled nepřidal další položku menu.
+
+**Ověření:** 17 modelových scénářů, skutečné 40skriptové ovládání v jsdom (automatický popup, zavření/uložení, poaching, vyřízení, B2B, nájem, archiv a všechny stránky), maximální síť 111 kaváren, offline balíček a 436 týdnů obou finančních kampaní v aktuální sestavě. Skutečné vizuální vykreslení není ověřeno kvůli dřívějšímu zamítnutí browserové automatizace.
+
+Součástí verze je také oprava starého růstového úvěru: pět poboček již samo neobejde bankovní bonitu, úrok a pětileté splácení jistiny. Převzatý dluh při akvizici dostane vlastní splátkovou evidenci. Odmítnutý tah před první kavárnou zachová celý stav.
 
 ## Finance v edici 05.15 — první ověřená etapa velkého cíle
 
@@ -14,7 +26,7 @@ Bankovní limit vychází z vlastního kapitálu a posledních třinácti skute�
 
 Výnos a zisk kaváren, výroby, firmy a boardu používají stejný konečný týden. Výsledek firmy zahrnuje daň; účetní odpisy nemají druhou hotovostní platbu. Nákupy vybavení a rozšíření vlastních linek zvyšují historický investiční základ. Firma započítává fyzické zásoby a rozpracovanou sklizeň. Řetězcové reporty jídla se nadále nesčítají. DPH je oddělena z hrubých prodejů a výsledek pekárny ji odečítá; detail prodejního dne zachovává cenu placenou hostem. Starší uložené hry si zachovají hotovost, vlastnictví a historii, pouze začnou novou finanční evidenci.
 
-**Ověření:** 23 finančních scénářů, ovládání všech 33 stránek současné sestavy 38 skriptů, 156 týdnů zakladatelské hry bez přidaných peněz a 280 týdnů záměrně financovaného výrobního stresového testu. Zakladatel s kvalitnější vlastní recepturou, pečivem a průběžným servisem skončil po třech letech s 1 284 800 Kč, nulovým dluhem a čistou marží 4,33 %. Nevlastní budovu ani plantáž. Výrobní test ověřil deset sklizní, vlastní pekárnu, pronajatou centrálu, odpisy, daňová vyrovnání, úplné splacení úvěru i import po skončení pětileté lhůty. Historické testy původních modulů jsou regresní kontrola, nikoli důkaz vyvážení současné ekonomiky. Vizuální kontrola skutečným prohlížečem zůstává neověřená po dřívějším odmítnutí automatického schválení; jsdom ověřuje ovládání a strukturu.
+**Ověření:** 25 finančních scénářů, ovládání všech 33 stránek současné sestavy 40 skriptů, 156 týdnů zakladatelské hry bez přidaných peněz a 280 týdnů záměrně financovaného výrobního stresového testu. Zakladatel s kvalitnější vlastní recepturou, pečivem a průběžným servisem skončil po třech letech s 1 284 800 Kč, nulovým dluhem a čistou marží 4,33 %. Nevlastní budovu ani plantáž. Výrobní test ověřil deset sklizní, vlastní pekárnu, pronajatou centrálu, odpisy, daňová vyrovnání, úplné splacení úvěru i import po skončení pětileté lhůty. Historické testy původních modulů jsou regresní kontrola, nikoli důkaz vyvážení současné ekonomiky. Vizuální kontrola skutečným prohlížečem zůstává neověřená po dřívějším odmítnutí automatického schválení; jsdom ověřuje ovládání a strukturu.
 
 ### Podklady a herní zjednodušení
 
