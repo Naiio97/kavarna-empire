@@ -1,6 +1,6 @@
 # Coffee Tycoon — průběžné dokončení cíle
 
-Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.18 (finance, týdenní přehled, skutečná konkurence a vlastní produkty).
+Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bodů v aktuální hře; existující dílčí funkce samy o sobě nestačí. Každá etapa má vlastní modelové a ovládací ověření, dlouhé hraní podle potřeby, zdroje a aktualizovaný online/offline výstup. Stav posledního ověřeného vydání: 05.19 (finance, týdenní přehled, skutečná konkurence a vlastní produkty; živé čtvrti, okolí adres a průzkum).
 
 | Bod | Požadovaný výsledek | Stav | Důkaz dokončení |
 |---|---|---|---|
@@ -8,13 +8,13 @@ Cíl je celý seznam uživatele. Hotovo lze označit až po ověření všech bo
 | 2 | Vyskakovací shrnutí důležitých rozhodnutí, nabídek, smluv a přetahování po každém tahu | Ověřeno | 17 modelových scénářů, skutečný automatický popup a navigace ve 40skriptové sestavě, všechny 33 stránky, 111 kaváren a 13týdenní archiv; uložené čtení a neměnné reporty. |
 | 3 | Chytřejší soupeři reagující na trh a vlastní skutečné finance | Ověřeno | 18 scénářů: plné mzdy, DPH, daně, banka, rezervy a investice; 42skriptové ovládání a 436 týdnů aktuálních kampaní. |
 | 4 | Vývoj a fyzický prodej vlastních produktů, včetně 250g balení v kavárnách a e-shopu | Ověřeno | 18 scénářů: vzorek/test/opakování, 250/500/1000 g, fyzické balení a doprava, ochrana potvrzení, společná poptávka, rozpočet, expirace, 40 SKU / 111 adres a import. 44skriptové ovládání, offline tok, 180 týdnů produktů + 436 týdnů celé sestavy. |
-| 5 | Živé městské čtvrti ovlivňující provoz | Čeká | — |
+| 5 | Živé městské čtvrti ovlivňující provoz | Ověřeno | 16 scénářů: skutečná návštěvnost a místní hosté, oznámené práce/dokončení, chráněné nájmy hráče i soupeře, 9 variant placeného průzkumu s různou přesností, potvrzení/cache/historie/migrace. 46skriptové ovládání všech 33 stránek, offline report, aktuální 156/280/180týdenní kampaně. |
 | 6 | Rozšířené osobnosti a navazující příběhy lidí | Čeká | — |
 | 7 | Společný servis všech zařízení s přehledem ceny a výsledku | Čeká | — |
 | 8 | Osobní strategie manažerů a vysvětlené kroky s odhadem/skutečným výsledkem | Čeká | — |
 | 9 | Hledání prostoru, rekonstrukce, nábor, zkušební provoz a důsledky zpoždění/vybavení | Čeká | — |
-| 10 | Okolí adresy, kanceláře, školy, turisté, pěší provoz a výstavba | Čeká | — |
-| 11 | Placený průzkum s různou přesností a použitelným odhadem konceptu/cen/poptávky | Čeká | — |
+| 10 | Okolí adresy, kanceláře, školy, turisté, pěší provoz a výstavba | Ověřeno | 16 scénářů: skutečná návštěvnost a místní hosté, oznámené práce/dokončení, chráněné nájmy hráče i soupeře, 9 variant placeného průzkumu s různou přesností, potvrzení/cache/historie/migrace. 46skriptové ovládání všech 33 stránek, offline report, aktuální 156/280/180týdenní kampaně. |
+| 11 | Placený průzkum s různou přesností a použitelným odhadem konceptu/cen/poptávky | Ověřeno | 16 scénářů: skutečná návštěvnost a místní hosté, oznámené práce/dokončení, chráněné nájmy hráče i soupeře, 9 variant placeného průzkumu s různou přesností, potvrzení/cache/historie/migrace. 46skriptové ovládání všech 33 stránek, offline report, aktuální 156/280/180týdenní kampaně. |
 | 12 | Konkurenční souboje o adresy, lidi a odběratele s reakcemi hráče | Ověřeno | Místní oboustranný tlak; skutečný převod a návrat osoby; deset sdílených odběratelů, ochrana smluv a placené dodávky; odkazy na menu, mapu a obchod, týdenní zprávy a trvalé uložení. |
 | 13 | Akademie baristů, pekařů a vedoucích, příprava před otevřením | Čeká | — |
 | 14 | Čtvrtletní plán, skutečné rozpočty oblastí a vysvětlené odchylky boardu | Čeká | — |

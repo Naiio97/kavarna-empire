@@ -1,6 +1,18 @@
-# Kavárna — edice 05.18
+# Kavárna — edice 05.19
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
+
+## Živé čtvrti, okolí adres a průzkum trhu v edici 05.19
+
+Na **mapě města** se nejprve zobrazí ohlášené plány bez předvybrané kavárny. Kliknutím na adresu dostaneš místní hosty, pracovní místa, školy, rezidenty, turistické cíle, pohodlí pěšího přístupu a pěší index proti původnímu stavu této adresy. Jsou to údaje fiktivní herní čtvrti, nikoli mapová data skutečného města. Složení hostů ovlivňuje reálné fronty, sezení, cenovou citlivost, návraty i sezónní poptávku.
+
+Každých 12 týdnů město ohlásí další místní projekt: kanceláře, školu, pěší zónu, kulturní centrum, odchod nájemce nebo opravu ulice. Zahájení je nejméně týden po oznámení. Práce dočasně sníží pěší provoz; dokončení může trvale změnit místní návštěvníky a index nových nájmů. Vliv trvalých projektů je omezen na 85–118 % původní poptávky a nájemního indexu. Stávající smlouva se přecení až při obnově. Stejná práce omezuje skutečné návštěvy a tržby soupeře; jeho místní nájem drží index 26 týdnů, nové pobočky platí aktuální okolí. Kalendář událostí, trvání 1–4 týdny a koeficienty projektů jsou výslovné herní zjednodušení. Týdenní přehled odkazuje ze zpráv o okolí na mapu.
+
+**Základní průzkum stojí 1 500 Kč**, má rozmezí nejistoty ±25 % a orientační platnost osm týdnů. **Podrobný stojí 6 500 Kč**, má ±8 % a platnost třináct týdnů. Lze ho objednat i před založením první kavárny. Porovná tři koncepty a tři cenové úrovně v kopii současného provozního modelu; neotevře podnik ani nezmění značku. Report uvádí průměrnou cenu nápoje s DPH, poptávku a rozmezí provozního zisku nové základní kavárny. Zohlední místní mzdy, odvody, přesčasy, fronty, nájem, suroviny, DPH, odpisy, sezónu a soupeře. Předpokládá průběžné dodávky kávy a současnou značku, reputaci a recepturu. Zisk nezahrnuje centrálu a daň firmy, investice do otevření se platí zvlášť. Doporučený koncept není zárukou. Ohlášený projekt může změnit poměry i během orientační platnosti.
+
+Platba nastane až po potvrzení; stejné zadání v témže týdnu otevře původní výsledek bez nové platby a bez opakovaného losování. Výsledek, jeho okolí a známé plány zůstávají neměnné. Starší report je označený datem, přesností a vypršením; lze si zaplatit aktuální průzkum. Historická sezónní evidence uchovává tehdejší mix hostů. Import starší hry začne čtvrti neutrálně v aktuálním týdnu, bez zpětně vytvořených zisků, nákladů či průzkumů.
+
+Ověření: 16 modelových scénářů; 111 prostředí, plány před prvním otevřením, čisté náhledy, skutečná platba a odmítnutí zastaralého potvrzení, dvojí přesnost a cache, negativní i pozitivní projekty, skutečná poptávka a rivalův účet, chráněné nájmy a obnova, neměnná historie, migrace a odmítnuté poškozené soubory. Ovládání všech 33 stránek ve 46skriptové sestavě v jsdom, placený report a offline tok. Dlouhé kampaně zahrnují 156 týdnů založení bez vložených peněz, 280 týdnů financované firmy a 180 týdnů produktů. Kontrola opravila i kumulaci desetinných kilogramů při dlouhém odběru jedné šarže: tolerance importu odpovídá již používané toleranci fyzické bilance 0,001 kg. Reálná vizuální kontrola v browseru stále není ověřená.
 
 ## Vlastní produkty a fyzické balení v edici 05.18
 
@@ -329,11 +341,11 @@ Report jídla ukazuje tržby, kusy, chybějící zásobu, spotřebu, odpad a př
 
 `npm ci`, `npm run check`, `npm test`. Pro místní hraní `npm run dev` a http://localhost:4173.
 
-`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a 36 skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
+`node scripts/package-offline.cjs /absolutni/cesta` vytvoří samostatné HTML se styly a 46 skripty. Hosting používá `dist/` a stávající `.openai/hosting.json`.
 
 ## Struktura
 
-Klasické skripty sdílí jeden stav. Osmnáct modelů (`engine`, `tycoon`, `empire`, `operations`, `reports`, `supply`, `crew`, `craft`, `studio`, `business`, `guests`, `branding`, `property`, `rivals`, `seasons`, `procurement`, `management`, `bakery`) se načte před `app.js`; následuje sedmnáct rozšiřujících skriptů rozhraní. Celkem 36 skriptů. Plánovače simulují kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
+Klasické skripty sdílí jeden stav. Dvacet tři modelů (`engine`, `tycoon`, `empire`, `operations`, `reports`, `supply`, `crew`, `craft`, `studio`, `business`, `guests`, `branding`, `property`, `rivals`, `seasons`, `procurement`, `management`, `bakery`, `economy`, `digest`, `competition`, `products`, `districts`) se načte před `app.js`; následuje dvacet dva rozšiřujících skriptů rozhraní. Celkem 46 skriptů. Plánovače simulují kopii skutečné firmy včetně deterministického generátoru událostí a nových systémů.
 
 Testy zahrnují 460 scénářů ekonomiky, reportů, zásobování, týmů, vlastní kávy, studia, B2B obchodu a zákazníků, ovládání všech 33 obrazovek, úpravy půdorysu klávesnicí, směny, mandáty, migrace čtyř předchozích verzí a dlouhé kampaně. Kampaně edice 05 mají dohromady 570 týdnů (zakladatelská kampaň z nového kapitálu použije skutečný bankovní úvěr a při expanzi upřednostňuje nové město), regresní kampaně předchozích edic dalších 1 220. Zátěžový scénář vlastní kávy ověřuje dalších 100 týdnů se čtyřmi odrůdami, zpracováním a individuálním pražením; používá předem financovanou firmu, nikoli vítěznou kampaň. B2B zátěž ověřuje dalších 100 týdnů předem financované firmy s opakovanými smlouvami a splatností. Další test ověřuje 60 týdnů založení jedné kavárny s 650 000 Kč bez dodatečného financování. Nový zákaznický model ověřuje dalších 60 týdnů založení bez přidaných peněz a jeden tah maximální sítě 111 kaváren s osmi pražírnami a jejich vedením. Branding přidává 30 scénářů včetně přesných plateb, pozastavení, ochrany rezervy, srovnávacího výhledu, tiskových nákladů a 60 týdnů skutečného založení se značkou bez dodatečných peněz. Nemovitosti přidávají 34 scénářů včetně jistot, přesných plateb, pevné sazby, bezpečné obnovy, nákladů vlastní budovy, prodeje bez uzavření kavárny, kapitálového výsledku, board mandátu, srovnávacích výhledů, 60 týdnů malého zakladatelského provozu bez dodatečných peněz a sítě 111 kaváren. Samostatné HTML má vlastní ověření skriptů, týdenního tahu a všech obrazovek. Kontrola rozhraní používá jsdom; vizuální kontrola v reálném prohlížeči nebyla dostupná.
 

@@ -2,7 +2,7 @@
 // 05.16: immutable weekly snapshots; actionable decisions always refer to the live company.
 const DIGEST_BASE6={fresh,nextWeek,validateSave};
 const DIGEST_CATEGORIES6={action:'Rozhodnutí',offers:'Nabídky',signed:'Smlouvy',people:'Lidé',operations:'Provoz',competition:'Soupeři',finance:'Platby a rezerva',news:'Události'};
-const DIGEST_VIEWS6=['management','leadership','people','crises','business','markets','property','procurement','finance','stores','live','supply','roasters','bakery','rivals','season','board','organization','branding','coffee'];
+const DIGEST_VIEWS6=['management','leadership','people','crises','business','markets','property','procurement','finance','stores','live','supply','roasters','bakery','rivals','season','board','organization','branding','coffee','city'];
 function ensureDigest6(v){if(v.digest6===undefined)v.digest6={seen:Math.max(0,v.week-1),history:[]};return v;}
 fresh=function(...args){return ensureDigest6(DIGEST_BASE6.fresh(...args));};ensureDigest6(state);
 function collectDigest6(h,before){const previousNews=new Set(state.digest6.history.flatMap(h=>h.items.filter(x=>x.category==='news'||x.key.startsWith('resolved-poach-')).map(x=>x.key))),items=[],keys=new Set(),add=(category,key,title,text,view,target='',due=null,severity=1,pending=false)=>{if(keys.has(key)||previousNews.has(key)&&(category==='news'||key.startsWith('resolved-poach-')))return;keys.add(key);items.push({category,key,title:String(title).slice(0,120),text:String(text).slice(0,800),view,target:String(target).slice(0,80),due,severity,pending});},deadline=due=>due!==null&&due<=state.week?2:1;
