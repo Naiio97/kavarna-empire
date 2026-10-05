@@ -4,7 +4,7 @@ První prostorová etapa redesignu podle video reference: hlavním pracovním pr
 
 `npm ci`, `npm run build`, `npm run check`, `npm test`. Sestavení používá Rollup a Three pouze lokálně; výsledná hra ani offline HTML nepotřebují CDN. `node scripts/package-offline.cjs` vytvoří `kavarna-v6-0.html`. `source/game-scene.mjs` obsahuje skutečnou geometrii, `source/game-navigation.mjs` cesty, `source/game-renderer.mjs` kameru/vykreslování, `dist/game-world.js` společný model a `dist/game-ui.js` svět/kontext/návrhy. 69 klasických skriptů se balí do jednoho offline HTML.
 
-Nové testy prokazují geometrii, výběr paprskem a modelové/DOM ovládání včetně přesných plateb. Skutečný GPU obraz, dotykové ovládání a snímková frekvence ještě nebyly ověřeny v prohlížeči kvůli dříve zamítnuté automatizaci. Stav celého otevřeného cíle a důkazy jsou v `GAME-REDESIGN.md`.
+Vizuální ověření 5. října 2026 prokázalo skutečné WebGL město/interiér, kliknutí do střechy a zařízení, otáčení, den/noc, přehrávku dne, placenou přestavbu a mobilní rozložení 387 × 768. Úplná regrese má 725 PASS výstupů. Opravené panely, názvy polí a detail reportu jsou znovu ověřené. Snímky a přesné meze (bez hardwarového FPS benchmarku a fyzického pinch testu) popisuje `GAME-REDESIGN.md`.
 
 ---
 
