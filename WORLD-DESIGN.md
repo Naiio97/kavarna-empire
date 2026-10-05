@@ -46,3 +46,13 @@ Důkazy: `kavarna-v6-0-kavarna-pekarna.png`, `kavarna-v6-0-plantaz.png`, `kavarn
 - [Singapur](https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/orchard-road/heritage-walk-itinerary/emerald-hill/)
 - [Melbourne](https://www.visitmelbourne.com/regions/melbourne/destinations/yarra-precinct.aspx)
 - [Toronto](https://www.destinationtoronto.com/things-to-do/attractions/must-see-attractions/cn-tower/)
+
+## Oprava břehů a kamery · 5. října 2026
+
+Všechny řeky a vedlejší kanály používají společný model břehu. Umístění kontroluje skutečný prostor celé budovy včetně střechy, terasy a připojené pekárny; kolizní adresy přesune na nejbližší volný suchý pozemek. Kontrola platí také pro výrobní a firemní budovy. Dekorace zasahující do vody se nevykreslí. Podklad se rozšíří pro další řady vlastních provozů.
+
+Silnice a chodníky se rozdělují podle celé šířky. Krátká překřížení vody tvoří vyvýšené mosty se zábradlím v obou směrech, včetně vedlejších kanálů. Úseky vedoucí dlouze podél vody končí na břehu. Nejde o navigovatelnou silniční síť; městská doprava zůstává ilustrací.
+
+Výběr budovy už nepřisune ortografickou kameru dovnitř města. Hloubka záběru vychází ze skutečného rozměru scény i při zaměření krajní čtvrti. Kolečko, pinch a tlačítka mají stejné meze přiblížení; nejnižší pohled je 18° nad zemí, aby město nesplývalo s obzorem.
+
+Aktuální cílené ověření: všech 18 měst ve volné i rozšířené podobě, skutečné prostorové obálky budov mimo vodu, 1 424 úseků silnic s kontrolou skutečné geometrie a 4 608 kombinací výběru/otočení/náklonu bez hloubkového ořezu. Prošly také geometrické a DOM testy prostorového světa a 69 kontrol syntaxe. Úplná regrese 739 PASS výše patří předchozí etapě; při této opravě byly znovu spuštěny příslušné cílené testy. Skutečný WebGL náhled ověřil Prahu, New York, Amsterdam, výběr East Village, krajní náklon i oddálení kolečkem; bez chyb nebo varování konzole. Důkaz: `kavarna-v6-0-opravena-mapa.png`. Uložená ekonomika firmy se touto opravou nemění.

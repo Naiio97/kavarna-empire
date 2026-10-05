@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {T,buildCityScene,disposeWorld} from '../source/game-scene.mjs';
+import {CITY_PROFILES12} from '../source/game-cities.mjs';
+import {GameRenderer} from '../source/game-renderer.mjs';
+import {worldBounds,CAMERA_LIMITS} from '../source/game-camera.mjs';
+// Independent oracle: densely sweep the rendered waterways' circular cross
+// sections against actual world-space mesh bounds, including roof/annex/terrace.
+function intersectsShore(box,courses){for(const {points,width} of courses)for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],n=Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])/.08);if(box.max.x<Math.min(a[0],b[0])-width/2-.25||box.min.x>Math.max(a[0],b[0])+width/2+.25||box.max.z<Math.min(a[1],b[1])-width/2-.25||box.min.z>Math.max(a[1],b[1])+width/2+.25)continue;for(let j=0;j<=n;j++){const x=a[0]+(b[0]-a[0])*j/n,z=a[1]+(b[1]-a[1])*j/n,dx=Math.max(box.min.x-x,0,x-box.max.x),dz=Math.max(box.min.z-z,0,z-box.max.z);if(Math.hypot(dx,dz)<width/2+.25)return true;}}return false;}
+let focused=0,roads=0;
+for(const [city,profile] of Object.entries(CITY_PROFILES12))for(const expanded of [false,true]){
+ const locations=Object.keys(profile.districts).map((name,i)=>({name,id:'lot-'+i})),snapshot={city,locations,stores:expanded?locations.map(l=>({id:l.id,color:'#735f48',appearance:{style:'garden',terrace:true},bakery:{id:'annex-'+l.id}})):[],opening:[],rivals:[],roasters:expanded?Array.from({length:7},(_,i)=>({id:'roast-'+i,name:'Pražírna'})):[],bakeries:[],offices:expanded?[{id:'office',name:'Board'}]:[],warehouses:expanded?[{id:'stock',name:'Sklad'}]:[],vehicles:[]},before=JSON.stringify(snapshot),world=buildCityScene(snapshot);assert.equal(JSON.stringify(snapshot),before);world.scene.updateMatrixWorld(true);
+ for(const object of world.objects){const box=new T.Box3().setFromObject(object);assert(!intersectsShore(box,world.waterways),city+' '+object.userData.id+' enters water');assert(box.min.x>=-51&&box.max.x<=51&&box.min.z>=-49&&box.max.z<=world.landLimits.maxZ,'Buildings must stay on the map');}
+ // Raycast the actual batched road geometry along both edges and centre of each
+ // emitted street. Dry tarmac never overlaps water; wet crossings are raised.
+ const roadMeshes=[];world.group.traverse(o=>{if(o.isMesh&&[world.p.road,world.p.paving].includes(o.material))roadMeshes.push(o);});const ray=new T.Raycaster();
+ for(const street of world.streets){roads++;const dx=street.b[0]-street.a[0],dz=street.b[1]-street.a[1],length=Math.hypot(dx,dz);for(let t=.02;t<.99;t+=.08)for(const side of [-.49,0,.49]){const x=street.a[0]+dx*t+dz/length*street.width*side,z=street.a[1]+dz*t-dx/length*street.width*side;ray.set(new T.Vector3(x,20,z),new T.Vector3(0,-1,0));const hits=ray.intersectObjects(roadMeshes,true);assert(hits.length,'Rendered street missing');const pointBox=new T.Box3(new T.Vector3(x,0,z),new T.Vector3(x,0,z));if(intersectsShore(pointBox,world.waterways))assert(hits[0].point.y>.2,'Road submerged in river: '+city);}}
+ const renderer=Object.create(GameRenderer.prototype);renderer.world=world;renderer.bounds=worldBounds(world);renderer.camera=new T.OrthographicCamera(-100,100,100,-100,.1,600);renderer.controls={target:new T.Vector3(),...CAMERA_LIMITS,update(){renderer.camera.lookAt(this.target);}};
+ const bounds=renderer.bounds,corners=[];for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z])corners.push(new T.Vector3(x,y,z));
+ for(const object of world.objects)for(const phi of [CAMERA_LIMITS.minPolarAngle,CAMERA_LIMITS.maxPolarAngle,.46*Math.PI])for(const theta of [0,Math.PI/2,Math.PI,Math.PI*1.5]){renderer.camera.position.copy(new T.Vector3().setFromSpherical(new T.Spherical(26,phi,theta)).add(renderer.controls.target));renderer.focus(object.userData.id);for(const corner of corners){const depth=corner.clone().project(renderer.camera).z;assert(depth>=-1&&depth<=1,city+' map clipped while focusing/tilting');}focused++;}
+ renderer.camera.zoom=.01;renderer.protect();assert.equal(renderer.camera.zoom,CAMERA_LIMITS.minZoom);renderer.camera.zoom=30;renderer.protect();assert.equal(renderer.camera.zoom,CAMERA_LIMITS.maxZoom);disposeWorld(world);
+}
+console.log(`PASS: all 18 maps in free and fully expanded states; actual building bounds clear every river/canal, ${roads} street spans raycast with raised wet crossings, ${focused} edge-district focus/tilt/rotation combinations without depth clipping, shared zoom limits.`);
