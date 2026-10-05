@@ -1,3 +1,15 @@
+# Kavárna · Coffee Tycoon 06.0
+
+První prostorová etapa redesignu podle video reference: hlavním pracovním prostorem je lokální Three.js svět s moderními budovami, kamerou, výběrem skutečné adresy, interiérem 8 × 6 a placenými zásahy ve stejném modelu firmy. Výroba, centrála, zásoby a vlastní rozvoz jsou konkrétní vlastněné objekty. Všech 33 podrobných obrazovek zůstává ve správě firmy; sdílejí nové barvy a ovládání návratu do světa.
+
+`npm ci`, `npm run build`, `npm run check`, `npm test`. Sestavení používá Rollup a Three pouze lokálně; výsledná hra ani offline HTML nepotřebují CDN. `node scripts/package-offline.cjs` vytvoří `kavarna-v6-0.html`. `source/game-scene.mjs` obsahuje skutečnou geometrii, `source/game-navigation.mjs` cesty, `source/game-renderer.mjs` kameru/vykreslování, `dist/game-world.js` společný model a `dist/game-ui.js` svět/kontext/návrhy. 69 klasických skriptů se balí do jednoho offline HTML.
+
+Nové testy prokazují geometrii, výběr paprskem a modelové/DOM ovládání včetně přesných plateb. Skutečný GPU obraz, dotykové ovládání a snímková frekvence ještě nebyly ověřeny v prohlížeči kvůli dříve zamítnuté automatizaci. Stav celého otevřeného cíle a důkazy jsou v `GAME-REDESIGN.md`.
+
+---
+
+Historická dokumentace ekonomických systémů:
+
 # Kavárna — edice 05.27
 
 Česká tahová strategie o celé kávové firmě. Jeden tah znamená týden. Při hraní nejsou potřeba placené služby, klíče ani instalované závislosti. Online verze používá soukromý přístup Sites; samostatný HTML soubor funguje offline.
