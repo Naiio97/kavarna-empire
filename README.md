@@ -1,3 +1,9 @@
+# Živé město a růst firmy
+
+Proudy hostů ve všech 18 městech, standardy poboček se skutečným postupným zaváděním, fyzické předplatné vlastní kávy, coffee truck a dočasné kavárny a nabídky expanze od regionálních ředitelů. Podrobný rozsah, ovládání, důkazy a meze jsou v `GROWTH-PLAN.md`. Původní firmy se zachovají, nové automatiky se zapínají jednotlivě.
+
+Hra používá JavaScript, HTML a CSS. 3D scéna běží v Three.js/WebGL; simulace a uložené firmy v prohlížeči. Node.js slouží k sestavení a kontrolám. Offline HTML obsahuje všechny skripty i lokální 3D renderer.
+
 # Kavárna · Coffee Tycoon 06.0
 
 Prostorový coffee tycoon s přepracovaným ovládáním: hlavním pracovním prostorem je lokální Three.js svět s moderními budovami, kamerou, výběrem skutečné adresy, interiérem 8 × 6 a placenými zásahy ve stejném modelu firmy. Výroba, centrála, zásoby a vlastní rozvoz jsou konkrétní vlastněné objekty. Všech 33 podrobných obrazovek je dostupných přes Více; stálá navigace propojuje svět i správu a návraty zachovávají kontext kavárny.
