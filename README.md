@@ -494,4 +494,11 @@ Hosté mají skutečné stavy z desetiminutových záznamů: příchod, stojíc�
 
 Poradu najdeš v Řídicím přehledu nebo kanceláři. Obsazení ředitelé a týmy nabídnou konkrétní placené kroky, chráněnou rezervu a model příštího týdne z kopie celé firmy. Každý schvaluješ zvlášť; změna firmy vyžaduje přepočet ostatních nabídek. Archiv 26 porad uchová původní odhady a pozdější skutečnost. Náklady, jistina, práce IT a káva používají společnou ekonomiku. Model nepřepisuje sklad ani generátor rozehrané firmy. Výsledky různých návrhů se nesčítají a nepřipisují celý skutečný týden jedinému zásahu.
 
-Aktuální build má 73 klasických skriptů a 33 stránek. Detaily, důkazy a zbývající tři schválené části jsou v DEPTH-PLAN.md; tento dokument nepovažuje celou poslední objednávku za dokončenou.
+Aktuální build má 73 klasických skriptů a 33 stránek. Detaily, důkazy a zbývající dvě schválené části jsou v DEPTH-PLAN.md; tento dokument nepovažuje celou poslední objednávku za dokončenou.
+
+
+## Experimenty na pobočkách · 5. října 2026
+
+Řídicí přehled → Experimenty a reporty (nebo vlastní kavárna na mapě → Experiment a srovnání). Dvě různé skupiny stálých kaváren s uzavřeným posledním týdnem testují ceny nápojů, skutečnou kávovou recepturu nebo ranní pečivo. Nabídka má přesnou cenu, případné vybavení a chráněnou rezervu. Běžné náklady i fyzické dodávky pokračují. Po 2/4/8/12 týdnech porovnáš skutečné skupiny proti uloženému výchozímu týdnu, včetně změn týmu/nabídky a výpadků. Report uvádí omezení malého vzorku i sdílených skladů. Obnovení vrátí jen testovaná nastavení zdarma, ponechání uvolní automatiku a zavedení zaplatí konkrétní změny bez dvojího zdražení testovacích poboček. Osm nevyhodnocených testů a 32 uzavřených archivů; staré firmy dostanou neutrálně prázdný archiv.
+
+Ranní pečivo používá dosavadní dodávky, skutečné ranní obsloužené hosty, placenou pec, odpad a případný odpolední doprodej zbytků. Model a skutečné rozhraní mají vlastní regresní scénáře; desktop i mobil prošly prohlížečem s reálným placeným testem, reportem a zavedením. Podrobnosti a zbývající schválené části jsou v DEPTH-PLAN.md. Hlubší franšízy/akvizice a prestiž vlastní kávy zůstávají otevřené; celý plán ještě není dokončený.
