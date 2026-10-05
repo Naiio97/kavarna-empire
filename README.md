@@ -487,3 +487,11 @@ Jedinou první připravovanou vlastní kavárnu v základním nájmu před zkou�
 ## Města a prostorové provozy
 
 Nová etapa: 18 profilů měst, samostatné interiéry pekárny/kanceláře/plantáže/pražírny/skladu, placená pekárenská přístavba, šest vzhledů s terasami a vlastní SVG galerie. Přímý nábor oddělení a skutečné pěstování navazují na původní model. Podrobnosti, geografické předlohy a přesné meze ověření jsou v `WORLD-DESIGN.md`. Celá regrese: 739 PASS výstupů.
+
+## Živý provoz, vlastní vitrína a porady vedení · 5. října 2026
+
+Hosté mají skutečné stavy z desetiminutových záznamů: příchod, stojící fronta, obsluha s kávou, sezení a důvody odchodů. Jde o omezené reprezentativní skupiny, nikoli další ekonomickou simulaci. Nedostupné jídlo se vykazuje v požadavcích zvlášť od odchodů bez kávy. Důvody lze otevřít i tlačítkem. Audit prostorového návrhu používá stejné průchozí trasy jako provoz; samostatná vitrína stojí 12 000 Kč, potřebuje technologii pečiva a její pracovní vzdálenost ovlivní skutečnou kapacitu. Patří do placeného uloženého návrhu. Hlášky mají dynamický odstup nad spodním menu a horní vrstvu i v dialogu.
+
+Poradu najdeš v Řídicím přehledu nebo kanceláři. Obsazení ředitelé a týmy nabídnou konkrétní placené kroky, chráněnou rezervu a model příštího týdne z kopie celé firmy. Každý schvaluješ zvlášť; změna firmy vyžaduje přepočet ostatních nabídek. Archiv 26 porad uchová původní odhady a pozdější skutečnost. Náklady, jistina, práce IT a káva používají společnou ekonomiku. Model nepřepisuje sklad ani generátor rozehrané firmy. Výsledky různých návrhů se nesčítají a nepřipisují celý skutečný týden jedinému zásahu.
+
+Aktuální build má 73 klasických skriptů a 33 stránek. Detaily, důkazy a zbývající tři schválené části jsou v DEPTH-PLAN.md; tento dokument nepovažuje celou poslední objednávku za dokončenou.

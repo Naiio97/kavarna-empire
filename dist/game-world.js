@@ -4,10 +4,11 @@ function worldSnapshot6(cityName='Praha'){if(!CITIES.some(c=>c.name===cityName))
 function worldCafeSnapshot6(id,day=0,slot=0,editing=false){
  const s=state.stores.find(s=>s.id===id);
  if(!s||!Number.isInteger(day)||day<0||day>5||!Number.isInteger(slot)||slot<0||slot>71)throw Error('Vyber vlastní provoz a skutečný čas dne.');
- const r=editing?null:s.daily.last,frame=r?.days[day]?.timeline[slot]||null;
+ const r=editing?null:s.daily.last,frame=r?.days[day]?.timeline[slot]?cloneStudio5(r.days[day].timeline[slot]):null;
  const floor=JSON.parse(JSON.stringify(r?.floorSnapshot||s.floor)),period=Math.min(2,Math.floor(slot/24));
+ if(frame&&s.food5?.last?.week===r.week){const fd=s.food5.last.days[day];frame.foodMissing9=fd?allocate5(fd.lost,r.days[day].timeline.map(p=>p.served))[slot]||0:0;}
  const crew=(r?.crewRoster?.[day]?.[period]||[]).slice(0,frame?.workers||0).map(p=>({id:p.pid,name:p.name}));
- return {id,appearance:cloneStudio5(cafeAppearance12(s)),bakery:state.bakery5.bakeries.find(b=>b.cafe12===s.id)?worldAssetSnapshot12('bakery',state.bakery5.bakeries.find(b=>b.cafe12===s.id).id):null,week:r?.week||null,day,slot:frame?JSON.parse(JSON.stringify(frame)):null,floor,crew,navigation:floorInfo5(floor,r?.floor.seats||s.seats),quality:s.quality};
+ return {id,appearance:cloneStudio5(cafeAppearance12(s)),bakery:state.bakery5.bakeries.find(b=>b.cafe12===s.id)?worldAssetSnapshot12('bakery',state.bakery5.bakeries.find(b=>b.cafe12===s.id).id):null,week:r?.week||null,day,slot:frame?JSON.parse(JSON.stringify(frame)):null,floor,crew,navigation:floorInfo5(floor,r?.floor.seats??s.seats),routes9:floorRoutes9(floor,r?.floor.seats??s.seats),quality:s.quality};
 }
 function worldDraftMove6(design,itemId,x,y){if(!Number.isInteger(x)||!Number.isInteger(y)||x<0||x>7||y<0||y>5)throw Error('Vyber políčko uvnitř kavárny.');const d=cloneStudio5(design),item=d.floor.items.find(i=>i.id===itemId);if(!item)throw Error('Nejdřív vyber nábytek nebo stanici.');Object.assign(item,{x,y});return d;}
 function worldDraftAdd6(design,kind,x,y){if(!Object.hasOwn(FURNITURE5,kind)||!Number.isInteger(x)||!Number.isInteger(y)||x<0||x>7||y<0||y>5)throw Error('Vyber stolek nebo barové místo a platné políčko.');const d=cloneStudio5(design);if(d.floor.items.length>=30)throw Error('V kavárně je nejvýše třicet prvků.');let i=1;while(d.floor.items.some(p=>p.id===kind+'-draft-'+i))i++;d.floor.items.push({id:kind+'-draft-'+i,kind,x,y});return d;}

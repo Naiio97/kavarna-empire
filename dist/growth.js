@@ -102,3 +102,88 @@ worldBakeryLinkQuote12=function(id,...args){if(grTemporary8(id))throw Error('Do�
 // Keep approvals referenced by retained preparation projects, even after long campaigns.
 const GR_START_OPENING8=startOpening6;
 startOpening6=function(...args){const p=GR_START_OPENING8(...args);state.growth8.offers=state.growth8.offers.filter(o=>o.status!=='approved'||state.opening6.projects.some(p=>p.id===o.project));return p;};
+
+// Founder-reviewed leadership meetings use the same paid actions and completed weekly ledger.
+const LEADERSHIP_BASE9={fresh,validateSave,nextWeek};
+let leadershipForecastScope9=false;
+const LEADERSHIP_RECOMMENDATIONS9=tnRecommendations7;
+tnRecommendations7=function(...a){return leadershipForecastScope9?[]:LEADERSHIP_RECOMMENDATIONS9(...a);};
+function ensureLeadership9(v){if(v.leadership9===undefined)v.leadership9={meetings:[]};return v;}
+fresh=function(...a){return ensureLeadership9(LEADERSHIP_BASE9.fresh(...a));};ensureLeadership9(state);
+function leadershipStamp9(){const copy=grCopy8(state);delete copy.leadership9;return tnStamp7(JSON.stringify(copy));}
+function leadershipOwner9(role){const p=state.organization.executives[role]?.manager;return p&&state.departments[role]>0?p:null;}
+function leadershipApply9(a){
+ if(a.kind==='branch')return tnApply7(a.target,a.change);
+ if(a.kind==='principal'){if(a.amount>state.debt)throw Error('Dluh se změnil.');return tnPayDebt7(a.amount);}
+ if(a.kind==='research')return researchBlend(a.blend);
+ if(a.kind==='project'){if(state.projects[a.project]?.done)throw Error('Projekt už je dokončený.');return startProject(a.project,a.budget);}
+ throw Error('Neplatný zásah porady.');
+}
+function leadershipFrame9(h,a){
+ const stores=state.stores.filter(s=>!s.franchise&&s.last&&s.daily.last?.week===h.week),served=stores.reduce((n,s)=>n+s.last.served,0),s=a.kind==='branch'?stores.find(s=>s.id===a.target):null;
+ return {week:h.week,profit:h.profit,cash:state.cash,debt:state.debt,served,quality:served?stores.reduce((n,s)=>n+s.last.served*s.last.quality,0)/served:0,gap:departmentMetrics7().gap,progress:a.kind==='project'?state.projects[a.project].progress:0,research:a.kind==='research'?blend(a.blend).research:0,branchProfit:s?s.last.profit:null,branchServed:s?s.last.served:null};
+}
+function leadershipFixed9(){return weeklyFixed()+state.stores.filter(s=>!s.franchise).reduce((n,s)=>n+s.marketing,0)+Object.values(state.projects).filter(p=>!p.done).reduce((n,p)=>n+p.budget,0);}
+function leadershipForecast9(a,apply){const previous=leadershipForecastScope9;leadershipForecastScope9=true;try{return tnPure7(()=>{const initial=state.cash,fixed=leadershipFixed9();if(apply)leadershipApply9(a);const cost=round(initial-state.cash),weekly=Math.max(0,round(leadershipFixed9()-fixed)),reservedFixed=leadershipFixed9(),h=LEADERSHIP_BASE9.nextWeek();return {frame:leadershipFrame9(h,a),cost,weekly,reservedFixed};});}finally{leadershipForecastScope9=previous;}}
+function leadershipQuote9(role,a,budget,reserve){
+ const owner=leadershipOwner9(role);if(!owner)throw Error('Chybí jmenní ředitel nebo tým oddělení.');
+ if(!grInt8(budget,0,1000000)||!grInt8(reserve,1,8)||!leadershipAction9(a,role,state))throw Error('Zkontroluj zásah, limit a rezervu porady.');
+ const before=leadershipForecast9(a,false),after=leadershipForecast9(a,true),reserved=round(Math.max(before.reservedFixed,after.reservedFixed)*reserve+tnDue7());
+ return {week:state.week,cash:state.cash,stamp:leadershipStamp9(),pid:owner.pid,budget,reserve,cost:after.cost,weekly:after.weekly,reserved,safe:after.cost+after.weekly<=budget&&state.cash-after.cost>=reserved,before:before.frame,after:after.frame};
+}
+function leadershipCandidates9(role,budget){
+ const stores=state.stores.filter(s=>!s.franchise&&s.last),actions=[];
+ if(role==='hr'){
+  for(const s of stores.filter(s=>crewGap5(s)>0&&!s.crew.manual)){const q=crewStaffQuote5(s,s.staff);if(q.candidatePids.length){actions.push({kind:'branch',target:s.id,change:{kind:'staff',pids:q.candidatePids,label:'Doplnit '+q.candidatePids.length+' lidí · '+loc(s.id).name}});break;}}
+  if(!actions.length){const x=stores.flatMap(s=>s.crew.employees.filter(p=>p.trained!==state.week&&p.skills.service<95).map(p=>({s,p}))).sort((a,b)=>a.p.skills.service-b.p.skills.service)[0];if(x)actions.push({kind:'branch',target:x.s.id,change:{kind:'training',pid:x.p.pid,skill:'service',label:'Školení obsluhy · '+x.p.name}});}
+ }else if(role==='sales'){
+  const s=stores.slice().sort((a,b)=>a.last.profit-b.last.profit)[0];if(s){const options=tnActions7(s.id,false).filter(a=>['price','marketing'].includes(a.kind)).map(a=>({a,q:tycoonForecast7(s.id,a)})),base=tycoonForecast7(s.id);options.sort((a,b)=>b.q.profit-a.q.profit);if(options[0]?.q.profit>base.profit)actions.push({kind:'branch',target:s.id,change:options[0].a});}
+ }else if(role==='finance'){
+  const amount=Math.floor(Math.min(100000,budget,state.debt));if(amount>0)actions.push({kind:'principal',amount,label:'Splatit jistinu '+money(amount)});
+ }else if(role==='product'){
+  const preferred=state.tycoon7.departments.product.blend,b=state.blends.find(b=>b.id===preferred&&b.research<6)||state.blends.find(b=>b.research<6);if(b)actions.push({kind:'research',blend:b.id,label:'Ochutnávka a vývoj · '+b.name});
+ }else if(role==='it'){
+  const preferred=state.tycoon7.departments.it.project,key=[preferred,...Object.keys(state.projects)].find(k=>!state.projects[k].done&&state.projects[k].budget===0);if(key)actions.push({kind:'project',project:key,budget:8000,label:'Vývoj '+(key==='loyalty'?'věrnostní aplikace':'e-shopu')+' · 8 000 Kč týdně'});
+ }
+ return actions;
+}
+const LEADERSHIP_REASONS9={hr:'Zlepšit skutečné pokrytí směn nebo dovednosti dostupného týmu.',sales:'Upravit ceny nebo místní marketing pobočky s nejnižším posledním výsledkem.',finance:'Snížit bankovní jistinu a následující úrok; splátka jistiny není provozní náklad.',product:'Zlepšit recepturu budoucích pražených šarží; hotová káva ve skladu zůstane stejná.',it:'Spustit dosud nefinancovaný projekt se skutečným týmem IT a pravidelným rozpočtem.'};
+function leadershipReason9(role,a){let evidence='';if(a.kind==='branch'){const s=tnStore7(a.target);if(role==='hr'){const p=s.crew.employees.find(p=>p.pid===a.change.pid);evidence=a.change.kind==='staff'?'Neobsazeno '+crewGap5(s)+' míst v týdenním rozpisu. ':p.name+' má obsluhu '+p.skills.service+'/100; školení přidá 6 bodů. ';}else evidence='Poslední výsledek '+loc(s.id).name+' byl '+money(s.last.profit)+'. ';}else if(role==='finance')evidence='Skutečný dluh '+money(state.debt)+'. ';else if(role==='product')evidence='Receptura má výzkum '+blend(a.blend).research+'/6. ';else if(role==='it')evidence='Projekt má '+state.projects[a.project].progress+' %; IT tým '+state.departments.it+' lidí. ';return evidence+LEADERSHIP_REASONS9[role];}
+function prepareLeadership9(budget=100000,reserve=3){
+ guard();if(!state.stores.some(s=>!s.franchise&&s.last))throw Error('Nejdřív uzavři provozní týden vlastní kavárny.');
+ if(!grInt8(budget,0,1000000)||!grInt8(reserve,1,8))throw Error('Limit 0–1 000 000 Kč a rezerva 1–8 týdnů.');
+ if(state.leadership9.meetings.some(m=>m.week===state.week))throw Error('Porada tohoto týdne už existuje. Aktualizuj její konkrétní návrhy.');
+ if(!Object.keys(TN_DEPARTMENTS7).some(leadershipOwner9))throw Error('Porada potřebuje skutečného ředitele i tým. Obsaď vedení firmy.');
+ const meetingId=uid('meeting'),proposalIds=Object.fromEntries(Object.keys(TN_DEPARTMENTS7).map(k=>[k,uid('meetingproposal')])),prepared=[],absent=[];
+ for(const role of Object.keys(TN_DEPARTMENTS7)){
+  const owner=leadershipOwner9(role);if(!owner){absent.push({role,reason:'Chybí ředitel nebo pracovníci oddělení.'});continue;}
+  const a=leadershipCandidates9(role,budget)[0];if(!a){absent.push({role,reason:owner.name+': nyní nemám vhodný konkrétní zásah.'});continue;}
+  try{prepared.push({id:proposalIds[role],role,pid:owner.pid,author:owner.name,action:grCopy8(a),reason:leadershipReason9(role,a),status:'pending',quote:leadershipQuote9(role,a,budget,reserve),accepted:null,actual:null});}catch(e){absent.push({role,reason:String(e.message).slice(0,500)});}
+ }
+ const m={id:meetingId,week:state.week,budget,reserve,proposals:prepared,absent};state.leadership9.meetings.push(m);state.leadership9.meetings=state.leadership9.meetings.slice(-26);return m;
+}
+function leadershipProposal9(id){const m=state.leadership9.meetings.find(m=>m.proposals.some(p=>p.id===id)),p=m?.proposals.find(p=>p.id===id);if(!p||p.status!=='pending')throw Error('Návrh už nečeká na rozhodnutí.');return {m,p};}
+function refreshLeadership9(id){guard();const {m,p}=leadershipProposal9(id);if(leadershipOwner9(p.role)?.pid!==p.pid)throw Error('Autor návrhu už nevede příslušné oddělení.');p.quote=leadershipQuote9(p.role,p.action,m.budget,m.reserve);return p.quote;}
+function decideLeadership9(id,approve,expected){
+ guard();const {m,p}=leadershipProposal9(id);if(typeof approve!=='boolean')throw Error('Vyber schválení nebo odmítnutí.');if(!approve){p.status='rejected';return;}
+ if(!expected||!grSame8(p.quote,expected)||p.quote.stamp!==leadershipStamp9()||leadershipOwner9(p.role)?.pid!==p.pid)throw Error('Firma nebo autor se změnili. Aktualizuj a zkontroluj návrh.');
+ const q=leadershipQuote9(p.role,p.action,m.budget,m.reserve);grExact8(q,expected);if(!q.safe)throw Error('Zásah překračuje limit nebo chráněnou rezervu.');
+ // Complete action has already passed the same budget and availability guards in isolation.
+ leadershipApply9(p.action);p.status='approved';p.accepted={week:state.week,quote:grCopy8(q)};return p;
+}
+nextWeek=function(...args){const h=LEADERSHIP_BASE9.nextWeek(...args);for(const m of state.leadership9.meetings)for(const p of m.proposals){if(p.status==='approved'&&p.actual===null&&p.accepted.week===h.week)p.actual=leadershipFrame9(h,p.action);if(p.status==='pending'&&p.quote.week<=h.week)p.status='expired';}return h;};
+function leadershipAction9(a,role,v){if(!a||!Object.hasOwn(TN_DEPARTMENTS7,role))return false;const label=x=>typeof x==='string'&&x.length>0&&x.length<=100;if(a.kind==='branch')return ['hr','sales'].includes(role)&&loc(a.target)&&tnActionValid7(a.change)&&(role==='hr'?['staff','training'].includes(a.change.kind):['price','marketing'].includes(a.change.kind));if(!label(a.label))return false;if(a.kind==='principal')return role==='finance'&&grInt8(a.amount,1,100000);if(a.kind==='research')return role==='product'&&v.blends.some(b=>b.id===a.blend);if(a.kind==='project')return role==='it'&&['loyalty','eshop'].includes(a.project)&&a.budget===8000;return false;}
+function validateLeadership9(v){
+ const fail=()=>{throw Error('Soubor obsahuje neplatnou poradu nebo výsledek vedení.');},n=(x,min=0,max=1e12)=>Number.isFinite(x)&&x>=min&&x<=max,str=(x,max)=>typeof x==='string'&&x.length>0&&x.length<=max,id=x=>str(x,60)&&/^[a-z0-9-]+$/.test(x),week=x=>grInt8(x,1,v.week),frame=f=>f&&week(f.week)&&n(f.profit,-1e12)&&n(f.cash,-1e12)&&n(f.debt)&&grInt8(f.served,0,1e9)&&n(f.quality,0,100)&&n(f.gap)&&n(f.progress,0,100)&&n(f.research,0,6)&&(f.branchProfit===null||n(f.branchProfit,-1e12))&&(f.branchServed===null||grInt8(f.branchServed,0,1e9));
+ const quote=q=>q&&week(q.week)&&n(q.cash,-1e12)&&str(q.stamp,50)&&id(q.pid)&&grInt8(q.budget,0,1000000)&&grInt8(q.reserve,1,8)&&n(q.cost)&&n(q.weekly)&&n(q.reserved)&&typeof q.safe==='boolean'&&q.safe===(q.cost+q.weekly<=q.budget&&q.cash-q.cost>=q.reserved)&&frame(q.before)&&frame(q.after)&&q.before.week===q.week&&q.after.week===q.week;
+ if(!v.leadership9||!Array.isArray(v.leadership9.meetings)||v.leadership9.meetings.length>26)fail();const ids=new Set();let prior=0;
+ for(const m of v.leadership9.meetings){if(!id(m.id)||ids.has(m.id)||!week(m.week)||m.week<=prior||!grInt8(m.budget,0,1000000)||!grInt8(m.reserve,1,8)||!Array.isArray(m.proposals)||m.proposals.length>5||!Array.isArray(m.absent)||m.absent.length>5)fail();ids.add(m.id);prior=m.week;const roles=new Set();
+  for(const p of m.proposals){if(!id(p.id)||ids.has(p.id)||!Object.hasOwn(TN_DEPARTMENTS7,p.role)||roles.has(p.role)||!id(p.pid)||!str(p.author,60)||!str(p.reason,1000)||!leadershipAction9(p.action,p.role,v)||!['pending','approved','rejected','expired'].includes(p.status)||!quote(p.quote)||p.quote.week<m.week||p.quote.pid!==p.pid||p.quote.budget!==m.budget||p.quote.reserve!==m.reserve)fail();ids.add(p.id);roles.add(p.role);
+   if(p.status==='approved'){if(!p.accepted||!week(p.accepted.week)||p.accepted.week<m.week||!quote(p.accepted.quote)||!grSame8(p.accepted.quote,p.quote)||p.accepted.week!==p.quote.week||!p.quote.safe||p.actual!==null&&(!frame(p.actual)||p.actual.week!==p.accepted.week||p.actual.week>=v.week)||p.actual===null&&p.accepted.week!==v.week)fail();}
+   else if(p.accepted!==null||p.actual!==null)fail();
+   if(p.action.kind!=='branch'&&(p.quote.before.branchProfit!==null||p.quote.after.branchProfit!==null||p.quote.before.branchServed!==null||p.quote.after.branchServed!==null))fail();
+  }
+  for(const x of m.absent){if(!Object.hasOwn(TN_DEPARTMENTS7,x.role)||roles.has(x.role)||!str(x.reason,500))fail();roles.add(x.role);}if(roles.size!==5)fail();
+ }
+}
+validateSave=function(input){const copy=grCopy8(input);ensureLeadership9(copy);const v=LEADERSHIP_BASE9.validateSave(copy);ensureLeadership9(v);validateLeadership9(v);return v;};

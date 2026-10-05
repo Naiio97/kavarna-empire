@@ -23,3 +23,16 @@ export function workerRoute(floor,index){
 }
 export function guestRoute(floor){const entry={x:0,y:5},counter=stationApproach(floor,floor.items.find(i=>i.kind==='counter')),pickup=stationApproach(floor,floor.items.find(i=>i.kind==='pickup'),counter),exit={x:7,y:5};return [...walkPath(floor,entry,counter),...walkPath(floor,counter,pickup).slice(1),...walkPath(floor,pickup,exit).slice(1),...walkPath(floor,exit,entry).slice(1)];}
 export function seatPositions(floor){const seats=[];for(const i of floor.items){if(!['table','table2','barseat'].includes(i.kind))continue;for(const x of i.kind==='table'?[i.x,i.x+1]:[i.x])for(const side of i.kind==='barseat'?[1]:[1,-1])seats.push({x,y:i.y,offset:.4*side,angle:side===1?Math.PI:0});}return seats;}
+
+// Each visible actor represents a bounded sample of the recorded ten-minute slot.
+export function cafeGuestStages9(floor,slot){
+ const entry={x:0,y:5},exit={x:7,y:5},counter=stationApproach(floor,floor.items.find(i=>i.kind==='counter')),pickup=stationApproach(floor,floor.items.find(i=>i.kind==='pickup'),counter),toCounter=walkPath(floor,entry,counter),toPickup=walkPath(floor,counter,pickup),out=walkPath(floor,pickup,exit),counterOut=walkPath(floor,counter,exit),display=stationApproach(floor,floor.items.find(i=>i.kind==='display'),counter),displayOut=walkPath(floor,display,exit),seats=seatPositions(floor),result=[];
+ const add=(stage,total,limit,path,title,reason,extra=()=>({}))=>{for(let i=0;i<Math.min(limit,total);i++)result.push({kind:'guest',stage9:stage,index:result.length,total9:total,path,title9:title,reason9:reason,...extra(i)});};
+ add('seated',slot.occupied||0,Math.min(12,seats.length),[], 'Host u stolu','Host má kávu a obsazené místo.',i=>({seat:seats[i]}));
+ const waiting=toCounter.slice().reverse();add('queue',slot.queue||0,Math.min(6,waiting.length),[], 'Host ve frontě','Čeká na obsluhu. Délku čekání a odchody vyhodnocuje skutečný rozpis směn.',i=>({anchor9:waiting[i]}));
+ add('served',Math.max(0,(slot.served||0)-(slot.seated||0)),4,[...toPickup,...out.slice(1)],'Obsloužený host','Dostal skutečně započítanou objednávku.');
+ add('arrival',slot.arrivals||0,2,toCounter,'Příchod do kavárny','Příchozí host ze skutečné návštěvnosti tohoto intervalu.');
+ for(const [stage,field,title,reason] of [['lostQueue','lostQueue','Odchod: dlouhá fronta','Čekání přesáhlo trpělivost hostů.'],['lostSeats','lostSeats','Odchod: plná místa','Pro hosta nebylo volné místo.'],['lostStock','lostStock','Odchod: chybějící káva','Sklad neměl dost skutečné kávy k obsloužení.'],['lostClosing','lostClosing','Odchod: zavření','Objednávka se nestihla do zavření.']])add(stage,slot[field]||0,1,stage==='lostStock'?out:counterOut,title,reason);
+ if(slot.foodMissing9)add('foodMissing',slot.foodMissing9,1,displayOut,'Host: vyprodané jídlo','Vybraný výrobek nebyl dostupný. Host odchází bez vybraného jídla; může už mít zaplacenou kávu.',()=>({unit9:'požadavků na jídlo'}));
+ return result;
+}

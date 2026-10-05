@@ -2,11 +2,12 @@
 // Edice 05.5: reusable cafe designs, model-specific equipment and a founder-chosen first address.
 const STUDIO_BASE5={fresh,makeStore,openStore,unlocked,nextWeek,validateSave,buyEquipment,serviceEquipment,applyFloor5,equipmentEffects};
 STATIONS5.table.seats=4;
+STATIONS5.display={name:'Vitrína s jídlem',w:1,h:1,required:false};
 STATIONS5.table2={name:'Malý stolek · 2 místa',w:1,h:1,required:false,seats:2};
 STATIONS5.barseat={name:'Barové místo · 1 místo',w:1,h:1,required:false,seats:1};
 const CAFE_STYLES12={nordic:{name:'Severská · světlé dřevo',wall:'#eeede7',wood:'#bca989',accent:'#555fc0',cost:0},industrial:{name:'Industriální · cihla a ocel',wall:'#c1a092',wood:'#866b51',accent:'#3b4a58',cost:15000},garden:{name:'Zahradní · šalvěj a zeleň',wall:'#d4dfd0',wood:'#a49c78',accent:'#668266',cost:18000},classic:{name:'Klasická · krém a ořech',wall:'#eee2ce',wood:'#87684d',accent:'#766055',cost:22000},coastal:{name:'Přímořská · modrá a bílá',wall:'#edf2f0',wood:'#c5b798',accent:'#6a99b4',cost:18000},night:{name:'Večerní · tmavý bar',wall:'#656b78',wood:'#9e775b',accent:'#6e5b97',cost:25000}};
 function cafeAppearance12(s){return s?.appearance||{style:'nordic',terrace:false};}
-const FURNITURE5={table:{name:'Stůl a čtyři židle',cost:9000},table2:{name:'Malý stolek a dvě židle',cost:5500},barseat:{name:'Barový pult a stolička',cost:2800}};
+const FURNITURE5={display:{name:'Samostatná vitrína s jídlem',cost:12000},table:{name:'Stůl a čtyři židle',cost:9000},table2:{name:'Malý stolek a dvě židle',cost:5500},barseat:{name:'Barový pult a stolička',cost:2800}};
 const EQUIPMENT_MODELS5={
  machine:{compact:{name:'Compact · 1 páka',cost:45000,maintenance:0,capacity:1,quality:0},standard:{...EQUIPMENT.machine,name:'Barista · 2 páky'},premium:{name:'Signature · 3 páky',cost:175000,maintenance:1650,capacity:1.25,quality:5}},
  grinder:{compact:{name:'Entry · espresso',cost:18000,maintenance:0,capacity:1,quality:0},standard:{...EQUIPMENT.grinder,name:'Precision · espresso'},premium:{name:'Competition · nízká retence',cost:68000,maintenance:650,capacity:1.05,quality:7}},
@@ -26,10 +27,11 @@ function designInfo5(design){
  if(!design||!['balanced','speed','lounge'].includes(design.layout)||!design.equipment||Array.isArray(design.equipment))throw Error('Zkontroluj vybavení a způsob obsluhy.');
  for(const [key,model] of Object.entries(design.equipment))if(!Object.hasOwn(EQUIPMENT_MODELS5,key)||!Object.hasOwn(EQUIPMENT_MODELS5[key],model))throw Error('Neznámý model vybavení.');
  if(!design.equipment.machine||!design.equipment.grinder)throw Error('Kavárna potřebuje kávovar a mlýnek.');
+ if(design.floor?.items?.some(i=>i.kind==='display')&&!design.equipment.oven)throw Error('Vitrína potřebuje vybavení pro pečivo.');
  if(design.floor?.items?.some(i=>i.kind==='window')&&!design.equipment.window)throw Error('Okénko v půdorysu potřebuje výdejní technologii.');
  if(design.appearance&&(!Object.hasOwn(CAFE_STYLES12,design.appearance.style)||typeof design.appearance.terrace!=='boolean'))throw Error('Vyber platný styl a terasu.');
  const info=floorInfo5(design.floor,100),equipment=Object.fromEntries(Object.entries(design.equipment).map(([k,model])=>[k,{model,condition:100}])),effects=equipmentEffects({equipment});
- return {...info,effects,furniture:design.floor.items.reduce((a,i)=>a+(FURNITURE5[i.kind]?.cost||0),0),equipmentValue:Object.entries(design.equipment).reduce((a,[k,m])=>a+EQUIPMENT_MODELS5[k][m].cost,0)};
+ return {...info,routes9:floorRoutes9(design.floor,100),effects,furniture:design.floor.items.reduce((a,i)=>a+(FURNITURE5[i.kind]?.cost||0),0),equipmentValue:Object.entries(design.equipment).reduce((a,[k,m])=>a+EQUIPMENT_MODELS5[k][m].cost,0)};
 }
 function ensureStudio5(v){if(v.studio5===undefined)v.studio5={opening:false,designs:[]};for(const s of v.stores){s.equipment.machine??={model:'compact',condition:s.serviceCondition};s.equipment.grinder??={model:'compact',condition:s.serviceCondition};}return v}
 fresh=function(scenario='sandbox',difficulty='normal'){const v=ensureStudio5(STUDIO_BASE5.fresh(scenario,difficulty));if(scenario==='sandbox'){v.cash=650000;v.stores=[];v.studio5.opening=true;v.roasters[0].name='Praha · zakladatelská pražírna';v.warehouses[0].name='Praha · první sklad';v.logs=[{week:1,text:'První adresu vybíráš ty.',detail:'Kapitál 650 000 Kč, vlastní pražírna a zásoby kávy. Vyber volnou lokalitu a návrh kavárny.'}];}return v};
