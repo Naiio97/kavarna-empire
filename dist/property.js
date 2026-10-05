@@ -1,7 +1,7 @@
 'use strict';
 // Edice 05.9: buildings are capital assets; deposits are held cash, not operating expenses.
 const PROPERTY_BASE5={fresh,makeStore,nextWeek,validateSave,openingQuote5,openStore,designQuote5,companyValue,reportRoster5};
-const PREMISES_SPACES5={existing:{name:'Původní prostor',area:null,seats:100,rent:1,setup:1,demand:1},compact:{name:'Malý prostor',area:48,seats:24,rent:.84,setup:.9,demand:.9},standard:{name:'Standardní prostor',area:96,seats:40,rent:1,setup:1,demand:1},flagship:{name:'Velký prostor',area:144,seats:60,rent:1.28,setup:1.25,demand:1.08}};
+const PREMISES_SPACES5={starter:{name:'Startovací prostor · 16 míst',area:36,seats:16,rent:.6,setup:.62,demand:.85},existing:{name:'Původní prostor',area:null,seats:100,rent:1,setup:1,demand:1},compact:{name:'Malý prostor',area:48,seats:24,rent:.84,setup:.9,demand:.9},standard:{name:'Standardní prostor',area:96,seats:40,rent:1,setup:1,demand:1},flagship:{name:'Velký prostor',area:144,seats:60,rent:1.28,setup:1.25,demand:1.08}};
 const PREMISES_LEASES5={legacy:{name:'Základní nájem',term:26,rent:1,deposit:0,fee:0},flex:{name:'Flexibilní smlouva',term:13,rent:1.06,deposit:2,fee:2000},standard:{name:'Standardní smlouva',term:26,rent:1,deposit:3,fee:2000},secure:{name:'Dlouhá smlouva',term:52,rent:.96,deposit:4,fee:2000}};
 let propertyOpening5=null,propertyTurn5=null;
 function premisesStore5(s,v=state){if(s.premises5===undefined)s.premises5={enabled:false,kind:'legacy',space:'existing',deposit:0,signed:Math.min(v.week,Math.max(1,s.lease.due-26)),term:26,autoRenew:true};return s.premises5;}

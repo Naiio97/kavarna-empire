@@ -48,6 +48,12 @@ function openingQuote6(kind,data){
  let running=null;if(kind==='cafe'&&!data.franchise){const demo=makeStore(location);installDesign5(demo,blueprint.design);demo.daily.shifts=[...blueprint.shifts];demo.crew.employees=staff.map(id=>state.baristaCandidates.find(p=>p.pid===id));planCrew5(demo);const pay=economicStoreEstimate6(demo);running=round(pay.wages+pay.overtime+pay.payroll+pay.utilities+holdingRent+3200+demo.marketing+blueprint.changes.info.effects.cost+(manager?.salary||0)*(1+ECONOMY_RULES6.employer));}
  return {kind,location,type,city,name,week:state.week,cash:state.cash,blueprint:JSON.parse(JSON.stringify(blueprint)),designId:data.design||'base',franchise:Boolean(data.franchise),need,staffPids:staff,managerPid:manager?.pid||null,managerFee,holdingRent,admin,cost:blueprint.cost+admin+managerFee,durations,totalWeeks:durations.reduce((n,x)=>n+x,0),running};
 }
+// Budget excludes hoped-for sales: preparation, paid coffee and a usable operating reserve.
+function openingFunding6(q,provider='local'){
+ if(q.kind!=='cafe'||q.franchise)return null;const cfg=Object.hasOwn(COFFEE_SUPPLIERS6,provider)?COFFEE_SUPPLIERS6[provider]:null;if(!cfg)throw Error('Vyber platného dodavatele pro rozpočet.');const people=q.staffPids.map(id=>state.baristaCandidates.find(x=>x.pid===id)),demo={kind:'cafe',city:q.city,people,hired:true,entity:null},crew=round(openingWages6(demo)*(1+ECONOMY_RULES6.employer)),manager=round((state.talents.find(x=>x.pid===q.managerPid)?.salary||0)*(1+ECONOMY_RULES6.employer)),preWeeks=q.durations.slice(0,3).reduce((n,x)=>n+x,0),trialWeeks=Object.values(q.blueprint.design.equipment).includes('compact')?2:1;
+ const holding=preWeeks*(q.holdingRent+manager)+q.durations[2]*crew,recruitment=people.length*crewFee5(),coffee=cfg.fee+2*(25*cfg.price+cfg.freight),trial=trialWeeks*q.running,reserve=3*q.running,required=round(q.cost+holding+recruitment+coffee+trial+reserve);
+ return {provider,holding,recruitment,coffee,trial,reserve,required,shortfall:Math.max(0,required-state.cash),afterPreparation:round(state.cash-required+reserve),weeks:preWeeks+trialWeeks,safe:state.cash>=required};
+}
 function startOpening6(kind,data,expected){
  guard();const q=openingQuote6(kind,data);if(expected&&JSON.stringify(q)!==JSON.stringify(expected))throw Error('Adresa, lidé nebo rozpočet se změnili. Obnov nabídku přípravy.');spend(q.cost);
  if(state.founderShare<50)state.expansionBudget-=q.blueprint.cost;
@@ -92,6 +98,16 @@ function openingTeamQuote6(id,data){
 function setOpeningTeam6(id,data,expected){
  guard();const q=openingTeamQuote6(id,data);if(expected&&JSON.stringify(q)!==JSON.stringify(expected))throw Error('Tým nebo týden se změnily. Obnov návrh.');const p=openingById6(id),all=[...p.people,...state.baristaCandidates];
  const released=p.people.filter(x=>!q.pids.includes(x.pid));state.baristaCandidates=state.baristaCandidates.filter(x=>!q.pids.includes(x.pid)).concat(released);p.people=q.pids.map(pid=>all.find(x=>x.pid===pid));p.need=q.need;p.blueprintNeed=q.need;p.blueprint.shifts=[...q.shifts];log('Upraven rezervovaný tým: '+p.name,p.people.length+' lidí · směny '+q.shifts.join(' / ')+'. Nábor a mzdy se zaplatí až ve fázi náboru.');return q;
+}
+function openingStarterRecoveryQuote6(id){
+ const p=openingById6(id);if(!state.bootstrap6?.cashOnly||state.stores.length||state.sold||!p||p.kind!=='cafe'||p.franchise||p.status!=='active'||p.entity||p.phase>=3||p.leaseKind!=='legacy'||(p.blueprint.premises?.deposit||0)>0||state.opening6.projects.filter(x=>x.status==='active').length!==1)throw Error('Zmenšit lze jedinou připravovanou první vlastní kavárnu v základním nájmu před zkouškou.');
+ const b=openingQuote5(p.location,'starter',p.blueprint.brand,p.blueprint.blend,{kind:'legacy',space:'starter'}),difference=round(p.paidCapital-b.cost);if(difference<=0)throw Error('Projekt už nemá dražší vybavení nebo prostor, které by šlo vrátit.');const refund=round(difference*.8),writeoff=difference-refund,manager=p.manager?.pid||null;
+ return {id,week:state.week,cash:state.cash,capital:p.paidCapital,blueprint:b,shifts:[...p.blueprint.shifts],hired:p.hired,manager,refund,writeoff,after:round(state.cash+refund),rent:b.premises.rent};
+}
+function recoverOpeningStarter6(id,expected){
+ const q=openingStarterRecoveryQuote6(id);if(expected&&JSON.stringify(q)!==JSON.stringify(expected))throw Error('Projekt nebo hotovost se změnily. Obnov nabídku zmenšení.');if(q.after<0)throw Error('Vrácení vybavení už nestačí na splacení záporné hotovosti.');const p=openingById6(id);
+ p.blueprint={...q.blueprint,shifts:q.shifts};p.designId='starter';p.paidCapital=q.blueprint.cost;p.holdingRent=q.rent;p.extras+=q.writeoff;state.pendingWriteoff3=(state.pendingWriteoff3||0)+q.writeoff;state.cash+=q.refund;
+ if(p.manager){state.talents.push(p.manager);p.manager=null;}state.over=state.cash<0;log('Zmenšena první příprava: '+p.name,money(q.refund)+' vráceno za vybavení před otevřením a menší prostor; '+money(q.writeoff)+' odpis. Další vedení přebírá zakladatel. Nábor, dosavadní nájmy a mzdy se nevrací.');return q;
 }
 function openingCoffeeAvailable6(p){return p.franchise||p.kind!=='cafe'||state.batches.some(b=>b.blend===p.blueprint.blend&&b.zone===p.city&&b.kg>=.018&&state.week-b.roastedWeek<8)||state.bootstrap6?.orders.some(o=>o.location===p.location&&o.blend===p.blueprint.blend&&o.received===null&&o.due<=state.week);}
 function activateOpening6(p){
