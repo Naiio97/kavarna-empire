@@ -251,3 +251,183 @@ function validateExperiments9(v){
  for(const s of v.stores){if(s.breakfast9!==undefined&&typeof s.breakfast9!=='boolean')fail();for(const r of [s.food5.last,...s.food5.history])if(r?.breakfast9!==undefined&&(typeof r.breakfast9!=='boolean'||r.breakfast9&&!r.enabled))fail();}
 }
 validateSave=function(input){const copy=grCopy8(input);ensureExperiments9(copy);const v=EXPERIMENT_BASE9.validateSave(copy);ensureExperiments9(v);validateExperiments9(v);return v;};
+
+// A paid acquisition review establishes a forward asset register, not retroactive stock.
+// The original rival model owns its initial fitout and payroll. Its register gives those
+// existing contracts stable identities; only subsequent paid purchases create coffee lots.
+const ACQUISITION_BASE9={fresh,validateSave,nextWeek,rivalValuation,acquireRival,competitionOperating6,competitionSettlement6,simulateStrategicRivals4,districtDemand6};
+function ensureAcquisitions9(v){if(v.acquisitions9===undefined)v.acquisitions9={rivals:[],reviews:[],deals:[]};return v;}
+fresh=function(...a){return ensureAcquisitions9(ACQUISITION_BASE9.fresh(...a));};ensureAcquisitions9(state);
+function acquisitionAssets9(id){return state.acquisitions9.rivals.find(x=>x.id===id);}
+function acquisitionRival9(id){const r=state.rivals.find(x=>x.id===id);if(!r||r.bankrupt||!r.stores.length)throw Error('Firma již není dostupná k převzetí.');return r;}
+function acquisitionReview9(id){const q=state.acquisitions9.reviews.find(x=>x.id===id);if(!q)throw Error('Prověrka nebyla nalezena.');return q;}
+function acquisitionBook9(lots){return econRound6(lots.reduce((n,l)=>n+l.grams*l.unit/1000,0));}
+function acquisitionBranch9(r,b){
+ const design=studioBaseDesign5(),capital=loc(b.id).setup,people=Array.from({length:b.staff},(_,i)=>({...barista5(uid('rival-worker'),i),payFactor:1.5}));
+ return {id:b.id,recorded:state.week,capital,accum:econRound6(capital*.15),design,equipment:Object.fromEntries(Object.entries(design.equipment).map(([k,model])=>[k,{model,condition:b.condition}])),lease:{signed:state.week,due:state.week+26,rent:rivalOperating5(r,b).rent},people,nextPerson:b.staff,lots:[],totals:{bought:0,used:0,wasted:0},history:[]};
+}
+function acquisitionRegister9(r){
+ let a=acquisitionAssets9(r.id);if(!a){a={id:r.id,recorded:state.week,recipe:{name:(r.name+' · převzatá směs').slice(0,40),primary:r.business.focus==='quality'?'ethiopia':'brazil',secondary:r.business.focus==='quality'?'colombia':'robusta',share:75,roast:r.business.focus==='quality'?2:3,packaging:'classic',price:490,research:0},branches:[],history:[]};state.acquisitions9.rivals.push(a);}
+ for(const b of r.operations5.branches)if(!a.branches.some(x=>x.id===b.id))a.branches.push(acquisitionBranch9(r,b));return a;
+}
+function acquisitionStockPlan9(a,q,budget){
+ const old=a.lots.filter(l=>state.week-l.roasted<8).map(grCopy8),waste=round(acquisitionBook9(a.lots.filter(l=>state.week-l.roasted>=8))),available=old.reduce((n,l)=>n+l.grams,0),unit=q.served?Math.max(1,q.coffee/(q.served*.018)):1167,
+ target=Math.ceil(q.served*18*1.25),grams=Math.min(Math.max(0,target-available),Math.max(0,Math.floor(budget/unit*1000))),purchase=econRound6(grams*unit/1000);
+ if(grams)old.push({id:'rival-lot-'+a.id+'-'+state.week,grams,unit,quality:q.quality,roasted:state.week});
+ const served=Math.min(q.served,Math.floor(old.reduce((n,l)=>n+l.grams,0)/18));let left=served*18,cost=0,quality=0;
+ for(const lot of old.sort((x,y)=>x.roasted-y.roasted)){const used=Math.min(left,lot.grams);lot.grams-=used;left-=used;cost+=used*lot.unit/1000;quality+=used*clamp(lot.quality-Math.max(0,state.week-lot.roasted-1)*5,25,99);}
+ return {lots:old.filter(l=>l.grams>0),purchase,bought:grams,waste,wasteGrams:a.lots.filter(l=>state.week-l.roasted>=8).reduce((n,l)=>n+l.grams,0),served,used:served*18,cogs:round(cost),quality:served?quality/(served*18):q.quality};
+}
+let acquisitionTurn9=null;
+function acquisitionDispose9(a,r,h,prior){
+ const closed=a.branches.filter(b=>!r.stores.includes(b.id));if(!closed.length)return;
+ const stock=closed.reduce((n,b)=>n+round(acquisitionBook9(b.lots)),0),capital=closed.reduce((n,b)=>n+round(b.capital-b.accum),0),cost=stock+capital,
+ quarterProfit=prior.quarterProfit+h.profit+h.incomeTax-cost,target=round(Math.max(0,quarterProfit-prior.lossCarry)*ECONOMY_RULES6.corporate),tax=target-prior.taxReserved,delta=tax-h.incomeTax;
+ h.disposal9={cost,stock,capital,locations:closed.map(b=>b.id),people:closed.reduce((n,b)=>n+b.people.length,0)};h.admin+=cost;h.incomeTax=tax;h.cost+=cost+delta;h.profit=h.revenue-h.cost;r.lastProfit=h.profit;r.cash-=delta;h.cash=round(r.cash);h.cashChange=round(h.cashChange-delta);
+ if(state.week%13===0){r.competition6.quarterProfit=0;r.competition6.taxReserved=0;r.competition6.lossCarry=Math.max(0,prior.lossCarry-quarterProfit);}else{r.competition6.quarterProfit=quarterProfit;r.competition6.taxReserved=target;}
+ state.baristaCandidates.push(...closed.flatMap(b=>b.people));a.branches=a.branches.filter(b=>r.stores.includes(b.id));
+}
+const ACQUISITION_RIVAL_OPERATING9=rivalOperating5;
+rivalOperating5=function(r,b){
+ const x=ACQUISITION_RIVAL_OPERATING9(r,b),a=acquisitionAssets9(r.id)?.branches.find(z=>z.id===b.id);if(!a)return x;
+ const budget=acquisitionTurn9?.budgets.get(r.id+'|'+b.id)??Math.max(0,r.cash-x.fixed*2)/Math.max(1,r.stores.length),p=acquisitionStockPlan9(a,x,budget),gross=p.served*x.price,revenue=round(gross/(1+ECONOMY_RULES6.drinkVAT)),rent=a.lease.rent,cards=round(gross*ECONOMY_RULES6.cardRate*ECONOMY_RULES6.cardShare),depreciation=Math.min(x.depreciation6,Math.max(0,a.capital-a.accum)),overhead=x.overhead-x.cardFees6-x.depreciation6+cards+depreciation+p.waste,cost=x.wages+p.cogs+rent+overhead;
+ return {...x,served:p.served,lost:x.traffic-p.served,revenue,coffee:p.cogs,rent,quality:p.quality,overhead,cost,profit:revenue-cost,fixed:x.fixed-x.rent+rent,gross6:gross,vat6:gross-revenue,cardFees6:cards,depreciation6:depreciation,capitalAfter9:Math.max(0,econRound6(a.capital-a.accum-depreciation)),inventory9:{bought:p.bought,purchase:p.purchase,used:p.used,waste:p.waste,wasteGrams:p.wasteGrams,lots:p.lots}};
+};
+competitionSettlement6=function(r,branches){const result=ACQUISITION_BASE9.competitionSettlement6(r,branches),physical=branches.filter(b=>b.inventory9);return {...result,inventoryCash9:physical.reduce((n,b)=>n+b.coffee-b.inventory9.purchase+b.inventory9.waste,0)};};
+simulateStrategicRivals4=function(){
+ const previous=acquisitionTurn9,initial=new Map();acquisitionTurn9={budgets:new Map()};
+ try{
+  for(const a of state.acquisitions9.rivals){const r=state.rivals.find(x=>x.id===a.id);if(!r||r.bankrupt)continue;acquisitionRegister9(r);initial.set(r.id,{cash:r.cash,quarter:grCopy8(r.competition6)});
+   // A two-week payroll/rent reserve protects the purchase budget of every branch.
+   const fixed=r.operations5.branches.reduce((n,b)=>n+rivalOperating5(r,b).fixed,0),budget=Math.max(0,r.cash-fixed*2-12000)/Math.max(1,r.stores.length);
+   for(const b of r.operations5.branches){const s=a.branches.find(x=>x.id===b.id);if(state.week>=s.lease.due){s.lease={signed:state.week,due:state.week+26,rent:round(loc(b.id).rent*(1+Math.floor(state.week/26)*.04))};}
+    acquisitionTurn9.budgets.set(r.id+'|'+b.id,Math.min(150000,budget));
+   }
+  }
+  const result=ACQUISITION_BASE9.simulateStrategicRivals4();
+  for(const a of state.acquisitions9.rivals){const r=state.rivals.find(x=>x.id===a.id),h=r?.operations5.history.at(-1);if(!initial.has(a.id)||h?.week!==state.week)continue;let purchases=0,cogs=0,waste=0;
+   for(const q of h.branches){const b=a.branches.find(x=>x.id===q.id),p=q.inventory9;if(!b||!p)continue;purchases+=p.purchase;cogs+=q.coffee;waste+=p.waste;b.lots=grCopy8(p.lots);b.accum=Math.min(b.capital,econRound6(b.accum+q.depreciation6));b.totals.bought+=p.bought;b.totals.used+=p.used;b.totals.wasted+=p.wasteGrams;b.history.push({week:state.week,bought:p.bought,purchase:p.purchase,used:p.used,cogs:q.coffee,waste:p.waste,wasteGrams:p.wasteGrams,end:b.lots.reduce((n,l)=>n+l.grams,0)});b.history=b.history.slice(-26);
+    const current=r.operations5.branches.find(x=>x.id===b.id);if(current){for(const e of Object.values(b.equipment))e.condition=current.condition;while(b.people.length<current.staff){const i=b.nextPerson++;b.people.push({...barista5(uid('rival-worker'),i),payFactor:1.5});}b.people=b.people.slice(0,current.staff);for(const p of b.people)p.tenure++;}
+   }
+   // Settlement adjusted cash before the AI checked solvency and chose investments.
+   // The purchase is working capital; FIFO consumption and writeoff affect profit.
+   h.inventory9={purchase:econRound6(purchases),cogs,waste:econRound6(waste)};h.cash=round(r.cash);
+   acquisitionDispose9(a,r,h,initial.get(r.id).quarter);a.history.push({week:state.week,purchase:econRound6(purchases),cogs,waste:econRound6(waste),cash:round(r.cash)});a.history=a.history.slice(-26);
+   // Paid new addresses join the same forward register after the actual AI decision.
+   acquisitionRegister9(r);
+  }
+  return result;
+ }finally{acquisitionTurn9=previous;}
+};
+rivalValuation=function(r){const a=acquisitionAssets9(r.id);return a?Math.max(0,round(Math.max(0,r.cash)+a.branches.filter(b=>r.stores.includes(b.id)).reduce((n,b)=>n+Math.max(0,b.capital-b.accum)+acquisitionBook9(b.lots),0)+Math.max(0,r.lastProfit)*12-r.debt*.4)):ACQUISITION_BASE9.rivalValuation(r);};
+function acquisitionSnapshot9(id){
+ const r=acquisitionRival9(id),a=acquisitionAssets9(id);if(!a)throw Error('Nejdřív zaplať prověrku firmy.');
+ return {rival:id,name:r.name,week:state.week,cash:econRound6(r.cash),debt:econRound6(r.debt),profit:r.lastProfit,asking:rivalValuation(r),recipe:grCopy8(a.recipe),managers:grCopy8(r.competition6.team),clients:state.competition6.clients.filter(x=>x.rival===id).map(grCopy8),branches:r.operations5.branches.map(b=>{const asset=a.branches.find(x=>x.id===b.id);return {id:b.id,price:round(loc(b.id).ideal*b.price),quality:b.quality,condition:b.condition,last:grCopy8(b.last),...grCopy8(asset)};})};
+}
+function acquisitionSellerStamp9(id){return tnStamp7(JSON.stringify(acquisitionSnapshot9(id)));}
+function acquisitionReviewQuote9(id,reserve=3){
+ const r=acquisitionRival9(id);if(!grInt8(reserve,1,8))throw Error('Rezerva má 1–8 týdnů.');if(state.acquisitions9.reviews.some(q=>q.rival===id&&q.status==='active'))throw Error('Prověrka této firmy již probíhá.');
+ const fee=8000+2500*r.stores.length,protectedCash=round(leadershipFixed9()*reserve+tnDue7());tnPure7(()=>{planScope6('expansion','Prověrka firmy',()=>spend(fee));return true;});
+ return {rival:id,reserve,fee,week:state.week,due:state.week+2,cash:state.cash,protectedCash,stamp:leadershipStamp9(),safe:state.cash-fee>=protectedCash};
+}
+function startAcquisitionReview9(id,reserve,expected){
+ guard();if(!expected)throw Error('Nejdřív prověř konkrétní cenu.');const q=acquisitionReviewQuote9(id,reserve);grExact8(q,expected);if(!q.safe)throw Error('Prověrka by porušila chráněnou rezervu.');
+ planScope6('expansion','Prověrka firmy',()=>spend(q.fee));state.empire.pendingExpense+=q.fee;acquisitionRegister9(acquisitionRival9(id));
+ const p={id:uid('review'),rival:id,reserve,fee:q.fee,scope:[...acquisitionRival9(id).stores],started:state.week,due:q.due,status:'active',snapshot:null,offers:[],closed:null},needed=new Set(state.acquisitions9.deals.map(d=>d.review));state.acquisitions9.reviews=state.acquisitions9.reviews.filter(x=>x.status==='active'||needed.has(x.id)).concat(state.acquisitions9.reviews.filter(x=>x.status!=='active'&&!needed.has(x.id)).slice(-23),p);log('Zahájena prověrka: '+acquisitionRival9(id).name,'Externí prověrka '+money(q.fee)+' · hotový report v T'+p.due+'. Historické sklady nejsou doplněny; fyzické nákupy začínají nyní.');return p;
+}
+function acquisitionOfferQuote9(id,amount){
+ const p=acquisitionReview9(id);if(p.status!=='ready'||state.week>p.due+4)throw Error('Potřebuješ hotovou aktuální prověrku, nejvýše čtyři týdny starou.');
+ if(p.offers.some(o=>o.week===state.week)||p.offers.length>=5)throw Error('Prodávající posoudí jednu nabídku za týden.');
+ const sheet=acquisitionSnapshot9(p.rival);if(!grInt8(amount,0,Math.max(1,sheet.asking*2)))throw Error('Nabídni celé koruny, nejvýše dvojnásobek požadované ceny.');
+ const distressed=sheet.branches.some(b=>b.last?.profit<0),minimum=round(sheet.asking*(distressed?.92:.98)),fee=1500,protectedCash=round(leadershipFixed9()*p.reserve+tnDue7());tnPure7(()=>{planScope6('expansion','Jednání o převzetí',()=>spend(fee));return true;});
+ return {id,rival:p.rival,week:state.week,amount,minimum,fee,accepted:amount>=minimum,expires:state.week+1,sellerStamp:acquisitionSellerStamp9(p.rival),cash:state.cash,protectedCash,stamp:leadershipStamp9(),safe:state.cash-fee>=protectedCash};
+}
+function negotiateAcquisition9(id,amount,expected){
+ guard();if(!expected)throw Error('Nejdřív prověř konkrétní nabídku.');const q=acquisitionOfferQuote9(id,amount);grExact8(q,expected);if(!q.safe)throw Error('Jednání by porušilo chráněnou rezervu.');planScope6('expansion','Jednání o převzetí',()=>spend(q.fee));state.empire.pendingExpense+=q.fee;
+ const p=acquisitionReview9(id);p.offers.push({week:q.week,amount:q.amount,minimum:q.minimum,fee:q.fee,accepted:q.accepted,expires:q.expires,sellerStamp:q.sellerStamp});return p.offers.at(-1);
+}
+function acquisitionImportedRecipe9(r){return {...grCopy8(acquisitionAssets9(r.id).recipe),id:uid('blend')};}
+function acquisitionCloseApply9(p,sheet,price){
+ const r=acquisitionRival9(p.rival),a=acquisitionAssets9(r.id);planScope6('expansion','Převzetí '+r.name,()=>spend(price));if(state.founderShare<50){if(state.expansionBudget<price)throw Error('Převzetí vyžaduje expanzní mandát boardu.');state.expansionBudget-=price;}
+ state.cash+=Math.max(0,r.cash);state.debt+=r.debt;if(r.debt)state.economy6.loans.push({id:uid('loan-acquired'),amount:r.debt,started:state.week,paid:0,remaining:r.debt});
+ const coffee=acquisitionImportedRecipe9(r);state.blends.push(coffee);
+ for(const b of sheet.branches){if(owned(b.id)||state.opening6.projects.some(p=>p.status==='active'&&p.location===b.id))throw Error('Adresa je již vlastněná nebo rezervovaná.');const s=makeStore(b.id,state.brands[0].id,coffee.id);installDesign5(s,b.design);s.equipment=grCopy8(b.equipment);s.serviceCondition=b.condition;s.capital6=b.capital;
+  s.manager=null;s.marketing=0;s.crew.employees=grCopy8(b.people);s.daily.shifts=allocate5(b.people.reduce((n,p)=>n+p.contract,0),[1,1,1]);s.staff=Math.max(1,Math.min(7,Math.max(...s.daily.shifts)));s.auto={staff:false,price:false,marketing:false};s.daily.auto=false;planCrew5(s);
+  const delta=b.price-s.price;for(const [k,m] of Object.entries(s.menu))if(!MENU[k].food)m.price=clamp(round(m.price+delta),35,350);s.price=round(menuSummary(s).price);s.menuAnchor=s.price;s.quality=b.quality;
+  s.premises5={enabled:true,kind:'legacy',space:'existing',deposit:0,signed:b.lease.signed,term:26,autoRenew:true};s.lease={...s.lease,rent:b.lease.rent,due:b.lease.due};state.stores.push(s);
+  const city=loc(b.id).city,kg=b.lots.reduce((n,l)=>n+l.grams/1000,0);if(cityStock(city)+kg>warehouseCapacity(city))throw Error('Převzatá káva nemá místo ve skladu v '+city+'.');
+  for(const l of b.lots)state.batches.push({id:uid('batch'),blend:coffee.id,zone:city,kg:l.grams/1000,cost:l.unit,quality:l.quality,roastedWeek:l.roasted,profile:{primary:coffee.primary,secondary:coffee.secondary,share:coffee.share,roast:coffee.roast},acquisition9:{rival:r.id,review:p.id,source:l.id}});
+ }
+ state.talents.push(...r.competition6.team);r.competition6.team=[];r.competition6.loanAmount=0;r.competition6.loanRemaining=0;
+ for(const c of state.competition6.clients.filter(x=>x.rival===r.id))Object.assign(c,{rival:null,until:0,kg:0,price:0,quality:0,last:null});r.business.accounts=0;
+ r.cash=0;r.debt=0;r.stores=[];r.operations5.branches=[];r.bankrupt=true;r.acquired=true;a.branches=[];syncEconomicAssets6();for(const b of sheet.branches){const asset=state.economy6.assets.find(x=>x.id==='fitout-'+b.id);if(asset)asset.accum=b.accum;}
+ p.status='acquired';p.closed=state.week;const deal={id:uid('acquisition'),review:p.id,rival:r.id,week:state.week,price,cash:Math.max(0,sheet.cash),debt:sheet.debt,blend:coffee.id,branches:sheet.branches.map(b=>b.id),snapshot:grCopy8(sheet),integration:null};state.acquisitions9.deals.push(deal);state.studio5.opening=false;log('Převzata společnost '+r.name,money(price)+' zaplaceno. Skutečné nájmy, vybavení, jmenné smlouvy a '+sheet.branches.reduce((n,b)=>n+b.lots.reduce((x,l)=>x+l.grams/1000,0),0).toFixed(1).replace('.',',')+' kg fyzické kávy převedeny jednou. Velkoobchodní klienti vyžadují novou smlouvu.');return deal;
+}
+function acquisitionCloseQuote9(id){
+ const p=acquisitionReview9(id),offer=p.offers.at(-1);if(p.status!=='ready'||!offer?.accepted||offer.expires<state.week||offer.sellerStamp!==acquisitionSellerStamp9(p.rival))throw Error('Prodávající nemá platnou přijatou nabídku na dnešní stav firmy.');
+ const sheet=acquisitionSnapshot9(p.rival),price=offer.amount;if(state.cash<price)throw Error('Kupní cenu musíš mít před převodem hotovosti prodávajícího.');
+ const trial=tnPure7(()=>{acquisitionCloseApply9(acquisitionReview9(id),sheet,price);return {fixed:round(leadershipFixed9()),due:round(tnDue7()),after:econRound6(state.cash)};});const protectedCash=trial.fixed*p.reserve+trial.due;
+ return {id,rival:p.rival,price,sheet,week:state.week,cash:state.cash,...trial,protectedCash,safe:trial.after>=protectedCash,stamp:leadershipStamp9()};
+}
+function closeAcquisition9(id,expected){guard();if(!expected)throw Error('Nejdřív prověř celý převod.');const q=acquisitionCloseQuote9(id);grExact8(q,expected);if(!q.safe)throw Error('Převzetí by porušilo rezervu včetně nových nájmů a mezd.');return acquisitionCloseApply9(acquisitionReview9(id),q.sheet,q.price);}
+acquireRival=function(id){if(acquisitionAssets9(id))throw Error('Prověřovanou firmu převezmi přes její aktuální nabídku a úplný převod.');return ACQUISITION_BASE9.acquireRival(id);};
+nextWeek=function(){
+ const h=ACQUISITION_BASE9.nextWeek();for(const p of state.acquisitions9.reviews.filter(x=>x.status==='active'&&x.due<=state.week)){const r=state.rivals.find(x=>x.id===p.rival);if(r?.bankrupt){p.status='unavailable';p.closed=state.week;}else{p.snapshot=acquisitionSnapshot9(p.rival);p.status='ready';log('Prověrka dokončena: '+r.name,'Report majetku, zásob, pracovních smluv a závazků je připraven. Nabídka se bude prověřovat proti aktuálnímu stavu firmy.');}}
+ return h;
+};
+function acquisitionDeal9(id){const d=state.acquisitions9.deals.find(d=>d.id===id);if(!d)throw Error('Převzetí nebylo nalezeno.');return d;}
+function acquisitionIntegrationData9(d){
+ if(!d||Object.keys(d).length!==5||!['design','blend','repair','train','reserve'].every(k=>Object.hasOwn(d,k))||!blend(d.blend)||typeof d.repair!=='boolean'||typeof d.train!=='boolean'||!grInt8(d.reserve,1,8))throw Error('Vyber kávu, skutečný návrh, servis, školení a rezervu 1–8 týdnů.');
+ if(d.design!==null)designInfo5(d.design);return grCopy8(d);
+}
+function acquisitionIntegrationApply9(deal,data){
+ const fee=deal.branches.length*2000,rows=[];planScope6('expansion','Koordinace převzatých kaváren',()=>spend(fee));state.empire.pendingExpense+=fee;
+ for(const id of deal.branches){const s=state.stores.find(s=>s.id===id&&!s.franchise);if(!s||grTemporary8(id)||experimentLocks9(id)||state.growth8.rollouts.some(r=>r.status==='active'&&r.targets?.includes(id)))throw Error('Každá převzatá pobočka musí být stále vlastní a volná pro změny.');const before=state.cash;
+  if(data.design)planScope6('expansion','Standard převzaté kavárny',()=>applyDesign5(id,data.design));
+  if(data.repair)for(const [key,e] of Object.entries(s.equipment))if(e.condition<99)planScope6('expansion','Servis převzatého vybavení',()=>serviceEquipment(id,key));
+  if(data.train)for(const p of s.crew.employees)if(p.skills.coffee<100)planScope6('people','Výcvik převzatého týmu',()=>trainBarista5(id,p.pid,'coffee'));
+  s.blend=data.blend;rows.push({id,cost:econRound6(before-state.cash),people:s.crew.employees.map(p=>p.pid),coffee:data.blend});
+ }
+ return {fee,rows,total:econRound6(fee+rows.reduce((n,r)=>n+r.cost,0))};
+}
+function acquisitionIntegrationQuote9(id,data){
+ const deal=acquisitionDeal9(id);if(deal.integration)throw Error('Toto převzetí již má integrační plán.');const d=acquisitionIntegrationData9(data),trial=tnPure7(()=>{const result=acquisitionIntegrationApply9(acquisitionDeal9(id),d);return {...result,protectedCash:round(leadershipFixed9()*d.reserve+tnDue7())};});
+ return {id,data:d,week:state.week,cash:state.cash,stamp:leadershipStamp9(),...trial,safe:state.cash-trial.total>=trial.protectedCash};
+}
+function startAcquisitionIntegration9(id,data,expected){
+ guard();if(!expected)throw Error('Nejdřív prověř cenu celé integrace.');const q=acquisitionIntegrationQuote9(id,data);grExact8(q,expected);if(!q.safe)throw Error('Integrace by porušila rezervu provozu.');const deal=acquisitionDeal9(id),before=deal.branches.map(id=>{const s=state.stores.find(s=>s.id===id);return {id,week:s.daily.last?.week??null,profit:s.last?.profit??null,served:s.last?.served??null};});acquisitionIntegrationApply9(deal,q.data);
+ deal.integration={started:state.week,until:state.week+1,data:q.data,fee:q.fee,cost:q.total,before,rows:[],status:'active',finished:null};log('Integrace převzatých kaváren','Čistá cena '+money(q.total)+'. Dva skutečné týdny mají poptávku omezenou na 85 % kvůli přechodu. Provozní mzdy, nájmy a fyzická káva se dál platí.');return deal.integration;
+}
+districtDemand6=function(s){const active=state.acquisitions9.deals.some(d=>d.integration?.status==='active'&&d.branches.includes(s.id));return ACQUISITION_BASE9.districtDemand6(s)*(active?.85:1);};
+const ACQUISITION_NEXT9=nextWeek;
+nextWeek=function(){const h=ACQUISITION_NEXT9();for(const d of state.acquisitions9.deals){const i=d.integration;if(i?.status!=='active')continue;i.rows.push({week:h.week,branches:d.branches.map(id=>{const s=state.stores.find(s=>s.id===id&&!s.franchise),available=s?.daily.last?.week===h.week;return {id,available,profit:available?s.last.profit:null,served:available?s.last.served:null,stockLost:available?s.last.stockLost:null};})});if(h.week>=i.until){i.status='completed';i.finished=state.week;log('Integrace dokončena','Převzaté kavárny přecházejí na plnou poptávku. Skutečné výsledky obou přechodových týdnů zůstávají v reportu převzetí.');}}return h;};
+function validateAcquisitions9(v){
+ const fail=()=>{throw Error('Soubor obsahuje neplatnou prověrku, fyzický majetek soupeře nebo převod firmy.');},n=(x,min=0,max=1e12)=>Number.isFinite(x)&&x>=min&&x<=max,int=(x,min=0,max=1e9)=>grInt8(x,min,max),id=x=>typeof x==='string'&&/^[a-z0-9-]{1,60}$/.test(x),unique=a=>new Set(a).size===a.length,week=x=>int(x,1,v.week),str=(x,max=60)=>typeof x==='string'&&x.length>0&&x.length<=max,keys=(x,ks)=>x&&typeof x==='object'&&!Array.isArray(x)&&Object.keys(x).length===ks.length&&ks.every(k=>Object.hasOwn(x,k));
+ const root=v.acquisitions9,livePids=new Set(peopleAll6(v).map(x=>x.person.pid));for(const r of v.rivals)for(const p of r.competition6.team)livePids.add(p.pid);
+ function lots(a,w){return Array.isArray(a)&&a.length<=8&&unique(a.map(l=>l.id))&&a.every(l=>keys(l,['id','grams','unit','quality','roasted'])&&id(l.id)&&int(l.grams,1,10000000)&&n(l.unit,1,1e7)&&n(l.quality,1,100)&&int(l.roasted,1,w));}
+ function person(p){return p&&id(p.pid)&&str(p.name)&&[1,2].includes(p.contract)&&n(p.payFactor,.5,2)&&keys(p.skills,Object.keys(CREW_SKILLS5))&&Object.values(p.skills).every(x=>n(x,1,100))&&Array.isArray(p.days)&&p.days.length===6&&Array.isArray(p.periods)&&p.periods.length===3&&[...p.days,...p.periods].every(x=>typeof x==='boolean')&&p.leave===null&&n(p.xp,0,1000)&&int(p.tenure)&&n(p.burnout,0,100)&&n(p.satisfaction,0,100)&&int(p.trained,0,v.week)&&Array.isArray(p.history)&&p.history.length<=12;}
+ function branch(b,w,live=false){
+  if(!b||!loc(b.id)||!int(b.recorded,1,w)||b.capital!==loc(b.id).setup||!n(b.accum,b.capital*.15,b.capital)||!lots(b.lots,w)||!Array.isArray(b.people)||b.people.length<1||b.people.length>9||!unique(b.people.map(p=>p.pid))||!b.people.every(person)||!int(b.nextPerson,b.people.length)||!keys(b.lease,['signed','due','rent'])||!int(b.lease.signed,b.recorded,w)||b.lease.due!==b.lease.signed+26||!n(b.lease.rent)||!keys(b.totals,['bought','used','wasted'])||!Object.values(b.totals).every(x=>int(x))||b.totals.bought-b.totals.used-b.totals.wasted!==b.lots.reduce((n,l)=>n+l.grams,0)||!Array.isArray(b.history)||b.history.length>26)fail();
+  try{designInfo5(b.design);}catch{fail();}if(!keys(b.equipment,Object.keys(b.design.equipment))||Object.entries(b.equipment).some(([k,e])=>!keys(e,['model','condition'])||e.model!==b.design.equipment[k]||!n(e.condition,0,100)))fail();
+  let last=b.recorded-1,previous=null;for(const h of b.history){if(!keys(h,['week','bought','purchase','used','cogs','waste','wasteGrams','end'])||!int(h.week,last+1,w-1)||!['bought','used','wasteGrams','end'].every(k=>int(h[k]))||!['purchase','cogs','waste'].every(k=>n(h[k]))||h.used%18||previous!==null&&previous+h.bought-h.used-h.wasteGrams!==h.end)fail();last=h.week;previous=h.end;}if(previous!==null&&previous!==b.lots.reduce((n,l)=>n+l.grams,0))fail();
+  if(live)for(const p of b.people){if(livePids.has(p.pid)||!p.pid.startsWith('rival-worker-'))fail();livePids.add(p.pid);}
+ }
+ function snapshot(s){try{validateRecipe(s?.recipe);}catch{fail();}if(!s||!v.rivals.some(r=>r.id===s.rival)||!str(s.name,40)||!week(s.week)||!n(s.cash,-1e12)||!n(s.debt)||!n(s.profit,-1e12)||!int(s.asking)||!Array.isArray(s.managers)||s.managers.length>2||!Array.isArray(s.clients)||s.clients.length>10||!Array.isArray(s.branches)||!s.branches.length||s.branches.length>LOCATIONS.length||!unique(s.branches.map(b=>b.id)))fail();for(const b of s.branches){branch(b,s.week);if(!int(b.price,35,400)||!n(b.quality,1,100)||!n(b.condition,0,100))fail();}}
+ if(!keys(root,['rivals','reviews','deals'])||!Array.isArray(root.rivals)||root.rivals.length>v.rivals.length||!unique(root.rivals.map(r=>r.id))||!Array.isArray(root.reviews)||root.reviews.length>30||!unique(root.reviews.map(r=>r.id))||!Array.isArray(root.deals)||root.deals.length>v.rivals.length||!unique(root.deals.map(d=>d.id))||!unique(root.deals.map(d=>d.rival)))fail();
+ for(const a of root.rivals){try{validateRecipe(a.recipe);}catch{fail();}const r=v.rivals.find(r=>r.id===a.id);if(!r||!week(a.recorded)||!Array.isArray(a.branches)||a.branches.length>LOCATIONS.length||!unique(a.branches.map(b=>b.id))||r.acquired&&a.branches.length||!Array.isArray(a.history)||a.history.length>26)fail();for(const b of a.branches){branch(b,v.week,true);const active=r.operations5.branches.find(x=>x.id===b.id);if(active&&b.people.length!==active.staff)fail();}if(!r.bankrupt&&r.stores.some(id=>!a.branches.some(b=>b.id===id)))fail();let last=a.recorded-1;for(const h of a.history){if(!keys(h,['week','purchase','cogs','waste','cash'])||!int(h.week,last+1,v.week-1)||!['purchase','cogs','waste'].every(k=>n(h[k]))||!n(h.cash,-1e12))fail();last=h.week;}}
+ for(const p of root.reviews){if(!id(p.id)||!v.rivals.some(r=>r.id===p.rival)||!int(p.reserve,1,8)||!Array.isArray(p.scope)||!p.scope.length||p.scope.length>LOCATIONS.length||!unique(p.scope)||!p.scope.every(loc)||p.fee!==8000+2500*p.scope.length||!week(p.started)||p.due!==p.started+2||!['active','ready','acquired','unavailable'].includes(p.status)||!Array.isArray(p.offers)||p.offers.length>5)fail();if(p.status==='active'){if(p.snapshot!==null||p.closed!==null||p.due<v.week||p.offers.length)fail();}else if(p.status==='unavailable'){if(p.snapshot!==null||!week(p.closed))fail();}else{snapshot(p.snapshot);if(p.snapshot.rival!==p.rival||p.snapshot.week!==p.due)fail();if(p.status==='ready'&&p.closed!==null||p.status==='acquired'&&!week(p.closed))fail();}let last=p.due-1;for(const o of p.offers){if(!keys(o,['week','amount','minimum','fee','accepted','expires','sellerStamp'])||!int(o.week,last+1,v.week)||o.week>p.due+4||!int(o.amount)||!int(o.minimum)||o.fee!==1500||typeof o.accepted!=='boolean'||o.accepted!==(o.amount>=o.minimum)||o.expires!==o.week+1||!str(o.sellerStamp,50))fail();last=o.week;}}
+ for(const d of root.deals){const p=root.reviews.find(p=>p.id===d.review),r=v.rivals.find(r=>r.id===d.rival);if(!p||p.status!=='acquired'||p.rival!==d.rival||p.closed!==d.week||!r?.acquired||!r.bankrupt||r.cash!==0||r.debt!==0||r.stores.length||!week(d.week)||!int(d.price)||!n(d.cash)||!n(d.debt)||!v.blends.some(b=>b.id===d.blend)||!Array.isArray(d.branches)||!unique(d.branches)||!d.branches.length||!p.offers.at(-1)?.accepted||d.price!==p.offers.at(-1).amount)fail();snapshot(d.snapshot);if(d.snapshot.rival!==d.rival||d.snapshot.week!==d.week||d.cash!==Math.max(0,d.snapshot.cash)||d.debt!==d.snapshot.debt||!grSame8(d.branches,d.snapshot.branches.map(b=>b.id)))fail();
+  const i=d.integration;if(i!==null){if(!week(i.started)||i.started<d.week||i.until!==i.started+1||!['active','completed'].includes(i.status)||i.fee!==d.branches.length*2000||!n(i.cost,-1e12)||!Array.isArray(i.before)||!grSame8(i.before.map(b=>b.id),d.branches)||!Array.isArray(i.rows)||i.rows.length>2||!keys(i.data,['design','blend','repair','train','reserve'])||!v.blends.some(b=>b.id===i.data.blend)||typeof i.data.repair!=='boolean'||typeof i.data.train!=='boolean'||!int(i.data.reserve,1,8))fail();if(i.data.design!==null){try{designInfo5(i.data.design);}catch{fail();}}for(const b of i.before)if(b.week!==null&&!int(b.week,1,i.started-1)||b.profit!==null&&!n(b.profit,-1e12)||b.served!==null&&!int(b.served))fail();for(const [at,row] of i.rows.entries()){if(row.week!==i.started+at||row.week>=v.week||!Array.isArray(row.branches)||!grSame8(row.branches.map(b=>b.id),d.branches))fail();for(const b of row.branches)if(typeof b.available!=='boolean'||(b.available?(!n(b.profit,-1e12)||!int(b.served)||!int(b.stockLost)):(b.profit!==null||b.served!==null||b.stockLost!==null)))fail();}if(i.status==='active'&&(i.finished!==null||i.until<v.week||i.rows.length!==v.week-i.started)||i.status==='completed'&&(i.rows.length!==2||i.finished!==i.until+1||i.finished>v.week))fail();}
+ }
+ for(const r of v.rivals)for(const h of r.operations5.history){
+  const rows=h.branches.filter(b=>b.inventory9!==undefined);if(!rows.length){if(h.inventory9!==undefined)fail();continue;}
+  if(!root.rivals.some(a=>a.id===r.id)||!keys(h.inventory9,['purchase','cogs','waste'])||!['purchase','cogs','waste'].every(k=>n(h.inventory9[k])))fail();
+  for(const b of rows){const p=b.inventory9;if(!keys(p,['bought','purchase','used','waste','wasteGrams','lots'])||!int(p.bought)||!int(p.used)||p.used!==b.served*18||!int(p.wasteGrams)||!n(p.purchase)||!n(p.waste)||!n(b.capitalAfter9,0,loc(b.id).setup)||!lots(p.lots,h.week))fail();
+   const asset=root.rivals.find(a=>a.id===r.id)?.branches.find(a=>a.id===b.id),actual=asset?.history.find(x=>x.week===h.week);if(actual&&(actual.bought!==p.bought||actual.purchase!==p.purchase||actual.used!==p.used||actual.cogs!==b.coffee||actual.waste!==p.waste||actual.wasteGrams!==p.wasteGrams||actual.end!==p.lots.reduce((n,l)=>n+l.grams,0)))fail();if(asset?.history.at(-1)?.week===h.week&&!grSame8(asset.lots,p.lots))fail();
+  }
+  if(h.inventory9.purchase!==econRound6(rows.reduce((n,b)=>n+b.inventory9.purchase,0))||h.inventory9.cogs!==rows.reduce((n,b)=>n+b.coffee,0)||h.inventory9.waste!==econRound6(rows.reduce((n,b)=>n+b.inventory9.waste,0)))fail();
+  if(h.disposal9!==undefined){const x=h.disposal9;if(!keys(x,['cost','stock','capital','locations','people'])||!int(x.cost)||!int(x.stock)||!int(x.capital)||x.cost!==x.stock+x.capital||!Array.isArray(x.locations)||!x.locations.length||!unique(x.locations)||!x.locations.every(loc)||!int(x.people,1,x.locations.length*9)||x.locations.some(id=>!rows.some(b=>b.id===id)))fail();const closed=rows.filter(b=>x.locations.includes(b.id));if(x.stock!==closed.reduce((n,b)=>n+round(acquisitionBook9(b.inventory9.lots)),0)||x.capital!==closed.reduce((n,b)=>n+round(b.capitalAfter9),0)||x.people!==closed.reduce((n,b)=>n+b.staff,0))fail();}
+ }
+ const imported=new Map();for(const b of [...v.batches,...v.transfers.flatMap(t=>t.batches)])if(b.acquisition9){const x=b.acquisition9,d=root.deals.find(d=>d.review===x.review&&d.rival===x.rival),source=d?.snapshot.branches.flatMap(s=>s.lots).find(l=>l.id===x.source);if(!keys(x,['rival','review','source'])||!source||b.blend!==d.blend||b.kg>source.grams/1000+.000001||b.cost!==source.unit||b.quality!==source.quality||b.roastedWeek!==source.roasted)fail();const key=x.review+'|'+x.source,total=(imported.get(key)||0)+b.kg;if(total>source.grams/1000+.000001)fail();imported.set(key,total);}
+}
+validateSave=function(input){const copy=grCopy8(input);ensureAcquisitions9(copy);const v=ACQUISITION_BASE9.validateSave(copy);ensureAcquisitions9(v);validateAcquisitions9(v);return v;};
