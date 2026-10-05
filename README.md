@@ -4,7 +4,7 @@ Prostorový coffee tycoon s přepracovaným ovládáním: hlavním pracovním pr
 
 `npm ci`, `npm run build`, `npm run check`, `npm test`. Sestavení používá Rollup a Three pouze lokálně; výsledná hra ani offline HTML nepotřebují CDN. `node scripts/package-offline.cjs` vytvoří `kavarna-v6-0.html`. `source/game-scene.mjs` obsahuje skutečnou geometrii, `source/game-navigation.mjs` cesty, `source/game-renderer.mjs` kameru/vykreslování, `dist/game-world.js` společný model a `dist/game-ui.js` svět/kontext/návrhy. 69 klasických skriptů se balí do jednoho offline HTML.
 
-Vizuální ověření 5. října 2026 prokázalo skutečné WebGL město/interiér, kliknutí do střechy a zařízení, otáčení, den/noc, přehrávku dne, placenou přestavbu a mobilní rozložení 387 × 768. Aktuální úplná regrese má 736 PASS výstupů. Opravené panely, názvy polí a detail reportu jsou znovu ověřené. Snímky a přesné meze (bez hardwarového FPS benchmarku a fyzického pinch testu) popisuje `GAME-REDESIGN.md`.
+Vizuální ověření 5. října 2026 prokázalo skutečné WebGL město/interiér, kliknutí do střechy a zařízení, otáčení, den/noc, přehrávku dne, placenou přestavbu a mobilní rozložení 387 × 768. Aktuální úplná regrese má 739 PASS výstupů. Opravené panely, názvy polí a detail reportu jsou znovu ověřené. Snímky a přesné meze (bez hardwarového FPS benchmarku a fyzického pinch testu) popisuje `GAME-REDESIGN.md`.
 
 ## Revize ovládání · 5. října 2026
 
@@ -472,3 +472,7 @@ Zakladatel má nadále 500 000 Kč. Nabídka první vlastní kavárny předvolí
 Jedinou první připravovanou vlastní kavárnu v základním nájmu před zkouškou lze zmenšit i při předprovozní platební neschopnosti. Vrací se 80 % rozdílu zaplaceného kapitálu, zbytek se skutečně odepisuje. Nábor, minulé nájmy a mzdy se nevrací. Lidé a dokončené fáze zůstávají, vedení převezme zakladatel. Nejde o automatickou změnu uložené firmy, půjčku ani dodání peněz. Změna nejde opakovat za další refundaci.
 
 `startup-budget.cjs` ověřuje otevření a dvanáct běžných týdnů ve čtyřech pražských lokalitách z původních 500k bez změny cen, dodatečné hotovosti či půjček. Karlín po otevření ponechal 161 709 Kč a během dvanácti týdnů neklesl pod 153 208 Kč. Další scénáře reprodukují původní bankrot před otevřením a ověřují vrácení majetku, jednorázový odpis, zachování týmu, obnovení firmy, import, uvolnění vedoucího a odmítnutí zastaralé nabídky. `startup-budget-interface.cjs` ověřuje skutečné formuláře, blokování drahé první varianty, potvrzení/zrušení zmenšení i všech 33 stránek. Celá regrese má 735 PASS výstupů. Prohlížeč skutečně otevřel Karlín bez dodatečných peněz a ověřil mobilní rozpočet bez přetečení.
+
+## Města a prostorové provozy
+
+Nová etapa: 18 profilů měst, samostatné interiéry pekárny/kanceláře/plantáže/pražírny/skladu, placená pekárenská přístavba, šest vzhledů s terasami a vlastní SVG galerie. Přímý nábor oddělení a skutečné pěstování navazují na původní model. Podrobnosti, geografické předlohy a přesné meze ověření jsou v `WORLD-DESIGN.md`. Celá regrese: 739 PASS výstupů.

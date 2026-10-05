@@ -59,3 +59,7 @@ Mapa i firemní správa používají stejnou stálou lištu. Na mobilu je dole. 
 Správa týmu je rozdělená na Směny, Pracovníky a Pravidla a výsledky. Dostupnost a školení jsou přímo na kartě člověka. Týden zobrazí malý souhrn, velký přehled otevřeš ručně. Report firmy používá jeden výběr kategorie. Ekonomika a formát uložené hry zůstávají společné.
 
 Celá regrese prošla (736 PASS výstupů); syntaktická kontrola všech 69 skriptů také. Nový `ux-journey.cjs` pokrývá šest nepřerušujících týdnů, zrušení platby, historii, neuložené hodnoty, obnovení nepřečteného reportu a import. Skutečný prohlížeč ověřil 1280 × 800 a 387 × 768, dostupnost pracovníka, hledání, založení Karlína a šest týdnů do otevření bez přidané hotovosti. Nové snímky jsou `kavarna-v6-0-ovladani-lide.png` a `kavarna-v6-0-ovladani-mobil.png`. Podrobnosti a meze ověření uvádí `UX-DESIGN.md`.
+
+## Další prostorová etapa
+
+Aktuální mapa má samostatné stylizované profily všech 18 měst a provozy mají vlastní interiéry. Podrobný aktuální audit požadavků, důkazů a mezí je v `WORLD-DESIGN.md`; výše uvedená měření patří původní prostorové etapě.
