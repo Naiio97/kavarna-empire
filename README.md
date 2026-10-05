@@ -2,9 +2,14 @@
 
 Prostorový coffee tycoon s přepracovaným ovládáním: hlavním pracovním prostorem je lokální Three.js svět s moderními budovami, kamerou, výběrem skutečné adresy, interiérem 8 × 6 a placenými zásahy ve stejném modelu firmy. Výroba, centrála, zásoby a vlastní rozvoz jsou konkrétní vlastněné objekty. Všech 33 podrobných obrazovek je dostupných přes Více; stálá navigace propojuje svět i správu a návraty zachovávají kontext kavárny.
 
-`npm ci`, `npm run build`, `npm run check`, `npm test`. Sestavení používá Rollup a Three pouze lokálně; výsledná hra ani offline HTML nepotřebují CDN. `node scripts/package-offline.cjs` vytvoří `kavarna-v6-0.html`. `source/game-scene.mjs` obsahuje skutečnou geometrii, `source/game-navigation.mjs` cesty, `source/game-renderer.mjs` kameru/vykreslování, `dist/game-world.js` společný model a `dist/game-ui.js` svět/kontext/návrhy. 69 klasických skriptů se balí do jednoho offline HTML.
 
-Vizuální ověření 5. října 2026 prokázalo skutečné WebGL město/interiér, kliknutí do střechy a zařízení, otáčení, den/noc, přehrávku dne, placenou přestavbu a mobilní rozložení 387 × 768. Aktuální úplná regrese má 739 PASS výstupů. Opravené panely, názvy polí a detail reportu jsou znovu ověřené. Snímky a přesné meze (bez hardwarového FPS benchmarku a fyzického pinch testu) popisuje `GAME-REDESIGN.md`.
+## Řízení, expanze a vlastní kolekce · aktuální rozšíření
+
+Řídicí přehled má Priority týdne, Manažery, Oddělení, Rozhodnutí a Nákup/board. Kavárna nabízí vlastní provozní rozbor i mandát; mapa přepíná poptávku, nájmy, konkurenci a výsledky a propojuje skutečné investiční odhady. Káva nabízí pojmenované kolekce s placeným vlastním vzorkem a měřitelným chuťovým slibem. Přehled týdne otevře nejvýše tři různé priority a dnešní nabídku, zachovává tehdejší výsledky. Podrobná implementace, testy a meze jsou v `TYCOON-NEXT.md`. Nové automatické mandáty a cíle oddělení jsou při migraci vypnuté, jejich zapnutí je samostatná volba hráče.
+
+`npm ci`, `npm run build`, `npm run check`, `npm test`. Sestavení používá Rollup a Three pouze lokálně; výsledná hra ani offline HTML nepotřebují CDN. `node scripts/package-offline.cjs` vytvoří `kavarna-v6-0.html`. `source/game-scene.mjs` obsahuje skutečnou geometrii, `source/game-navigation.mjs` cesty, `source/game-renderer.mjs` kameru/vykreslování, `dist/game-world.js` společný model a `dist/game-ui.js` svět/kontext/návrhy. 71 klasických skriptů se balí do jednoho offline HTML.
+
+Vizuální ověření 5. října 2026 prokázalo skutečné WebGL město/interiér, kliknutí do střechy a zařízení, otáčení, den/noc, přehrávku dne, placenou přestavbu a mobilní rozložení 387 × 768. Aktuální úplná regrese má 761 PASS výstupů (včetně souhrnných řádků); všech 71 skriptů prošlo kontrolou syntaxe. Opravené panely, názvy polí a detail reportu jsou znovu ověřené. Snímky a přesné meze (bez hardwarového FPS benchmarku a fyzického pinch testu) popisuje `GAME-REDESIGN.md`.
 
 ## Revize ovládání · 5. října 2026
 

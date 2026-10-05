@@ -4,4 +4,4 @@
 // opening.cjs, opening-interface.cjs and opening-campaign.cjs with all 56 scripts.
 // No exported game setting or UI can select this fixture.
 const fs=require('fs');
-exports.html=()=>fs.readFileSync('dist/index.html','utf8').replace(/<script src="(?:opening|bootstrap|planning|diagnostics|food-flow|food-brand|food-trade|ux|game-world|game-renderer|game-ui)(?:-ui)?\.js"><\/script>\s*/g,'');
+exports.html=()=>fs.readFileSync('dist/index.html','utf8').replace(/<script src="(?:tycoon-next|opening|bootstrap|planning|diagnostics|food-flow|food-brand|food-trade|ux|game-world|game-renderer|game-ui)(?:-ui)?\.js"><\/script>\s*/g,'');
