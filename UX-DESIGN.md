@@ -1,47 +1,37 @@
-# Ovládání firmy — edice 05.27
+# Ovládání firmy — Coffee Tycoon 06.0
 
-## Audit a změna
+Revize 5. října 2026 reaguje na nepřehledné menu, obtížnou správu lidí, ztracená rozpracovaná pole a přerušování hry týdenním dialogem.
 
-Původní navigace vystavovala 33 stejně výrazných stránek v dlouhém seznamu. Pekárna měla devět velkých sekcí za sebou; finance kombinovaly plán, vysvětlení zisku, peníze, závazky i opakovanou správu kontraktů. Sídlo míchalo pořízení prostor, vedoucí, oddělení a digitální projekty. Horní lišta měla současně postup tahu, servis a několik reportů.
+## Jedna navigace ve světě i správě
 
-Nová navigace má osm nativně rozbalitelných oblastí. Při otevření stránky se rozbalí odpovídající oblast a aktuální stránka má `aria-current`. Ostatní oblasti zůstávají dostupné. Horní místní navigace ukazuje pouze stránky vybrané oblasti; cesta a název dávají stejný kontext. Výchozí mapa zůstává bez vybrané adresy a firma bez majetku. Průvodce prvním podnikem odvozuje své kroky ze skutečných příprav a dodavatelů.
+Stálá lišta nabízí Mapu, Kavárny, Kávu, Jídlo, Lidi, Firmu a Více. Na počítači je vlevo, na mobilu dole; aktivní cíl je označen. Více otevře vyhledatelný přehled všech 33 stránek v osmi oblastech a uložení/import firmy. Hledání přijímá více slov bez diakritiky a přímé podstránky (dovolená, akademie, 250g produkty, pekárenská flotila, rozpočet). Enter otevře první odpovídající cíl. Cmd/Ctrl + K otevře samostatné hledání.
 
-| Oblast | Obsah |
-|---|---|
-| Přehled | Výsledky, kalendář, problémy, cíle/scénáře |
-| Kavárny | Síť, menu/vybavení, návrhy/směny, den, hosté |
-| Expanze | Mapa/adresy, nájmy/budovy, soupeři, investice, trhy |
-| Káva a zásobování | Receptury/produkty, původ, laboratoř, pražírny, zelená káva, kavárenské dodávky, plantáže, sklady/doprava |
-| Jídlo a pekárna | Prodej; výroba/plán; receptury/značka; odběratelé; flotila |
-| Lidé a centrála | Týmy/akademie, vedoucí/regiony, sídlo, organizace, řízení, plány |
-| Obchod a značky | Kávoví odběratelé, branding/marketing |
-| Finance a board | Výsledek; peníze/financování; plán; závazky/obchod; vlastnictví |
+Stránka ukazuje pouze místní navigaci aktuální oblasti. Při správě vybrané kavárny ji nahradí kontext s týmem, nabídkou, dodávkami a provozem. Návrat do kavárny obnoví odpovídající svět.
 
-## Podstránky a společná správa
+## Návraty a formuláře
 
-Pekárna má pět podstránek, finance čtyři, sídlo tři a logistika dvě. Související karty se přesunou společně; neaktivní panel je opravdu skrytý pomocí `hidden`. Přepnutí panelu nepřekresluje formuláře: rozepsané hodnoty zůstávají, změnu provede až původní Uložit nebo platba. Návrat na stránku připomene poslední podstránku během této relace. Finanční přehled používá jeden souhrn obchodních výsledků a odkazy do skutečné správy odběratelů; kontrakty se v něm znovu needitují. Stávající podstránky produktů a akademie zůstávají součástí jejich společných stránek.
+Zpět má vlastní historii osmi posledních obrazovek. Uchová kontext města, interiéru, návrhu, podstránky a posunu. Návrat na nezměněnou firmu obnoví rozepsaná pole a původní obsluhu formulářů. Po skutečné změně firmy se sestaví aktuální ovládání, aby nevracelo zastaralé nabídky. Pouhé označení reportu za přečtený formuláře nezneplatňuje. Import vymaže starou historii.
 
-Nabídka **Reporty a údržba** sdružuje firemní report, týdenní přehled a společný servis. Postup týdne zůstává výrazným samostatným tlačítkem. Týdenní popup zůstává automatický a jeho pekárenská reklamace otevře přímo Odběratele. Žádná navigace nekupuje zboží, nepřijímá smlouvu ani nemění ekonomický stav. Označení týdenního přehledu za přečtený zůstává původní výslovnou akcí.
+Zrušení placeného potvrzení, jeho křížek nebo Escape vrátí původní dialog včetně nastavení, posunu a fokusu. Platba stále probíhá pouze původním výslovným potvrzením; navigace nekupuje zásoby ani lidi.
 
-## Vyhledávání
+## Kratší příprava a správa
 
-Hledání prochází všechny 33 stránky a konkrétní podstránky: řidiče/flotilu, pekárenské odběratele, 250g produkty, akademii, čtvrtletní rozpočet atd. Přijímá více slov i text bez diakritiky. Přímé podstránky mají přednost před obecnou stránkou. Enter otevře první výsledek; bez výsledku zobrazí vysvětlení a nic nezmění. Ctrl/Cmd + K otevře hledání odkudkoli. Není nutná síť ani externí služba.
+Založení má dvě části: základní volbu a kontrolu rozpočtu. Nájemní režim, vedení a směny jsou v pokročilém nastavení. Rozpočet ukazuje čtyři hlavní čísla a případný nedostatek; podrobnosti lze rozbalit. Zpět zachová volby. Bezpečnostní kontrola první kavárny a skutečná ekonomika zůstávají stejné.
 
-## Vzhled, ovládání a přístupnost
+Panel přípravy nabízí nejprve skutečný další krok. Při sjednané kávě dovolí pokračovat týdnem; chybějící dodávky otevře přímo. Detaily rozpočtu a plánu se rozbalují podle potřeby. Seznam Podniky obsahuje i připravované kavárny.
 
-Sdílené tokeny ve `style.css`: mezery 8/12/20/28 px, rádius 10 px, sidebar 264 px, jednotná tmavě zelená a neutrální paleta, čitelnější sekundární text a jeden obrys fokusu. Používá systémová písma, zachovává obchodní karty a tabulky. Tabulky se na úzkém prostoru posouvají vodorovně; nevyžadují rozšíření celého dokumentu.
+Lidé mají podstránky Směny, Pracovníci a Pravidla a výsledky. Karta pracovníka ukazuje mzdu a dovednosti, přímo otevírá dostupnost a školení. Další správu lze rozbalit. Příprava dál používá skutečné rezervace lidí a nábor účtuje až v příslušné fázi. Pekárna, finance, sídlo a logistika zachovávají své podstránky a rozepsaná pole.
 
-Na šířce do 900 px je navigace pod tlačítkem Menu. Stav tlačítka má `aria-expanded`; výběr stránky menu zavře. Karty a rozdělené sloupce přejdou na jeden sloupec, ukazatele na dva. Nejmenší šířka skládá formulář do jednoho sloupce. Reportová nabídka se zarovná tak, aby nevyčnívala doleva. Omezení pohybu respektuje `prefers-reduced-motion`.
+## Týden a reporty
 
-- Oblasti používají nativní `details/summary`, ovladatelné klávesnicí.
-- Místní navigace má popis a aktuální stránku.
-- Podstránky používají `tablist/tab/tabpanel`, `aria-selected`, vazby na panel a jeden tabulátorem dosažitelný aktivní tab. Šipky, Home a End přepínají panel a fokus; Tab pokračuje do formulářů.
-- Vyhledávání má skutečný label a živé výsledky; všechny výsledky jsou tlačítka.
-- Dialog se pojmenuje podle nadpisu; otevření přesune fokus dovnitř. Nativní Escape zavírá dialog, pokud běží v prohlížeči. Zavření se vrací k dostupnému původnímu ovládacímu prvku. Přechod na stránku soustředí nadpis.
-- Odkaz Přeskočit na správu firmy zkrátí pohyb přes navigaci.
+Po týdnu se objeví malý souhrn výsledku, obsloužených a upozornění. Neotevírá automaticky velký dialog a nezastavuje práci; týdenní přehled se otevře ručně. Samotné vykreslení ani obnovení uložené hry neoznačuje přehled za přečtený. Výslovné přečtení/zavření souhrnu používá dosavadní evidenci.
 
-## Migrace a ověření
+Firemní report má jeden výběr kategorie místo dlouhé řady stejně výrazných tlačítek. Reporty a údržba zůstávají dostupné v horní liště, s opraveným zarovnáním na mobilu.
 
-Ekonomický model, identita provozů a struktura uložené hry se kvůli redesignu nemění. Skupiny a otevřená podstránka jsou stav ovládání této relace. Původní tlačítka a datové identifikátory zůstávají pro navazující reporty a týdenní zprávy. Historická 05.21 testovací sestava vynechá nový UI modul, současné modelové/ovládací/offline testy načítají všech 66 skriptů.
+## Ověření
 
-`tests/ux-interface.cjs` ověřuje osm skupin, všech 33 prázdných i naplněných stránek, vazby a stav panelů, klávesnici/fokus, rozepsaná pole bez ekonomické změny, hledání bez diakritiky/přímé cíle/prázdný výsledek, stav mobilního menu, skutečný placený kontrakt, cílovou podstránku týdenního přehledu, centrální servis/report a import. Nedeklaruje pixelovou kontrolu: automatizovaná prohlížečová vizuální kontrola zůstává nedostupná; ovládání se ověřuje v jsdom a responsivní pravidla statickou kontrolou CSS.
+Ekonomický model a struktura uložené firmy se touto revizí nemění. Celá regrese prošla; kontrola syntaxe načítá 69 skriptů. `ux-journey.cjs` ověřuje dvoukrokové založení, zachování dialogu po zrušení platby, přesnou dodavatelskou platbu, šest nepřerušujících tahů, ruční přečtení, obnovení s nepřečteným reportem, návrat do návrhu interiéru, rozepsaná pole, zneplatnění po změně firmy, hledání a import. Dosavadní testy ověřují všech 33 prázdných i naplněných stránek a historické ekonomické kampaně.
+
+Skutečný prohlížeč ověřil placené založení Karlína z původních 500 000 Kč, šest týdnů do otevření s 161 709 Kč, pracovníky a dialog dostupnosti, navazující správu a reporty. Rozměry 1280 × 800 a 387 × 768 byly vizuálně zkontrolovány; mobilní dokument neměl vodorovný přesah, pevná lišta zůstala dostupná. Konzole závěrečného načtení neměla chyby ani varování. Mobilní kontrola emuluje rozměry prohlížeče, nikoli fyzický dotykový displej.
+
+Snímky: `kavarna-v6-0-ovladani-lide.png`, `kavarna-v6-0-ovladani-mobil.png`. Samostatné offline HTML obsahuje všech 69 skriptů, styly i lokální Three.js.

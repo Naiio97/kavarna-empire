@@ -1,10 +1,18 @@
 # Kavárna · Coffee Tycoon 06.0
 
-První prostorová etapa redesignu podle video reference: hlavním pracovním prostorem je lokální Three.js svět s moderními budovami, kamerou, výběrem skutečné adresy, interiérem 8 × 6 a placenými zásahy ve stejném modelu firmy. Výroba, centrála, zásoby a vlastní rozvoz jsou konkrétní vlastněné objekty. Všech 33 podrobných obrazovek zůstává ve správě firmy; sdílejí nové barvy a ovládání návratu do světa.
+Prostorový coffee tycoon s přepracovaným ovládáním: hlavním pracovním prostorem je lokální Three.js svět s moderními budovami, kamerou, výběrem skutečné adresy, interiérem 8 × 6 a placenými zásahy ve stejném modelu firmy. Výroba, centrála, zásoby a vlastní rozvoz jsou konkrétní vlastněné objekty. Všech 33 podrobných obrazovek je dostupných přes Více; stálá navigace propojuje svět i správu a návraty zachovávají kontext kavárny.
 
 `npm ci`, `npm run build`, `npm run check`, `npm test`. Sestavení používá Rollup a Three pouze lokálně; výsledná hra ani offline HTML nepotřebují CDN. `node scripts/package-offline.cjs` vytvoří `kavarna-v6-0.html`. `source/game-scene.mjs` obsahuje skutečnou geometrii, `source/game-navigation.mjs` cesty, `source/game-renderer.mjs` kameru/vykreslování, `dist/game-world.js` společný model a `dist/game-ui.js` svět/kontext/návrhy. 69 klasických skriptů se balí do jednoho offline HTML.
 
-Vizuální ověření 5. října 2026 prokázalo skutečné WebGL město/interiér, kliknutí do střechy a zařízení, otáčení, den/noc, přehrávku dne, placenou přestavbu a mobilní rozložení 387 × 768. Úplná regrese má 725 PASS výstupů. Opravené panely, názvy polí a detail reportu jsou znovu ověřené. Snímky a přesné meze (bez hardwarového FPS benchmarku a fyzického pinch testu) popisuje `GAME-REDESIGN.md`.
+Vizuální ověření 5. října 2026 prokázalo skutečné WebGL město/interiér, kliknutí do střechy a zařízení, otáčení, den/noc, přehrávku dne, placenou přestavbu a mobilní rozložení 387 × 768. Aktuální úplná regrese má 736 PASS výstupů. Opravené panely, názvy polí a detail reportu jsou znovu ověřené. Snímky a přesné meze (bez hardwarového FPS benchmarku a fyzického pinch testu) popisuje `GAME-REDESIGN.md`.
+
+## Revize ovládání · 5. října 2026
+
+Mapa i firemní správa používají stejnou stálou lištu. Na mobilu je dole. Více otevře vyhledatelných 33 stránek; zkratky míří přímo na konkrétní správu. Zpět zachovává kontext kavárny a rozepsané formuláře, pokud se firma mezitím nezměnila. Zrušení platby vrací původní dialog. Založení je dvoukrokové s kompaktním rozpočtem; projekt přípravy nabízí další skutečný krok.
+
+Správa týmu je rozdělená na Směny, Pracovníky a Pravidla a výsledky. Dostupnost a školení jsou přímo na kartě člověka. Týden zobrazí malý souhrn, velký přehled otevřeš ručně. Report firmy používá jeden výběr kategorie. Ekonomika a formát uložené hry zůstávají společné.
+
+Celá regrese prošla (736 PASS výstupů); syntaktická kontrola všech 69 skriptů také. Nový `ux-journey.cjs` pokrývá šest nepřerušujících týdnů, zrušení platby, historii, neuložené hodnoty, obnovení nepřečteného reportu a import. Skutečný prohlížeč ověřil 1280 × 800 a 387 × 768, dostupnost pracovníka, hledání, založení Karlína a šest týdnů do otevření bez přidané hotovosti. Nové snímky jsou `kavarna-v6-0-ovladani-lide.png` a `kavarna-v6-0-ovladani-mobil.png`. Podrobnosti a meze ověření uvádí `UX-DESIGN.md`.
 
 ---
 
