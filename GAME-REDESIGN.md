@@ -37,3 +37,9 @@ Lokální testovací HTTP server zpočátku při opakovaném načítání nedoru
 Tato edice je dokončenou první prostorovou verzí hry. Čtvrti jsou herní uspořádání adres, ne zeměpisně přesné mapy. Veřejná auta jsou dekorace. Osoby ilustrují skutečné souhrny směn a front na průchozích cestách; nejsou záznamem jednotlivých hostů. Vlastní dodávky používají skutečný vůz, řidiče, trasu a doložený náklad. Animace nepřidává další výnosy. Ekonomiku dál posouvá týdenní tah.
 
 Mobilní kontrola je emulace rozměrů prohlížeče; fyzický vícedotykový displej a hardwarový FPS benchmark nebyly měřeny. Budoucí rozšiřování hry není tvrzením, že tato verze je bezchybná nebo poslední.
+
+### Oprava přípravy a přehledů · 5. října 2026
+
+Ve třetím týdnu se rezervovaný tým skutečně spravuje: výběr lidí, uvolnění rezervace a počty směn s pokrytím. Zaplacení náboru stále patří do fáze náboru. Káva má samostatné stavy smlouvy, dodání a zásoby; dodavatel čekající na instalaci negeneruje falešnou výzvu. Změna limitů nebo obnovení dodavatele nevyžaduje novou smlouvu. Historický přehled má jedinou konkrétní akci na zprávu a otevírá konkrétní projekt či smlouvu bez platby.
+
+Prohlížeč ověřil nového zakladatele do T3, změnu ze dvou pracovníků na jednoho s pokrytím 1 / 1 / 0, zachování hotovosti i firmy po obnovení stránky, srovnané řádky přehledu a tři tlačítka nabídky. Mobilní nabídka se vejde do 387 px. Automatická regrese má 726 PASS výstupů; samostatné HTML se ověřuje zvlášť. Nové skutečné snímky jsou `kavarna-v6-0-oprava-*.jpg`.

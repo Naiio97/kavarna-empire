@@ -71,3 +71,13 @@ body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.s
 
 /* Leave a usable camera area between mobile replay and the scrollable context. */
 @media(max-width:760px){.game-stage6:has(.game-operation6:not([hidden])) .game-context6{max-height:170px}.game-operation6{top:103px;bottom:auto;max-height:128px}.game-operation6>p{display:none}}
+
+/* Weekly review and preparation controls share stable layouts at every width. */
+#modal:has(.digest-overview6){width:860px;max-width:calc(100vw - 32px)}
+.digest-item6{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:start;gap:12px;padding:16px 0}
+.digest-item6 .news-icon{width:28px;height:28px}.digest-item6>div{min-width:0}.digest-item6 strong{display:block;line-height:1.45}.digest-item6 small{display:block;line-height:1.6;margin-top:6px}.digest-item6 .sub{margin:8px 0 0}.digest-item6 button{margin:0;min-height:40px;align-self:center;max-width:180px;white-space:normal}.digest-urgent6{padding-left:12px}
+.ux-tools-body10 #weeklyDigest6{margin:0}.ux-tools-body10 button{margin:0;padding:10px 12px;text-align:left;min-height:40px}
+.opening-readiness6{display:grid;gap:10px;margin:18px 0}.opening-readiness6 article{background:#eef3ed;border:1px solid #d7e1d4;border-radius:8px;padding:12px}.opening-readiness6 article.attention{background:#fff4e5;border-color:#e6ccb0}.opening-readiness6 strong,.opening-readiness6 small{display:block;line-height:1.5}.opening-readiness6 small{font-size:12px;margin-top:5px;color:#586c64}.opening-team-list6{display:grid;gap:8px;margin:18px 0}.opening-person6{margin:0;padding:12px;border:1px solid var(--line);border-radius:8px;align-items:flex-start}.opening-person6 small{display:block;color:var(--muted);line-height:1.6}.opening-shifts6{grid-template-columns:repeat(3,minmax(0,1fr))}.game-context6 .opening-readiness6{gap:7px;margin:8px 0 14px}.game-context6 .opening-readiness6 article{padding:9px}.game-context6 .opening-readiness6 strong{font-size:12px}.game-context6 .opening-readiness6 small{font-size:11px}
+@media(max-width:600px){.digest-item6{grid-template-columns:24px minmax(0,1fr);gap:8px 12px}.digest-item6 button{grid-column:2;justify-self:start;margin:0;max-width:100%}.digest-overview6{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.digest-overview6 .metric{padding:12px}.digest-overview6 .value{font-size:19px}.digest-overview6 .label{font-size:10px}.ux-shell10 .opening-shifts6{grid-template-columns:repeat(3,minmax(0,1fr))}.opening-shifts6 .field{min-width:0}}
+
+@media(max-width:600px){.ux-shell10 .ux-tools-body10{left:auto;right:0;max-width:calc(100vw - 32px)}}
