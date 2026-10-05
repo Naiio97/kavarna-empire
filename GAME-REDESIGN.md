@@ -14,7 +14,7 @@ Cíl uživatele: redesign celé hry a posun od klikačky k hernímu světu, podl
 | Den/noc a navigace jako ve videu | Světla/okna, pohyb kamery, výběr města, seznam vlastních podniků a orientace; mobilní a klávesnicové ovládání | Geometrie/světla/DOM implementovány; obraz a mobilní dotyk čekají |
 | Celá firma zůstává hratelná | Přímá prostorová správa plus dostupná pokročilá správa všech 23 dokončených systémů; společný jazyk ovládání | Všech 33 stránek zachováno, DOM a regresní testy prošly |
 | Nový začátek, uložení a offline | Stále jen 500k, žádný vlastní podnik; starý save bez resetu; samostatná offline hra s lokální 3D knihovnou | Start/import/offline ověřeny; všech 69 skriptů lokálně |
-| Ověřené vydání | Modelové/regresní testy, ovládání, geometrie/raycast/kamera, skutečný founder tok, offline a úspěšná soukromá publikace. Reálný WebGL obraz musí mít vlastní důkaz; test DOM ani fotografie reference ho nenahrazuje | Zbývá reálné WebGL ověření a soukromá publikace první etapy |
+| Ověřené vydání | Modelové/regresní testy, ovládání, geometrie/raycast/kamera, skutečný founder tok, offline a úspěšná soukromá publikace. Reálný WebGL obraz musí mít vlastní důkaz; test DOM ani fotografie reference ho nenahrazuje | Publikace první etapy potvrzena; zbývá skutečný WebGL obraz a ovládání |
 
 Přestavba mění hlavní způsob hraní, nepřidává jen další reportovou stránku. Podrobná správa slouží jako zázemí světa. Zákaz dříve odmítnuté automatizace prohlížeče se neobchází; skutečné renderovací ověření vyžaduje dostupnou autorizovanou cestu.
 
@@ -29,3 +29,9 @@ Přestavba mění hlavní způsob hraní, nepřidává jen další reportovou st
 Celý původní cíl zůstává otevřený: obraz, prostorové ovládání, plynulost a mobilní zobrazení nejsou potvrzené reálným prohlížečem. Edice 06.0 je první hratelná prostorová etapa, nikoliv prohlášení, že je celý redesign dokončen.
 
 Úplné `npm test` prošlo s 724 PASS výstupy včetně regresních kampaní. Následná úprava zachování zaměření časového posuvníku má vlastní nový DOM test a kontrolu syntaxe. Offline ověření samostatného aktuálního souboru prošlo zakladatelským tokem a všemi 33 stránkami.
+
+## Kontrola dotykového výběru
+
+Kontrola zdroje odhalila, že uvolnění druhého prstu nebo návrat tažením do výchozího místa mohly vybrat budovu při ovládání kamery. Výběr nyní vyžaduje jediný primární dotyk bez předchozího pohybu. Více prstů, pravé/střední tlačítko, zrušení kontaktu, uvolnění mimo scénu a ztráta zaměření výběr ruší. `tests/game-picking.mjs` ověřuje skutečný adaptér DOM událostí v jsdom; pohyb kamery a dotyk na reálném displeji stále potřebují kontrolu v prohlížeči.
+
+Kontrola životního cyklu navíc odhalila prázdnou scénu po návratu přes historii prohlížeče: dřívější renderer se uvolnil, ale podpis scény zůstal platný. Obnovení stránky nyní obnoví renderer i data a správně skryje náhradní seznam. DOM test s výslovnou testovací náhradou rendereru prokazuje obnovení a nulovou změnu ekonomiky; neslouží jako GPU důkaz.
