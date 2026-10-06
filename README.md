@@ -1,3 +1,7 @@
+# Osobní panel a řízení poboček · aktuální etapa
+
+Více → Můj panel a pobočky; zkratka je na mapě i v řídicím přehledu. Připnuté ukazatele a kavárny, porovnání skutečných 1/4/13 týdnů a hromadné změny cen, vybavení či servisu s přesným rozpočtem a rezervou. Provedený zásah uchová odhad a výsledek uzavřeného týdne. Pravidla, náklady a meze jsou v `NETWORK.md`. Aktuálně 83 skriptů a 33 hlavních obrazovek. Následující zápisy zachovávají historii etap.
+
 # Kalendář, vyjednávání a zkušenosti · aktuální etapa
 
 Více → Kalendář a zkušenosti; Lidé → konkrétní kariéra → Vyjednat termín a rozvoj. Skutečná rozhodnutí manažerů mají výsledky a opatrnost podle zkušeností, soupeři paměť přestupů a placené spolupráce. Akce se provádějí ve vybraném týdnu s limitem a rezervou. Týdenní přehled drží tvoji firmu nahoře a zprávy z ostatních měst pod rozbalením. Pokračuje stejná firma. Pravidla, náklady, důkazy a meze v `INTELLIGENCE.md`. Aktuálně 81 skriptů a 33 hlavních obrazovek; níže je historie etap.
