@@ -1,3 +1,7 @@
+# Propuštění baristů · oprava ovládání
+
+Lidé → Pracovníci → Propustit přímo na kartě. Potvrzení ukazuje konkrétní osobu, skutečné odstupné, další mzdy, nepokryté směny a zbývající hotovost. Nedostatek peněz nebo změněná smlouva se vysvětlí v dialogu. Platba a odchod byly ověřeny včetně uložené hry a zachování minulých reportů. 87 skriptů, 33 hlavních stránek; sada nyní obsahuje 98 příkazů. Oprava ověřena novým testem `tests/barista-release.cjs` a souvisejícími kontrolami týmů, lidí, plánování a ovládání. Níže zůstává historie etap.
+
 # Rozšíření existující kavárny · aktuální etapa
 
 Vyber vlastní kavárnu → Rozšířit prostor: placené zvýšení limitu na 24, 40 nebo 60 míst, přesná cena, jistota, nájem/údržba a zachovaný tým i vybavení. Nové stoly se kupují samostatně. Pravidla a meze: `EXPANSION.md`. 87 skriptů, 33 hlavních stránek, 97 regresních příkazů. Následuje historie etap.

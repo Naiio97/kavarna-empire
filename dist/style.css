@@ -231,3 +231,5 @@ body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.s
 @media(max-width:760px){.control-entry17{align-items:stretch;flex-direction:column}.control-filter17,.control-grid17,.control-rights17{grid-template-columns:1fr}.control-tabs17{display:grid;grid-template-columns:1fr 1fr}.control-tabs17 button{padding:10px 8px;font-size:14px}.control-issue17{padding:14px}.control-issue17 .actions>button{flex:1 1 130px}.control-surface17 .row{align-items:start;gap:8px}.control-surface17 .row>span,.control-surface17 .row>strong{overflow-wrap:anywhere}.control-surface17 .row>strong{max-width:100%}}
 
 .ux-shell11 #modal:has(.control-results17){width:min(960px,calc(100vw - 24px));max-width:960px}
+
+.ux-worker-actions11 [data-barista-release]{grid-column:1/-1;color:#8c3445;border:1px solid #e6cbd1;background:#fff8fa}.ux-worker-actions11 [data-barista-release]:hover{background:#fbecef}
