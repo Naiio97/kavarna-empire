@@ -1,3 +1,7 @@
+# Revize rozhraní · aktuální etapa
+
+Pohodlnější tlačítka, rozestupy, úplný mobilní výběr podstránek, správně umístěné reportové menu a dostupné zavírání dlouhých dialogů. Zrušený náhled platby zachovává rozepsaná pole a posun. Podrobnosti a důkazy: `UI-POLISH.md`. Nadále 85 skriptů a 33 hlavních stránek. Následuje historie etap.
+
 # Standard, cesta do zisku a zákazníci · aktuální etapa
 
 Vyvážený Standard pro první kavárnu ze skutečných 500 000 Kč, rozbor bodu zvratu a konkrétních příčin, modelované přesuny stálých hostů mezi vlastními kavárnami a soupeři, vlastní věrnostní program a cílené časové nabídky/degustace se skutečným prodejem a náklady. Přístup přes Provozní rozbor, Můj panel a pobočky a Více → Hosté a recenze. Pravidla, finanční bilance, zakladatelské průchody a meze jsou v `CUSTOMERS.md`. Aktuálně 85 skriptů a 33 hlavních stránek; následující zápisy zachovávají historii etap.

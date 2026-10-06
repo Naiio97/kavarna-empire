@@ -188,3 +188,36 @@ body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.s
 .customer-metrics15{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}.customer-metrics15 .metric{min-width:0}.customer-metrics15 small{overflow-wrap:anywhere}#customerBody15{margin-top:20px}#customerBody15 .fields{margin:20px 0}#customerBody15 .news{margin:10px 0}#customerBody15 p{font-size:16px;line-height:1.55}#customerBody15 .sub{font-size:14px}#customerBody15 .card{margin:12px 0}@media(max-width:650px){.customer-metrics15{grid-template-columns:1fr}#customerBody15 .fields{grid-template-columns:1fr}}
 
 #modal:has(#customerBody15),#modal:has(#customerGuide15),#modal:has(#customerConfirm15){width:min(900px,calc(100vw - 24px));max-width:900px}#customerBody15 .row,#customerGuide15 .row,#modal:has(#customerConfirm15) .row{font-size:16px;line-height:1.5;gap:14px;align-items:flex-start}#customerBody15 .row strong,#customerGuide15 .row strong,#modal:has(#customerConfirm15) .row strong{max-width:54%;text-align:right}#customerBody15 button,#customerGuide15 button{min-height:44px;white-space:normal}#customerGuide15 p{font-size:16px;line-height:1.55}#customerGuide15 .sub{font-size:14px}#customerBody15 input[type=checkbox]{width:20px;height:20px}@media(max-width:650px){#customerGuide15 .actions{display:grid;grid-template-columns:1fr}#customerBody15 .row,#customerGuide15 .row,#modal:has(#customerConfirm15) .row{font-size:14px;overflow-wrap:anywhere}}
+
+/* Interface polish: comfortable targets, clear spacing and an always reachable dialog close. */
+.ux-shell11 #uxBack11,.ux-shell11 .soft,.ux-shell11 .primary,.ux-shell11 .quiet,.ux-shell11 summary,.ux-shell11 .ux-tools-body10 button{min-height:44px;line-height:1.4}
+.ux-shell11 .soft,.ux-shell11 .primary{font-size:14px;padding:10px 14px;white-space:normal}
+.ux-shell11 .mini{font-size:13px}
+.ux-shell11 #uxBack11{font-size:13px;padding:10px 4px}
+.ux-shell11 .ux-subnav10{flex-wrap:wrap;overflow:visible;gap:8px}
+.ux-shell11 .ux-subnav10 button,.ux-shell11 .ux-tabs10 button,.ux-shell11 .section-tabs button{min-height:44px;font-size:13px;white-space:normal;line-height:1.4}
+.ux-shell11 .ux-tabs10,.ux-shell11 .section-tabs{flex-wrap:wrap;gap:8px}
+.ux-area-picker16{display:none}
+.ux-shell11 .actions{flex-wrap:wrap;gap:10px}
+.ux-shell11 .card-head,.ux-shell11 .section-header{flex-wrap:wrap;gap:12px}
+.ux-shell11 .fields>.field{min-width:0}
+.ux-shell11 #content>button{margin-bottom:16px}
+.ux-shell11 #uxCafeContext11{margin-bottom:18px}
+.ux-shell11 #modal{overflow:hidden;max-height:calc(100dvh - 24px);padding:28px}
+.ux-shell11 #modalContent{max-height:calc(100dvh - 82px);overflow-y:auto;overflow-x:hidden;padding-right:8px;scrollbar-gutter:stable;overscroll-behavior:contain}
+.ux-shell11 #close{min-width:44px;min-height:44px;top:3px;right:3px;z-index:2;background:var(--white);border-radius:10px}
+.ux-shell11 #modalContent>h2:first-child{padding-right:20px}
+.ux-shell11 .ux-open-footer11{bottom:0;flex-wrap:wrap;padding:14px 0 6px}
+@media(max-width:760px){
+ .ux-shell11 .ux-area-many16>button{display:none}
+ .ux-shell11 .ux-area-picker16{display:grid;gap:8px;width:100%;font-size:12px;font-weight:600;color:var(--muted)}
+ .ux-shell11 .ux-area-picker16 select{width:100%;font-size:16px;min-height:44px}
+ .ux-shell11 input:not([type=checkbox]):not([type=range]),.ux-shell11 select{font-size:16px;min-height:44px;max-width:100%}
+ .ux-shell11 .ux-tabs10 button,.ux-shell11 .section-tabs button{font-size:13px;padding:10px 12px}
+ .ux-shell11 #modal{width:calc(100vw - 24px);max-width:calc(100vw - 24px);padding:24px 16px 16px}
+ .ux-shell11 #modalContent{max-height:calc(100dvh - 66px);padding-right:6px}
+ .ux-shell11 .ux-open-footer11 button{flex:1 1 130px}
+ .ux-shell11 .ux-tools10 summary{font-size:12px}
+}
+
+@media(max-width:760px){.ux-shell11 .ux-tools-body10{left:0;right:auto;max-width:calc(100vw - 32px)}}

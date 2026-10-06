@@ -48,7 +48,7 @@ UX_SEARCH_EXTRA10.push({view:'management',part:null,name:'Porada ředitelů · n
 render();
 
 const EXPERIMENT_UI9={managementView,bind,gameContext6};
-function experimentTop9(){const h=el('modalContent').querySelector('h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true});}el('modal').scrollTop=0;}
+function experimentTop9(){const h=el('modalContent').querySelector('h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true});}el('modalContent').scrollTop=0;}
 const EXPERIMENT_STATUS9={active:'Probíhá',review:'Čeká na rozhodnutí',cancelled:'Zastaveno a obnoveno',kept:'Varianta ponechána',restored:'Původní nastavení obnoveno',adopted:'Zavedeno do sítě'};
 function experimentList9(){
  const tests=state.experiments9.tests,ready=state.stores.filter(s=>{try{return experimentAvailable9(s.id)&&s.daily.last?.week===state.week-1;}catch{return false;}});
