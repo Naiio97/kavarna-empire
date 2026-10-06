@@ -1,3 +1,7 @@
+# Řízení celé sítě · aktuální etapa
+
+Více → Centrum řízení sítě: konkrétní odpovědnost manažerů, problémy všech vlastních poboček, koncepty s místními výjimkami a placeným zaváděním, návrhy ředitelů a boardu s přesnou cenou a výsledky skutečných 4/8/13 týdnů. Pokračuje stejná firma. Pravidla, náklady, důkazy a meze: `CONTROL.md`. Aktuálně 87 skriptů a 33 hlavních stránek. Následuje historie etap.
+
 # Revize rozhraní · aktuální etapa
 
 Pohodlnější tlačítka, rozestupy, úplný mobilní výběr podstránek, správně umístěné reportové menu a dostupné zavírání dlouhých dialogů. Zrušený náhled platby zachovává rozepsaná pole a posun. Podrobnosti a důkazy: `UI-POLISH.md`. Nadále 85 skriptů a 33 hlavních stránek. Následuje historie etap.
