@@ -172,3 +172,12 @@ body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.s
 
 /* Careers and weekly decisions share the existing readable dialog surface. */
 .experience-options12{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;margin:16px 0}.experience-options12 .card{min-width:0;padding:20px}.experience-options12 .rows .row{font-size:16px}#weeklyRequests12 .digest-item6,.succession-news12{display:flex;align-items:flex-start;gap:12px}#weeklyRequests12 .digest-item6>div,.succession-news12>div{flex:1;min-width:0}#weeklyRequests12 p{font-size:16px;line-height:1.5;margin:8px 0}#weeklyRequests12 button,.succession-news12 button{min-height:44px;white-space:normal;flex:0 0 auto}#modal:has(.experience-options12){width:min(980px,calc(100vw - 32px))}@media(max-width:600px){#weeklyRequests12 .digest-item6,.succession-news12{flex-direction:column}#weeklyRequests12 button,.succession-news12 button{width:100%}.experience-options12{grid-template-columns:1fr}}
+
+/* Calendar, negotiations and local company reports. */
+.intelligence-row13{display:flex;align-items:center;gap:16px;justify-content:space-between}
+.intelligence-row13>div{flex:1;min-width:0}.intelligence-row13>button{flex:0 0 auto}
+.digest-elsewhere13{margin:24px 0;padding:16px;background:var(--surface,#f5f3ee);border-radius:12px}
+.digest-elsewhere13 summary{cursor:pointer;font-weight:650;padding:8px 0;min-height:44px}
+.digest-elsewhere13 .digest-item6{margin-top:12px}
+#calendarOpening13[hidden],#calendarRenovation13[hidden],#calendarCoffee13[hidden]{display:none}
+@media(max-width:600px){.intelligence-row13{align-items:flex-start;flex-wrap:wrap}.intelligence-row13>div{flex-basis:100%}.intelligence-row13>button{min-height:44px}.digest-elsewhere13{padding:12px}}

@@ -1,3 +1,7 @@
+# Kalendář, vyjednávání a zkušenosti · aktuální etapa
+
+Více → Kalendář a zkušenosti; Lidé → konkrétní kariéra → Vyjednat termín a rozvoj. Skutečná rozhodnutí manažerů mají výsledky a opatrnost podle zkušeností, soupeři paměť přestupů a placené spolupráce. Akce se provádějí ve vybraném týdnu s limitem a rezervou. Týdenní přehled drží tvoji firmu nahoře a zprávy z ostatních měst pod rozbalením. Pokračuje stejná firma. Pravidla, náklady, důkazy a meze v `INTELLIGENCE.md`. Aktuálně 81 skriptů a 33 hlavních obrazovek; níže je historie etap.
+
 # Obtížnost, kariéry a automatické týdny · aktuální etapa
 
 Více → Obtížnost; Lidé → Vedení, kariéry a nástupci. Týdenní přehled se nyní otevře automaticky po každém skutečně odehraném týdnu, s konkrétními jmény, žádostmi a termíny. Manažeři mají měřitelné kariérní cíle, včasné výpovědní upozornění a placené nástupnictví. Pokračuje stejná firma, bez nových scénářů. Podrobná pravidla, náklady a ověření jsou v `EXPERIENCE.md`. Aktuálně 79 skriptů a 33 hlavních obrazovek; níže zůstává historie předchozích etap.
