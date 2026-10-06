@@ -1,13 +1,13 @@
 'use strict';
 // Difficulty changes real demand and queue throughput, never grants cash or rewrites closed weeks.
 const CUSTOMER_BASE15={fresh,makeStore,validateSave,nextWeek,guestDemand5,economicStoreLedger6,finalizeGuests5};
-const CUSTOMER_SERVICE15={relaxed:1.65,normal:1.5,expert:1};
-DIFFICULTIES.normal.name='Standard';DIFFICULTIES.normal.demand=1.18;DIFFICULTIES.relaxed.demand=1.32;
+const CUSTOMER_SERVICE15={relaxed:2.2,normal:1.5,expert:1};
+DIFFICULTIES.normal.name='Standard';DIFFICULTIES.normal.demand=1.18;DIFFICULTIES.relaxed.demand=1.6;
 makeStore=function(...a){const s=CUSTOMER_BASE15.makeStore(...a);if(state.difficulty!=='expert')s.marketing=500;return s;};
 guestDemand5=function(s,d){if(Number.isFinite(d.capacity))d.capacity*=CUSTOMER_SERVICE15[state.difficulty];return CUSTOMER_BASE15.guestDemand5(s,d);};
 function cafeProfitGuide15(id){const s=tnStore7(id),h=s.last,d=cafeDiagnosis7(id),forecast=tycoonForecast7(id),menu=menuSummary(s);let fixed=null,contribution=null,breakEven=null;if(h){const k=h.detail;fixed=k.wages+k.manager+k.rent+k.overhead+k.marketing+k.equipment+k.payroll+k.overtime+k.utilities+k.depreciation;contribution=h.served?(h.revenue-k.ingredients-k.coffee-k.cardFees)/h.served:null;breakEven=contribution>0?Math.ceil(fixed/contribution):null;}
  const variants=tycoonOptions7(id,false).filter(q=>q.action.kind!=='hold'&&q.after.profit>q.before.profit&&q.affordable).sort((a,b)=>(b.after.profit-b.before.profit-b.cost/13)-(a.after.profit-a.before.profit-a.cost/13)).slice(0,3);
- return {id,week:s.daily.last?.week||null,profit:h?.profit??null,served:h?.served??null,manager:s.manager?.name||'Zakladatel',managerCost:h?(h.detail.manager*(1+ECONOMY_RULES6.employer)):0,fixed,contribution,breakEven,forecast,variants,reasons:d.reasons.filter(r=>r.count>0),note:'Bod zvratu používá skutečnou marži posledního týdne a evidované místní náklady stejného týdne. Nezaručuje dostatek hostů, zásob ani další týden.'};
+ const supply=state.bootstrap6.suppliers.find(a=>a.location===id&&a.status==='active'),supplyPlan=supply?coffeeReplenishmentPlans20().get(supply.id):null;return {id,deficit:h?Math.max(0,-h.profit):null,costs:h?{people:h.detail.wages+h.detail.manager+h.detail.overtime+h.detail.payroll,premises:h.detail.rent,coffee:h.detail.coffee,ingredients:h.detail.ingredients,other:h.detail.overhead+h.detail.marketing+h.detail.equipment+h.detail.utilities+h.detail.cardFees+h.detail.depreciation}:null,supply:supplyPlan?{...supplyPlan,budget:supply.budget,orderCost:supplyPlan.need>=5?COFFEE_SUPPLIERS6[supply.provider].price*Math.min(100,supplyPlan.need)+COFFEE_SUPPLIERS6[supply.provider].freight:0}:null,revenue:h?.revenue??null,week:s.daily.last?.week||null,profit:h?.profit??null,served:h?.served??null,manager:s.manager?.name||'Zakladatel',managerCost:h?(h.detail.manager*(1+ECONOMY_RULES6.employer)):0,fixed,contribution,breakEven,forecast,variants,reasons:d.reasons.filter(r=>r.count>0),note:'Bod zvratu používá skutečnou marži posledního týdne a evidované místní náklady stejného týdne. Nezaručuje dostatek hostů, zásob ani další týden.'};
 }
 // Paper loyalty and targeted offers spend real fees and reduce the same retail sale once.
 CUSTOMER_BASE15.takeCoffeeForStore=takeCoffeeForStore;CUSTOMER_BASE15.competitionOperating6=competitionOperating6;

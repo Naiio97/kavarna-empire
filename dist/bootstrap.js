@@ -48,14 +48,29 @@ function signCoffeeAgreement6(provider,location,blendId,data,expected){
 }
 function setCoffeeAgreement6(id,data){guard();const a=(state.bootstrap6?.suppliers||[]).find(s=>s.id===id&&s.status==='active');if(!a||!data||typeof data.enabled!=='boolean'||!Number.isInteger(data.target)||data.target<5||data.target>100||!Number.isInteger(data.budget)||data.budget<0||data.budget>100000||!Number.isInteger(data.reserve)||data.reserve<1||data.reserve>8)throw Error('Nastav platný mandát dodavatele.');Object.assign(a,Object.fromEntries(['enabled','target','budget','reserve'].map(k=>[k,data[k]])));}
 function cancelCoffeeAgreement6(id){guard();const a=(state.bootstrap6?.suppliers||[]).find(s=>s.id===id&&s.status==='active');if(!a)throw Error('Smlouva už není aktivní.');a.status='cancelled';a.enabled=false;log('Dodavatel ukončen',loc(a.location).name+' · již zaplacené zásilky se stále doručí.');}
+// A city's physical coffee pool is shared once. Targets are additive; orders
+// cover consumption until the new paid delivery arrives, within existing limits.
+function coffeeReplenishmentPlans20(){
+ const agreements=(state.bootstrap6?.suppliers||[]).filter(a=>a.status==='active'),groups=new Map(),plans=new Map();
+ for(const a of agreements){const city=loc(a.location).city,key=city+'|'+a.blend,ready=a.enabled&&coffeeSupplierReady6(a.location);plans.set(a.id,{ready,stock:0,incoming:0,need:0,consumption:0,target:a.target});if(!groups.has(key))groups.set(key,[]);groups.get(key).push(a);}
+ for(const members of groups.values()){
+  const first=members[0],city=loc(first.location).city,lead=COFFEE_SUPPLIERS6[first.provider].lead,stock=state.batches.filter(b=>b.blend===first.blend&&b.zone===city&&state.week+lead-b.roastedWeek<8).reduce((n,b)=>n+b.kg,0),incoming=(state.bootstrap6?.orders||[]).filter(o=>o.city===city&&o.blend===first.blend&&o.received===null&&o.due<=state.week+lead).reduce((n,o)=>n+o.kg,0);
+  const consumption=typeof tnPure7==='function'?tnPure7(()=>state.stores.filter(s=>!s.franchise&&s.blend===first.blend&&loc(s.id).city===city).map(s=>{const d=demandForStore(s,seasonGlobalEvent5()?.factor||1);return {id:s.id,kg:d.potential*(d.dose||.018)};})):[];
+  const used=consumption.reduce((n,x)=>n+x.kg,0)*lead,totalTarget=members.filter(a=>plans.get(a.id).ready).reduce((n,a)=>n+a.target,0),total=totalTarget+used,shortage=Math.max(0,total-stock-incoming);
+  for(const a of members){const ownUse=consumption.find(x=>x.id===a.location)?.kg||0,ready=plans.get(a.id).ready,desired=ready?a.target+used*a.target/totalTarget:0;plans.set(a.id,{ready,stock,incoming,consumption:ownUse,target:totalTarget||a.target,need:ready?Math.max(0,Math.ceil(shortage*desired/total-1e-8)):0});}
+ }
+ return plans;
+}
 function runCoffeeAgreements6(){
+ const plans=coffeeReplenishmentPlans20();
  for(const a of (state.bootstrap6?.suppliers||[]).filter(a=>a.status==='active')){
-  a.spent=0;const stock=state.batches.filter(b=>b.blend===a.blend&&b.zone===loc(a.location).city).reduce((n,b)=>n+b.kg,0),incoming=(state.bootstrap6?.orders||[]).filter(o=>o.location===a.location&&o.blend===a.blend&&o.received===null).reduce((n,o)=>n+o.kg,0),need=Math.max(0,Math.ceil(a.target-stock-incoming));
-  let reason=!a.enabled?'Mandát pozastaven.':!coffeeSupplierReady6(a.location)?'Čeká na připravený prostor a tým.':need<5?'Zásoba a objednávky pokrývají cíl.':null;
-  if(!reason){try{const q=supplierCoffeeQuote6(a.provider,a.location,a.blend,Math.min(100,need));if(q.cost>a.budget)reason='Objednávka překračuje týdenní limit.';else if(state.cash-q.cost<weeklyFixed()*a.reserve)reason='Objednávka by porušila hotovostní rezervu.';else{orderSupplierCoffee6(a.provider,a.location,a.blend,q.kg,q);a.spent=q.cost;reason='Zaplaceno '+q.kg+' kg, doručení T'+q.due+'.';}}catch(e){reason=e.message;}}
+  a.spent=0;const {stock,incoming,need}=plans.get(a.id);
+  let reason=!a.enabled?'Mandát pozastaven.':!coffeeSupplierReady6(a.location)?'Čeká na připravený prostor a tým.':need<5?'Společná zásoba a včasné objednávky pokrývají cíle i spotřebu do doručení.':null;
+  if(!reason){try{const q=supplierCoffeeQuote6(a.provider,a.location,a.blend,Math.min(100,need));if(q.cost>a.budget)reason='Objednávka překračuje týdenní limit.';else if(state.cash-q.cost<weeklyFixed()*a.reserve)reason='Objednávka by porušila hotovostní rezervu.';else{orderSupplierCoffee6(a.provider,a.location,a.blend,q.kg,q);a.spent=q.cost;reason='Zaplaceno '+q.kg+' kg, doručení T'+q.due+'. Cíl počítá společnou zásobu a spotřebu do doručení.';}}catch(e){reason=e.message;}}
   a.last={week:state.week,stock,incoming,need,spent:a.spent,reason};
  }
 }
+
 processShipments=function(){BOOTSTRAP_BASE6.processShipments();for(const o of (state.bootstrap6?.orders||[]).filter(o=>o.received===null&&o.due<=state.week)){
  const available=coffeeSupplierTarget6(o.location);if(!available){o.received=state.week;if(state.turnLedger3)state.turnLedger3.writeoff+=o.cost;else state.pendingWriteoff3=(state.pendingWriteoff3||0)+o.cost;log('Dodávka kávy bez příjemce',loc(o.location).name+' · projekt nebo kavárna skončily, odpis '+money(o.cost)+'.');continue;}
  state.batches.push({blend:o.blend,kg:o.kg,quality:o.quality,cost:o.cost/o.kg,roastedWeek:o.roasted,zone:o.city,profile:{...o.profile},supplier6:o.provider,destination6:o.location});o.received=state.week;log('Doručena káva: '+loc(o.location).name,o.kg+' kg od '+COFFEE_SUPPLIERS6[o.provider].name+'. Dodávka nevytváří vlastní pražírnu ani sklad.');

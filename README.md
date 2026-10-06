@@ -1,3 +1,5 @@
+Aktuální oprava: Pohodová obtížnost má návštěvnost 160 % a výkon obsluhy 220 %. Dodavatelské cíle se ve společném městském skladu sčítají a objednávka kryje spotřebu do doručení. Přímo v kavárně je rozbor skutečných nákladů a příští dodávky. Regrese tests/relaxed-economy.cjs ověřuje Pankrác, Karlín i jejich 104týdenní růst z 500 000 Kč bez přidaného kapitálu.
+
 # Propuštění baristů · oprava ovládání
 
 Lidé → Pracovníci → Propustit přímo na kartě. Potvrzení ukazuje konkrétní osobu, skutečné odstupné, další mzdy, nepokryté směny a zbývající hotovost. Nedostatek peněz nebo změněná smlouva se vysvětlí v dialogu. Platba a odchod byly ověřeny včetně uložené hry a zachování minulých reportů. 87 skriptů, 33 hlavních stránek; sada nyní obsahuje 98 příkazů. Oprava ověřena novým testem `tests/barista-release.cjs` a souvisejícími kontrolami týmů, lidí, plánování a ovládání. Níže zůstává historie etap.
