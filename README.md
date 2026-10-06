@@ -1,3 +1,7 @@
+# Standard, cesta do zisku a zákazníci · aktuální etapa
+
+Vyvážený Standard pro první kavárnu ze skutečných 500 000 Kč, rozbor bodu zvratu a konkrétních příčin, modelované přesuny stálých hostů mezi vlastními kavárnami a soupeři, vlastní věrnostní program a cílené časové nabídky/degustace se skutečným prodejem a náklady. Přístup přes Provozní rozbor, Můj panel a pobočky a Více → Hosté a recenze. Pravidla, finanční bilance, zakladatelské průchody a meze jsou v `CUSTOMERS.md`. Aktuálně 85 skriptů a 33 hlavních stránek; následující zápisy zachovávají historii etap.
+
 # Osobní panel a řízení poboček · aktuální etapa
 
 Více → Můj panel a pobočky; zkratka je na mapě i v řídicím přehledu. Připnuté ukazatele a kavárny, porovnání skutečných 1/4/13 týdnů a hromadné změny cen, vybavení či servisu s přesným rozpočtem a rezervou. Provedený zásah uchová odhad a výsledek uzavřeného týdne. Pravidla, náklady a meze jsou v `NETWORK.md`. Aktuálně 83 skriptů a 33 hlavních obrazovek. Následující zápisy zachovávají historii etap.
