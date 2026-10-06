@@ -1,3 +1,7 @@
+# Obtížnost, kariéry a automatické týdny · aktuální etapa
+
+Více → Obtížnost; Lidé → Vedení, kariéry a nástupci. Týdenní přehled se nyní otevře automaticky po každém skutečně odehraném týdnu, s konkrétními jmény, žádostmi a termíny. Manažeři mají měřitelné kariérní cíle, včasné výpovědní upozornění a placené nástupnictví. Pokračuje stejná firma, bez nových scénářů. Podrobná pravidla, náklady a ověření jsou v `EXPERIENCE.md`. Aktuálně 79 skriptů a 33 hlavních obrazovek; níže zůstává historie předchozích etap.
+
 # Prestiž vlastní kávy · aktuální etapa
 
 Káva → Prestiž vlastní kávy: konečné aukční mikroloty, skutečná platba soupeřů, rezervované peníze a vracení záloh, fyzická dodávka/sklad a placená limitovaná edice. Soutěž odebere autentických 500 g vlastní šarže, zmrazí původ a vyhodnotí kvalitu, chuť a čerstvost. Ocenění má omezený účinek jen při dostupné stejné kávě. Ovládání, náklady, důkazy a meze jsou v `PRESTIGE.md`. Celá hra nyní obsahuje 77 klasických skriptů a 33 hlavních podrobných obrazovek. Závěrečný implementační audit všech šesti částí a hlášek prošel; současný stav a meze ověření jsou v `DEPTH-AUDIT.md`. Další zápisy zachovávají historii etap.
