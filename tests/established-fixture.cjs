@@ -4,4 +4,4 @@
 // opening.cjs, opening-interface.cjs and opening-campaign.cjs with the current script set.
 // No exported game setting or UI can select this fixture.
 const fs=require('fs');
-exports.html=()=>fs.readFileSync('dist/index.html','utf8').replace(/<script src="(?:franchise|growth|tycoon-next|opening|bootstrap|planning|diagnostics|food-flow|food-brand|food-trade|ux|game-world|game-renderer|game-ui)(?:-ui)?\.js"><\/script>\s*/g,'');
+exports.html=()=>fs.readFileSync('dist/index.html','utf8').replace(/<script src="(?:prestige|franchise|growth|tycoon-next|opening|bootstrap|planning|diagnostics|food-flow|food-brand|food-trade|ux|game-world|game-renderer|game-ui)(?:-ui)?\.js"><\/script>\s*/g,'');

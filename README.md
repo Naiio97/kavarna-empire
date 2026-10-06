@@ -1,3 +1,7 @@
+# Prestiž vlastní kávy · aktuální etapa
+
+Káva → Prestiž vlastní kávy: konečné aukční mikroloty, skutečná platba soupeřů, rezervované peníze a vracení záloh, fyzická dodávka/sklad a placená limitovaná edice. Soutěž odebere autentických 500 g vlastní šarže, zmrazí původ a vyhodnotí kvalitu, chuť a čerstvost. Ocenění má omezený účinek jen při dostupné stejné kávě. Ovládání, náklady, důkazy a meze jsou v `PRESTIGE.md`. Celá hra nyní obsahuje 77 klasických skriptů a 33 hlavních podrobných obrazovek. Závěrečný implementační audit všech šesti částí a hlášek prošel; současný stav a meze ověření jsou v `DEPTH-AUDIT.md`. Další zápisy zachovávají historii etap.
+
 # Živé město a růst firmy
 
 Proudy hostů ve všech 18 městech, standardy poboček se skutečným postupným zaváděním, fyzické předplatné vlastní kávy, coffee truck a dočasné kavárny a nabídky expanze od regionálních ředitelů. Podrobný rozsah, ovládání, důkazy a meze jsou v `GROWTH-PLAN.md`. Původní firmy se zachovají, nové automatiky se zapínají jednotlivě.

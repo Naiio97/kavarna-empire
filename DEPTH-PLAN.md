@@ -1,15 +1,17 @@
 # Živější kavárny a hlubší řízení celé sítě
 
+Aktuální stav: implementační audit všech šesti částí a hlášek je uzavřený; podrobnosti a meze ověření jsou v DEPTH-AUDIT.md. Následující etapové zápisy zachovávají tehdejší stav.
+
 Plný uživatelský rozsah: všech šest naposledy navržených částí plus oprava spodních hlášek. Cíl se nedokončuje samotnou první etapou. Zachovat staré firmy, placené fyzické zdroje, společné účetnictví, neutrální migrace, současnou navigaci a offline hraní.
 
 | Požadavek | Stav nyní | Podmínka dokončení a důkaz |
 |---|---|---|
-| Viditelný provoz | Implementováno a ověřeno; zbývá finální audit celého rozsahu | Skupiny příchozích, skutečná stojící fronta, obsloužení s kávou, sezení a odchody kvůli frontě/místům/kávě/zavření; vyprodané jídlo podle skutečných denních požadavků. Kliknutí vysvětlí stav a skutečný počet. Objekty jsou omezené reprezentativní skupiny desetiminutových intervalů, nikoli nový účetní provoz. Model a skutečná 3D scéna, aktuální rozhraní a prohlížeč; další kontrola dotyku/skupin ještě před finálním dokončením. |
-| Dispozice a vlastní návrhy | Implementováno a ověřeno; zbývá finální audit celého rozsahu | Audit průchozích hostovských/pracovních tras a stolů, sdílená úzká místa, porovnání návrhu s provozem, placená vlastní vitrína s technologií pro pečivo. Poloha vitríny přidá čtvrtinu skutečné trasy ke stávajícímu pracovnímu pohybu a tím ovlivní skutečnou obsluhu. Celý návrh lze uložit a zaplatit znovu při otevření; čisté prohlížení/cancel a stale potvrzení. |
+| Viditelný provoz | Implementováno; závěrečný audit prošel | Skupiny příchozích, skutečná stojící fronta, obsloužení s kávou, sezení a odchody kvůli frontě/místům/kávě/zavření; vyprodané jídlo podle skutečných denních požadavků. Kliknutí vysvětlí stav a skutečný počet. Objekty jsou omezené reprezentativní skupiny desetiminutových intervalů, nikoli nový účetní provoz. Model a skutečná 3D scéna, aktuální rozhraní a prohlížeč; závěrečné prověření skupin a pointer adaptéru viz DEPTH-AUDIT.md. |
+| Dispozice a vlastní návrhy | Implementováno; závěrečný audit prošel | Audit průchozích hostovských/pracovních tras a stolů, sdílená úzká místa, porovnání návrhu s provozem, placená vlastní vitrína s technologií pro pečivo. Poloha vitríny přidá čtvrtinu skutečné trasy ke stávajícímu pracovnímu pohybu a tím ovlivní skutečnou obsluhu. Celý návrh lze uložit a zaplatit znovu při otevření; čisté prohlížení/cancel a stale potvrzení. |
 | Porady vedení | Implementováno a ověřeno v této etapě | Jmenní skuteční ředitelé připraví důvod, konkrétní akci, cenu, odhad před/po a rezervu. Zakladatel odmítne nebo schválí přesnou aktuální nabídku. Pozdější report uchová tehdejší odhad a skutečný výsledek, s rozlišením dalších vlivů týdne. |
 | Experimenty na pobočkách | Implementováno a ověřeno v této etapě | Volba skutečných testovacích a srovnávacích poboček, ceny/receptura/snídaně, trvání a skutečné náklady. Zmrazená výchozí situace a průběžný výsledek, rozdíly mezi skupinami, upozornění na malý nebo narušený vzorek. Po skončení konkrétní schválené zavedení nebo obnovení nastavení bez resetu majetku. |
-| Hlubší franšízy a akvizice | Akvizice i hlubší franšízy implementované a ověřené; zbývá finální audit celého rozsahu | Franšízant jako konkrétní provozovatel se schopnostmi, kontroly kvality a nápravné plány s termíny/náklady/důsledky. Před převzetím platitelná prověrka skutečných poboček, nájmů, vybavení/zásob a týmu; vyjednávání nabídky, aktuální převod jednou a placená integrace do vlastních standardů. |
-| Prestiž vlastní kávy | Ještě neimplementováno | Konečné aukční mikroloty s pravým původem, fyzická zásilka/sklad/pražení, limitovaná sklizeň. Soutěž spotřebuje skutečný vlastní autentický vzorek, zaplatí vstup, porovná kvalitu/chuť/čerstvost; důvěra/poptávka jsou omezené a podmíněné dostupnou kávou. Získaná ocenění a šarže mají neměnnou historii a validní import. |
+| Hlubší franšízy a akvizice | Akvizice i franšízy: závěrečný audit prošel | Franšízant jako konkrétní provozovatel se schopnostmi, kontroly kvality a nápravné plány s termíny/náklady/důsledky. Před převzetím platitelná prověrka skutečných poboček, nájmů, vybavení/zásob a týmu; vyjednávání nabídky, aktuální převod jednou a placená integrace do vlastních standardů. |
+| Prestiž vlastní kávy | Implementováno; závěrečný audit prošel | Konečné aukční mikroloty s pravým původem, fyzická zásilka/sklad/pražení, limitovaná sklizeň. Soutěž spotřebuje skutečný vlastní autentický vzorek, zaplatí vstup, porovná kvalitu/chuť/čerstvost; důvěra/poptávka jsou omezené a podmíněné dostupnou kávou. Získaná ocenění a šarže mají neměnnou historii a validní import. |
 | Hlášky nad spodním menu | Ověřeno v místním prohlížeči | Při týdnu i uložení horní vrstva a skutečný dynamický odstup 12 px od horního okraje spodního menu/týdenního panelu, desktop i mobil. Aktualizace při změně lišty/viewportu; podpora popover top layer pro hlášky v dialogu a fallback z-index. Viditelné 6,5 s, čitelné 16 px, aria status. |
 
 ## První etapa — současné důkazy
@@ -114,3 +116,8 @@ Desktop 1440 × 900: dialog 900 px a nadpis na začátku. Mobil 390 × 844: str�
 Celý poslední cíl zůstává aktivní. Aukční mikroloty a soutěže vlastní kávy ještě zbývají, stejně jako závěrečný audit všech šesti částí a hlášek.
 
 Úplná současná regrese franšízové etapy: 842 PASS výstupů včetně souhrnů. Doplňující okamžité uložení externího provozovatele prošlo; aktuální franšízová sada má 20 scénářů bez další změny herního modelu. Celý cíl zůstává aktivní pro prestiž kávy a závěrečný audit.
+
+
+## Prestiž vlastní kávy — šestá část
+
+Aktuální implementace, ovládání, skutečné platby/vzorky, původy, výsledky a důkazy jsou v `PRESTIGE.md`. Plný regresní běh úspěšně skončil s 864 PASS výstupy včetně souhrnných řádků. Syntaktická kontrola všech 77 současných skriptů prošla. Další kontrola konkrétní karty limitované edice a jejího skutečného pražení prošla v aktuálním rozhraní i místním WebGL prohlížeči. Celý cíl zůstává aktivní až do závěrečného auditu všech šesti částí, hlášek a aktuálních výstupů.
