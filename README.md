@@ -1,3 +1,7 @@
+# Rozšíření existující kavárny · aktuální etapa
+
+Vyber vlastní kavárnu → Rozšířit prostor: placené zvýšení limitu na 24, 40 nebo 60 míst, přesná cena, jistota, nájem/údržba a zachovaný tým i vybavení. Nové stoly se kupují samostatně. Pravidla a meze: `EXPANSION.md`. 87 skriptů, 33 hlavních stránek, 97 regresních příkazů. Následuje historie etap.
+
 # Řízení celé sítě · aktuální etapa
 
 Více → Centrum řízení sítě: konkrétní odpovědnost manažerů, problémy všech vlastních poboček, koncepty s místními výjimkami a placeným zaváděním, návrhy ředitelů a boardu s přesnou cenou a výsledky skutečných 4/8/13 týdnů. Pokračuje stejná firma. Pravidla, náklady, důkazy a meze: `CONTROL.md`. Aktuálně 87 skriptů a 33 hlavních stránek. Následuje historie etap.
